@@ -6,7 +6,7 @@ export interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
@@ -26,7 +26,9 @@ const { title } = Astro.props;
         <button class="logo-button" id="logoButton">
           <div class="star-logo">
             <svg viewBox="0 0 24 24" width="24" height="24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                fill="currentColor"></path>
             </svg>
           </div>
         </button>
@@ -94,12 +96,15 @@ const { title } = Astro.props;
     background: var(--primary-bg);
     color: var(--text-primary);
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   body {
     min-height: 100vh;
     position: relative;
     padding-bottom: 60px;
+    margin: 0;
+    padding-top: 0;
   }
 
   .cyber-bg {
@@ -108,26 +113,50 @@ const { title } = Astro.props;
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
-      linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%);
+    background: radial-gradient(
+        circle at 20% 80%,
+        rgba(59, 130, 246, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(96, 165, 250, 0.1) 0%,
+        transparent 50%
+      ),
+      linear-gradient(
+        135deg,
+        transparent 0%,
+        rgba(59, 130, 246, 0.05) 50%,
+        transparent 100%
+      );
     pointer-events: none;
     z-index: -1;
   }
 
   [data-theme="dark"] .cyber-bg {
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.2) 0%, transparent 50%),
-      linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.1) 50%, transparent 100%);
+    background: radial-gradient(
+        circle at 20% 80%,
+        rgba(59, 130, 246, 0.2) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(96, 165, 250, 0.2) 0%,
+        transparent 50%
+      ),
+      linear-gradient(
+        135deg,
+        transparent 0%,
+        rgba(59, 130, 246, 0.1) 50%,
+        transparent 100%
+      );
   }
 
   .main-content {
     padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
     min-height: calc(100vh - 60px);
+    position: relative;
   }
 
   .taskbar {
@@ -146,7 +175,8 @@ const { title } = Astro.props;
     z-index: 1000;
   }
 
-  .taskbar-left, .taskbar-right {
+  .taskbar-left,
+  .taskbar-right {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -330,48 +360,54 @@ const { title } = Astro.props;
 </style>
 
 <script>
-  const logoButton = document.getElementById('logoButton');
-  const menuOverlay = document.getElementById('menuOverlay');
-  const themeToggle = document.getElementById('themeToggle');
+  const logoButton = document.getElementById("logoButton");
+  const menuOverlay = document.getElementById("menuOverlay");
+  const themeToggle = document.getElementById("themeToggle");
 
   // Menu toggle functionality
-  logoButton?.addEventListener('click', () => {
-    logoButton.classList.toggle('active');
-    menuOverlay?.classList.toggle('active');
+  logoButton?.addEventListener("click", () => {
+    logoButton.classList.toggle("active");
+    menuOverlay?.classList.toggle("active");
   });
 
   // Close menu when clicking overlay
-  menuOverlay?.addEventListener('click', (e) => {
+  menuOverlay?.addEventListener("click", (e) => {
     if (e.target === menuOverlay) {
-      logoButton?.classList.remove('active');
-      menuOverlay.classList.remove('active');
+      logoButton?.classList.remove("active");
+      menuOverlay.classList.remove("active");
     }
   });
 
   // Theme toggle functionality
   const setTheme = (theme: string) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   };
 
   const getTheme = () => {
-    return localStorage.getItem('theme') || 
-           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    return (
+      localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light")
+    );
   };
 
   // Initialize theme
   setTheme(getTheme());
 
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  themeToggle?.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
   });
 
   // Handle system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      setTheme(e.matches ? 'dark' : 'light');
-    }
-  });
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        setTheme(e.matches ? "dark" : "light");
+      }
+    });
 </script>
