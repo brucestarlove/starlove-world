@@ -47,7 +47,7 @@ const { title } = Astro.props;
         </div>
         <div class="taskbar-center">
           <div class="window-title">
-            <span class="app-icon">★</span>
+            <!-- <span class="app-icon">★</span> -->
             <span class="app-name">{title}</span>
           </div>
         </div>
@@ -219,8 +219,6 @@ const { title } = Astro.props;
   .taskbar {
     position: fixed;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
     height: 60px;
     background: var(--taskbar-bg);
     border-top: 1px solid var(--taskbar-border);
