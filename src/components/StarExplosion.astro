@@ -7,9 +7,9 @@
     <svg viewBox="0 0 100 100" class="star-svg">
       <defs>
         <radialGradient id="starGradient" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
-          <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.8" />
+          <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#1d4ed8;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.8" />
         </radialGradient>
       </defs>
       <path d="M50 10 L58 35 L85 35 L65 52 L73 77 L50 62 L27 77 L35 52 L15 35 L42 35 Z" 
@@ -60,7 +60,7 @@
   }
 
   .star-path {
-    filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8));
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
     animation: starPulse 0.5s ease-out 0.3s;
   }
 
@@ -81,9 +81,9 @@
   .particle {
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #fbbf24 0%, #f59e0b 50%, transparent 100%);
+    background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 50%, transparent 100%);
     border-radius: 50%;
-    box-shadow: 0 0 6px rgba(251, 191, 36, 0.8);
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.8);
   }
 
   /* Stardust explosion animations */
@@ -129,10 +129,10 @@
 
   @keyframes starPulse {
     0%, 100% {
-      filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8));
+      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
     }
     50% {
-      filter: drop-shadow(0 0 40px rgba(251, 191, 36, 1));
+      filter: drop-shadow(0 0 40px rgba(59, 130, 246, 1));
     }
   }
 
@@ -202,10 +202,10 @@
       this.isPlaying = true;
       this.container.classList.add('active');
 
-      // Complete animation after 3.5 seconds
+      // Complete animation after 2.5 seconds (1 second shorter)
       setTimeout(() => {
         this.complete();
-      }, 3500);
+      }, 2500);
     }
 
     private complete() {
