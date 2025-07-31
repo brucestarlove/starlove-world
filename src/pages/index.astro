@@ -547,17 +547,27 @@ const posts = getAllPosts();
       // Handle star explosion completion
       document.addEventListener("starExplosionComplete", () => {
         const homeContent = document.getElementById("homeContent");
+        const cyberBg = document.querySelector(".cyber-bg");
+        const taskbar = document.querySelector(".taskbar");
         if (homeContent) {
-          homeContent.classList.add("reveal");
+          if (cyberBg) cyberBg.classList.add("loaded");
+          if (homeContent) homeContent.classList.add("reveal");
+          if (taskbar) taskbar.classList.add("reveal");
         }
       });
 
-      // Fallback in case star explosion doesn't trigger (reduced by 1 second)
+      // Fallback reveal in case event doesn't fire
       setTimeout(() => {
         const homeContent = document.getElementById("homeContent");
-        if (homeContent && !homeContent.classList.contains("reveal")) {
+        const cyberBg = document.querySelector(".cyber-bg");
+        const taskbar = document.querySelector(".taskbar");
+
+        if (cyberBg && !cyberBg.classList.contains("loaded"))
+          cyberBg.classList.add("loaded");
+        if (homeContent && !homeContent.classList.contains("reveal"))
           homeContent.classList.add("reveal");
-        }
+        if (taskbar && !taskbar.classList.contains("reveal"))
+          taskbar.classList.add("reveal");
       }, 3000);
 
       // Logo cycling functionality
