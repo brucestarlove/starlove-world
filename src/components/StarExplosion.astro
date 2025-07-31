@@ -7,23 +7,28 @@
     <svg viewBox="0 0 100 100" class="star-svg">
       <defs>
         <radialGradient id="starGradient" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-          <stop offset="50%" style="stop-color:#1d4ed8;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.8" />
+          <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1"></stop>
+          <stop offset="50%" style="stop-color:#1d4ed8;stop-opacity:1"></stop>
+          <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.8"
+          ></stop>
         </radialGradient>
       </defs>
-      <path d="M50 10 L58 35 L85 35 L65 52 L73 77 L50 62 L27 77 L35 52 L15 35 L42 35 Z" 
-            fill="url(#starGradient)" class="star-path"/>
+      <path
+        d="M50 10 L58 35 L85 35 L65 52 L73 77 L50 62 L27 77 L35 52 L15 35 L42 35 Z"
+        fill="url(#starGradient)"
+        class="star-path"></path>
     </svg>
   </div>
-  
+
   <!-- Stardust particles -->
   <div class="stardust-container">
-    {Array.from({ length: 20 }, (_, i) => (
-      <div class={`stardust stardust-${i + 1}`} key={i}>
-        <div class="particle"></div>
-      </div>
-    ))}
+    {
+      Array.from({ length: 20 }, (_, i) => (
+        <div class={`stardust stardust-${i + 1}`} key={i}>
+          <div class="particle" />
+        </div>
+      ))
+    }
   </div>
 </div>
 
@@ -81,32 +86,117 @@
   .particle {
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 50%, transparent 100%);
+    background: radial-gradient(
+      circle,
+      #3b82f6 0%,
+      #1d4ed8 50%,
+      transparent 100%
+    );
     border-radius: 50%;
     box-shadow: 0 0 6px rgba(59, 130, 246, 0.8);
   }
 
   /* Stardust explosion animations */
-  .stardust-1 { animation: explode 1.5s ease-out 0.8s forwards; --angle: 0deg; --distance: 200px; }
-  .stardust-2 { animation: explode 1.5s ease-out 0.85s forwards; --angle: 18deg; --distance: 180px; }
-  .stardust-3 { animation: explode 1.5s ease-out 0.9s forwards; --angle: 36deg; --distance: 220px; }
-  .stardust-4 { animation: explode 1.5s ease-out 0.95s forwards; --angle: 54deg; --distance: 160px; }
-  .stardust-5 { animation: explode 1.5s ease-out 1s forwards; --angle: 72deg; --distance: 190px; }
-  .stardust-6 { animation: explode 1.5s ease-out 1.05s forwards; --angle: 90deg; --distance: 210px; }
-  .stardust-7 { animation: explode 1.5s ease-out 1.1s forwards; --angle: 108deg; --distance: 170px; }
-  .stardust-8 { animation: explode 1.5s ease-out 1.15s forwards; --angle: 126deg; --distance: 200px; }
-  .stardust-9 { animation: explode 1.5s ease-out 1.2s forwards; --angle: 144deg; --distance: 180px; }
-  .stardust-10 { animation: explode 1.5s ease-out 1.25s forwards; --angle: 162deg; --distance: 220px; }
-  .stardust-11 { animation: explode 1.5s ease-out 1.3s forwards; --angle: 180deg; --distance: 160px; }
-  .stardust-12 { animation: explode 1.5s ease-out 1.35s forwards; --angle: 198deg; --distance: 190px; }
-  .stardust-13 { animation: explode 1.5s ease-out 1.4s forwards; --angle: 216deg; --distance: 210px; }
-  .stardust-14 { animation: explode 1.5s ease-out 1.45s forwards; --angle: 234deg; --distance: 170px; }
-  .stardust-15 { animation: explode 1.5s ease-out 1.5s forwards; --angle: 252deg; --distance: 200px; }
-  .stardust-16 { animation: explode 1.5s ease-out 1.55s forwards; --angle: 270deg; --distance: 180px; }
-  .stardust-17 { animation: explode 1.5s ease-out 1.6s forwards; --angle: 288deg; --distance: 220px; }
-  .stardust-18 { animation: explode 1.5s ease-out 1.65s forwards; --angle: 306deg; --distance: 160px; }
-  .stardust-19 { animation: explode 1.5s ease-out 1.7s forwards; --angle: 324deg; --distance: 190px; }
-  .stardust-20 { animation: explode 1.5s ease-out 1.75s forwards; --angle: 342deg; --distance: 210px; }
+  .stardust-1 {
+    animation: explode 1.5s ease-out 0.8s forwards;
+    --angle: 0deg;
+    --distance: 200px;
+  }
+  .stardust-2 {
+    animation: explode 1.5s ease-out 0.85s forwards;
+    --angle: 18deg;
+    --distance: 180px;
+  }
+  .stardust-3 {
+    animation: explode 1.5s ease-out 0.9s forwards;
+    --angle: 36deg;
+    --distance: 220px;
+  }
+  .stardust-4 {
+    animation: explode 1.5s ease-out 0.95s forwards;
+    --angle: 54deg;
+    --distance: 160px;
+  }
+  .stardust-5 {
+    animation: explode 1.5s ease-out 1s forwards;
+    --angle: 72deg;
+    --distance: 190px;
+  }
+  .stardust-6 {
+    animation: explode 1.5s ease-out 1.05s forwards;
+    --angle: 90deg;
+    --distance: 210px;
+  }
+  .stardust-7 {
+    animation: explode 1.5s ease-out 1.1s forwards;
+    --angle: 108deg;
+    --distance: 170px;
+  }
+  .stardust-8 {
+    animation: explode 1.5s ease-out 1.15s forwards;
+    --angle: 126deg;
+    --distance: 200px;
+  }
+  .stardust-9 {
+    animation: explode 1.5s ease-out 1.2s forwards;
+    --angle: 144deg;
+    --distance: 180px;
+  }
+  .stardust-10 {
+    animation: explode 1.5s ease-out 1.25s forwards;
+    --angle: 162deg;
+    --distance: 220px;
+  }
+  .stardust-11 {
+    animation: explode 1.5s ease-out 1.3s forwards;
+    --angle: 180deg;
+    --distance: 160px;
+  }
+  .stardust-12 {
+    animation: explode 1.5s ease-out 1.35s forwards;
+    --angle: 198deg;
+    --distance: 190px;
+  }
+  .stardust-13 {
+    animation: explode 1.5s ease-out 1.4s forwards;
+    --angle: 216deg;
+    --distance: 210px;
+  }
+  .stardust-14 {
+    animation: explode 1.5s ease-out 1.45s forwards;
+    --angle: 234deg;
+    --distance: 170px;
+  }
+  .stardust-15 {
+    animation: explode 1.5s ease-out 1.5s forwards;
+    --angle: 252deg;
+    --distance: 200px;
+  }
+  .stardust-16 {
+    animation: explode 1.5s ease-out 1.55s forwards;
+    --angle: 270deg;
+    --distance: 180px;
+  }
+  .stardust-17 {
+    animation: explode 1.5s ease-out 1.6s forwards;
+    --angle: 288deg;
+    --distance: 220px;
+  }
+  .stardust-18 {
+    animation: explode 1.5s ease-out 1.65s forwards;
+    --angle: 306deg;
+    --distance: 160px;
+  }
+  .stardust-19 {
+    animation: explode 1.5s ease-out 1.7s forwards;
+    --angle: 324deg;
+    --distance: 190px;
+  }
+  .stardust-20 {
+    animation: explode 1.5s ease-out 1.75s forwards;
+    --angle: 342deg;
+    --distance: 210px;
+  }
 
   @keyframes starExplosion {
     0% {
@@ -128,7 +218,8 @@
   }
 
   @keyframes starPulse {
-    0%, 100% {
+    0%,
+    100% {
       filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
     }
     50% {
@@ -144,16 +235,18 @@
     50% {
       opacity: 1;
       transform: translate(
-        calc(cos(var(--angle)) * var(--distance)),
-        calc(sin(var(--angle)) * var(--distance))
-      ) scale(0.8);
+          calc(cos(var(--angle)) * var(--distance)),
+          calc(sin(var(--angle)) * var(--distance))
+        )
+        scale(0.8);
     }
     100% {
       opacity: 0;
       transform: translate(
-        calc(cos(var(--angle)) * calc(var(--distance) * 0.3)),
-        calc(sin(var(--angle)) * calc(var(--distance) * 0.3) - 50px)
-      ) scale(0.3);
+          calc(cos(var(--angle)) * calc(var(--distance) * 0.3)),
+          calc(sin(var(--angle)) * calc(var(--distance) * 0.3) - 50px)
+        )
+        scale(0.3);
     }
   }
 
@@ -169,11 +262,27 @@
       width: 80px;
       height: 80px;
     }
-    
-    .stardust-1, .stardust-2, .stardust-3, .stardust-4, .stardust-5,
-    .stardust-6, .stardust-7, .stardust-8, .stardust-9, .stardust-10,
-    .stardust-11, .stardust-12, .stardust-13, .stardust-14, .stardust-15,
-    .stardust-16, .stardust-17, .stardust-18, .stardust-19, .stardust-20 {
+
+    .stardust-1,
+    .stardust-2,
+    .stardust-3,
+    .stardust-4,
+    .stardust-5,
+    .stardust-6,
+    .stardust-7,
+    .stardust-8,
+    .stardust-9,
+    .stardust-10,
+    .stardust-11,
+    .stardust-12,
+    .stardust-13,
+    .stardust-14,
+    .stardust-15,
+    .stardust-16,
+    .stardust-17,
+    .stardust-18,
+    .stardust-19,
+    .stardust-20 {
       --distance: 120px;
     }
   }
@@ -185,7 +294,7 @@
     private isPlaying: boolean = false;
 
     constructor() {
-      this.container = document.getElementById('starExplosion');
+      this.container = document.getElementById("starExplosion");
       this.init();
     }
 
@@ -198,9 +307,9 @@
 
     public play() {
       if (this.isPlaying || !this.container) return;
-      
+
       this.isPlaying = true;
-      this.container.classList.add('active');
+      this.container.classList.add("active");
 
       // Complete animation after 2.5 seconds (1 second shorter)
       setTimeout(() => {
@@ -210,18 +319,18 @@
 
     private complete() {
       if (!this.container) return;
-      
-      this.container.classList.add('completed');
+
+      this.container.classList.add("completed");
       this.isPlaying = false;
 
       // Trigger content reveal
-      document.dispatchEvent(new CustomEvent('starExplosionComplete'));
+      document.dispatchEvent(new CustomEvent("starExplosionComplete"));
     }
   }
 
   // Initialize star explosion when DOM is loaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
       new StarExplosion();
     });
   } else {
