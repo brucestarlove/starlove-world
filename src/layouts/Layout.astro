@@ -53,8 +53,9 @@ const { title } = Astro.props;
         </div>
         <div class="taskbar-right">
           <button class="theme-toggle" id="themeToggle">
-            <span class="theme-icon light-icon">☀️</span>
-            <span class="theme-icon dark-icon">🌙</span>
+            <span class="theme-icon cityscape-icon">🏢</span>
+            <span class="theme-icon forestscape-icon">🌲</span>
+            <span class="theme-icon starscape-icon">✨</span>
           </button>
         </div>
       </div>
@@ -111,7 +112,7 @@ const { title } = Astro.props;
     padding-right: 2rem;
   }
 
-  .cyber-bg {
+  /* .cyber-bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -135,9 +136,37 @@ const { title } = Astro.props;
       );
     pointer-events: none;
     z-index: -1;
+  } */
+
+  .cyber-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("public/cityscape01.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
   }
 
-  [data-theme="dark"] .cyber-bg {
+  .cyber-bg.loaded {
+    opacity: 1;
+  }
+
+  [data-theme="forestscape"] .cyber-bg {
+    background-image: url("public/forestscape01.jpg");
+  }
+
+  [data-theme="starscape"] .cyber-bg {
+    background-image: url("public/starscape01.jpg");
+  }
+
+  /* [data-theme="dark"] .cyber-bg {
     background: radial-gradient(
         circle at 20% 80%,
         rgba(59, 130, 246, 0.2) 0%,
@@ -154,7 +183,7 @@ const { title } = Astro.props;
         rgba(59, 130, 246, 0.1) 50%,
         transparent 100%
       );
-  }
+  } */
 
   .main-content {
     padding: 1rem;
@@ -331,19 +360,13 @@ const { title } = Astro.props;
   .theme-icon {
     position: absolute;
     transition: all 0.3s ease;
-  }
-
-  .dark-icon {
     opacity: 0;
     transform: rotate(180deg);
   }
 
-  [data-theme="dark"] .light-icon {
-    opacity: 0;
-    transform: rotate(180deg);
-  }
-
-  [data-theme="dark"] .dark-icon {
+  [data-theme="cityscape"] .cityscape-icon,
+  [data-theme="forestscape"] .forestscape-icon,
+  [data-theme="starscape"] .starscape-icon {
     opacity: 1;
     transform: rotate(0deg);
   }
@@ -397,35 +420,48 @@ const { title } = Astro.props;
   });
 
   // Theme toggle functionality
+  const themes = ["cityscape", "forestscape", "starscape"];
+
   const setTheme = (theme: string) => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   };
 
   const getTheme = () => {
-    return (
-      localStorage.getItem("theme") ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light")
-    );
+    const saved = localStorage.getItem("theme");
+    if (saved && themes.includes(saved)) {
+      return saved;
+    }
+    return "cityscape"; // Default theme
   };
 
   // Initialize theme
   setTheme(getTheme());
 
   themeToggle?.addEventListener("click", () => {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    const currentTheme =
+      document.documentElement.getAttribute("data-theme") || "cityscape";
+    const currentIndex = themes.indexOf(currentTheme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    const newTheme = themes[nextIndex];
     setTheme(newTheme);
   });
 
-  // Handle system theme changes
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      if (!localStorage.getItem("theme")) {
-        setTheme(e.matches ? "dark" : "light");
-      }
-    });
+  // Handle system theme changes (removed since we're using custom themes)
+
+  // Load background with content reveal
+  document.addEventListener("starExplosionComplete", () => {
+    const cyberBg = document.querySelector(".cyber-bg");
+    if (cyberBg) {
+      cyberBg.classList.add("loaded");
+    }
+  });
+
+  // Fallback background loading
+  setTimeout(() => {
+    const cyberBg = document.querySelector(".cyber-bg");
+    if (cyberBg && !cyberBg.classList.contains("loaded")) {
+      cyberBg.classList.add("loaded");
+    }
+  }, 3000);
 </script>

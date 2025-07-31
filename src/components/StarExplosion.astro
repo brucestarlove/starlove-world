@@ -35,13 +35,15 @@
 <style>
   .star-explosion-container {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 32px;
+    left: 32px;
     width: 100vw;
     height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 0px;
+    padding-left: 0px;
     pointer-events: none;
     z-index: 2000;
     opacity: 0;
@@ -65,15 +67,15 @@
   }
 
   .star-path {
-    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
     animation: starPulse 0.5s ease-out 0.3s;
   }
 
   .stardust-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 92px;
+    left: 92px;
+    width: 0;
+    height: 0;
   }
 
   .stardust {
@@ -220,10 +222,10 @@
   @keyframes starPulse {
     0%,
     100% {
-      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8));
+      transform: scale(1);
     }
     50% {
-      filter: drop-shadow(0 0 40px rgba(59, 130, 246, 1));
+      transform: scale(1.1);
     }
   }
 
@@ -258,6 +260,11 @@
   }
 
   @media (max-width: 768px) {
+    .star-explosion-container {
+      padding-left: 1rem;
+      padding-top: 8vh;
+    }
+
     .star-center {
       width: 80px;
       height: 80px;
