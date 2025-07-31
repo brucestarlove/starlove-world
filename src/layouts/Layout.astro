@@ -65,18 +65,6 @@ const { title } = Astro.props;
 
 <style>
   :root {
-    --primary-bg: #f8fafc;
-    --secondary-bg: #e2e8f0;
-    --accent-bg: #3b82f6;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #cbd5e1;
-    --glow-color: #60a5fa;
-    --taskbar-bg: rgba(248, 250, 252, 0.95);
-    --taskbar-border: #e2e8f0;
-  }
-
-  [data-theme="dark"] {
     --primary-bg: #0f172a;
     --secondary-bg: #1e293b;
     --accent-bg: #3b82f6;
@@ -84,6 +72,42 @@ const { title } = Astro.props;
     --text-secondary: #94a3b8;
     --border-color: #334155;
     --glow-color: #60a5fa;
+    --taskbar-bg: rgba(15, 23, 42, 0.95);
+    --taskbar-border: #1e293b;
+  }
+
+  [data-theme="cityscape"] {
+    --primary-bg: #0f172a;
+    --secondary-bg: #1e293b;
+    --accent-bg: #3b82f6;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --glow-color: #60a5fa;
+    --taskbar-bg: rgba(15, 23, 42, 0.95);
+    --taskbar-border: #1e293b;
+  }
+
+  [data-theme="forestscape"] {
+    --primary-bg: #0f172a;
+    --secondary-bg: #1e293b;
+    --accent-bg: #22c55e;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --glow-color: #4ade80;
+    --taskbar-bg: rgba(15, 23, 42, 0.95);
+    --taskbar-border: #1e293b;
+  }
+
+  [data-theme="starscape"] {
+    --primary-bg: #0f172a;
+    --secondary-bg: #1e293b;
+    --accent-bg: #fbbf24;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --glow-color: #fcd34d;
     --taskbar-bg: rgba(15, 23, 42, 0.95);
     --taskbar-border: #1e293b;
   }

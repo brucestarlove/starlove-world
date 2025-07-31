@@ -121,6 +121,7 @@ const posts = getAllPosts();
               posts.map((post) => (
                 <article
                   class="post-item"
+                  style={`font-color: ${post.frontmatter.color}`}
                   data-tags={post.frontmatter.tags.join(", ")}
                   data-title={post.frontmatter.title.toLowerCase()}
                   data-excerpt={post.frontmatter.excerpt.toLowerCase()}
@@ -351,17 +352,46 @@ const posts = getAllPosts();
         align-items: flex-start;
         gap: 0.75rem;
         padding: 1rem;
-        background: var(--secondary-bg);
-        border: 1px solid var(--border-color);
+        background: linear-gradient(
+          135deg,
+          var(--secondary-bg) 0%,
+          rgba(255, 255, 255, 0.02) 70%,
+          transparent 100%
+        );
+        border-image: linear-gradient(
+            135deg,
+            var(--border-color) 0%,
+            rgba(203, 213, 225, 0.3) 70%,
+            transparent 100%
+          )
+          1;
         border-radius: 8px;
         transition: all 0.3s ease;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
       }
 
       .post-item:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         border-color: var(--accent-bg);
+      }
+
+      [data-theme="dark"] .post-item {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-bg) 0%,
+          rgba(0, 0, 0, 0.1) 70%,
+          transparent 100%
+        );
+        border-image: linear-gradient(
+            135deg,
+            var(--border-color) 0%,
+            rgba(51, 65, 85, 0.3) 70%,
+            transparent 100%
+          )
+          1;
       }
 
       [data-theme="dark"] .post-item:hover {
