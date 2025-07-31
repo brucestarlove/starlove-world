@@ -1,27 +1,54 @@
 ---
 // Post filtering component
 export interface Props {
-  filters?: string[];
-  activeFilters?: string[];
+  booleanFilters?: string[];
+  optionalFilters?: string[];
+  activeBooleanFilter?: string;
+  activeOptionalFilters?: string[];
 }
 
 const { 
-  filters = ['oc', 'share', 'tech', 'hobby', 'idea', 'politic', 'project', 'event', 'movement', 'life'],
-  activeFilters = ['oc', 'share', 'tech', 'hobby', 'idea', 'politic', 'project', 'event', 'movement', 'life']
+  booleanFilters = ['oc', 'share'],
+  optionalFilters = ['tech', 'hobby', 'idea', 'politic', 'project', 'event', 'movement', 'life'],
+  activeBooleanFilter = 'oc',
+  activeOptionalFilters = ['tech', 'hobby', 'idea', 'politic', 'project', 'event', 'movement', 'life']
 } = Astro.props;
 ---
 
 <div class="post-filter">
-  <div class="filter-pills">
-    {filters.map((filter) => (
-      <button 
-        class={`filter-pill ${activeFilters.includes(filter) ? 'active' : ''}`}
-        data-filter={filter}
-        key={filter}
-      >
-        {filter}
-      </button>
-    ))}
+  <div class="filter-section">
+    <div class="filter-label">my musings</div>
+  </div>
+  
+  <div class="filter-section">
+    <div class="boolean-filters">
+      {booleanFilters.map((filter) => (
+        <button 
+          class={`filter-pill boolean ${activeBooleanFilter === filter ? 'active' : ''}`}
+          data-filter={filter}
+          data-type="boolean"
+          key={filter}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
+  </div>
+  
+  <div class="filter-section">
+    <div class="filter-label">Topics</div>
+    <div class="optional-filters">
+      {optionalFilters.map((filter) => (
+        <button 
+          class={`filter-pill optional ${activeOptionalFilters.includes(filter) ? 'active' : ''}`}
+          data-filter={filter}
+          data-type="optional"
+          key={filter}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
   </div>
 </div>
 
@@ -30,7 +57,37 @@ const {
     margin-bottom: 2rem;
   }
 
-  .filter-pills {
+  .filter-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .filter-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-section:first-child .filter-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: lowercase;
+    background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .boolean-filters,
+  .optional-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -67,54 +124,89 @@ const {
   }
 
   .filter-pill:hover {
-    border-color: var(--accent-bg);
     color: var(--text-primary);
     transform: translateY(-2px);
+  }
+
+  /* Boolean filter styling - more prominent */
+  .filter-pill.boolean {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-width: 3px;
+    background: linear-gradient(135deg, var(--secondary-bg), var(--primary-bg));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .filter-pill.boolean:hover {
+    border-color: var(--accent-bg);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+  }
+
+  .filter-pill.boolean.active {
+    background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
+    border-color: var(--accent-bg);
+    color: white;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+  }
+
+  .filter-pill.boolean.active:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(96, 165, 250, 0.5);
+  }
+
+  /* Optional filter styling - more subtle */
+  .filter-pill.optional:hover {
+    border-color: var(--accent-bg);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
   }
 
-  .filter-pill.active {
+  .filter-pill.optional.active {
     background: var(--accent-bg);
     border-color: var(--accent-bg);
     color: white;
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   }
 
-  .filter-pill.active:hover {
+  .filter-pill.optional.active:hover {
     background: var(--glow-color);
     border-color: var(--glow-color);
-    transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(96, 165, 250, 0.4);
   }
 
-  /* Special styling for boolean filters */
-  .filter-pill[data-filter="oc"],
-  .filter-pill[data-filter="share"] {
-    position: relative;
-  }
-
-  .filter-pill[data-filter="oc"]::after,
-  .filter-pill[data-filter="share"]::after {
+  /* Special indicators for boolean filters */
+  .filter-pill.boolean::after {
     content: '';
     position: absolute;
-    top: -2px;
-    right: -2px;
-    width: 6px;
-    height: 6px;
+    top: -3px;
+    right: -3px;
+    width: 8px;
+    height: 8px;
     background: var(--accent-bg);
     border-radius: 50%;
+    border: 2px solid var(--primary-bg);
     opacity: 0;
     transition: opacity 0.2s ease;
   }
 
-  .filter-pill[data-filter="oc"].active::after,
-  .filter-pill[data-filter="share"].active::after {
+  .filter-pill.boolean.active::after {
     opacity: 1;
     background: white;
+    border-color: var(--accent-bg);
   }
 
   @media (max-width: 768px) {
-    .filter-pills {
+    .filter-section {
+      margin-bottom: 1rem;
+    }
+
+    .filter-label {
+      font-size: 0.8125rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .boolean-filters,
+    .optional-filters {
       gap: 0.375rem;
     }
     
@@ -122,17 +214,24 @@ const {
       padding: 0.375rem 0.75rem;
       font-size: 0.8125rem;
     }
+
+    .filter-pill.boolean {
+      padding: 0.5rem 1rem;
+      font-size: 0.9375rem;
+    }
   }
 </style>
 
 <script>
   class PostFilter {
     private filterPills: NodeListOf<HTMLButtonElement>;
-    private activeFilters: Set<string>;
+    private activeBooleanFilter: string;
+    private activeOptionalFilters: Set<string>;
 
     constructor() {
       this.filterPills = document.querySelectorAll('.filter-pill');
-      this.activeFilters = new Set();
+      this.activeBooleanFilter = 'oc'; // Default to 'oc'
+      this.activeOptionalFilters = new Set();
       this.init();
     }
 
@@ -140,7 +239,14 @@ const {
       // Initialize active filters from DOM
       this.filterPills.forEach(pill => {
         if (pill.classList.contains('active')) {
-          this.activeFilters.add(pill.dataset.filter || '');
+          const filter = pill.dataset.filter || '';
+          const type = pill.dataset.type || '';
+          
+          if (type === 'boolean') {
+            this.activeBooleanFilter = filter;
+          } else {
+            this.activeOptionalFilters.add(filter);
+          }
         }
       });
 
@@ -154,24 +260,22 @@ const {
 
     private toggleFilter(pill: HTMLButtonElement) {
       const filter = pill.dataset.filter || '';
-      const isBoolean = filter === 'oc' || filter === 'share';
+      const type = pill.dataset.type || '';
 
-      if (isBoolean) {
-        // Boolean filters: toggle on/off
-        if (this.activeFilters.has(filter)) {
-          this.activeFilters.delete(filter);
-          pill.classList.remove('active');
-        } else {
-          this.activeFilters.add(filter);
-          pill.classList.add('active');
-        }
+      if (type === 'boolean') {
+        // Boolean filters: exclusive selection
+        const booleanPills = document.querySelectorAll('.filter-pill.boolean');
+        booleanPills.forEach(p => p.classList.remove('active'));
+        
+        this.activeBooleanFilter = filter;
+        pill.classList.add('active');
       } else {
         // Optional filters: toggle on/off
-        if (this.activeFilters.has(filter)) {
-          this.activeFilters.delete(filter);
+        if (this.activeOptionalFilters.has(filter)) {
+          this.activeOptionalFilters.delete(filter);
           pill.classList.remove('active');
         } else {
-          this.activeFilters.add(filter);
+          this.activeOptionalFilters.add(filter);
           pill.classList.add('active');
         }
       }
@@ -179,7 +283,8 @@ const {
       // Dispatch filter change event
       document.dispatchEvent(new CustomEvent('filterChange', {
         detail: {
-          activeFilters: Array.from(this.activeFilters)
+          activeBooleanFilter: this.activeBooleanFilter,
+          activeOptionalFilters: Array.from(this.activeOptionalFilters)
         }
       }));
 
@@ -192,10 +297,16 @@ const {
       
       posts.forEach(post => {
         const postElement = post as HTMLElement;
-        const postTags = postElement.dataset.tags ? postElement.dataset.tags.split(',') : [];
+        const postTags = postElement.dataset.tags ? postElement.dataset.tags.split(',').map(tag => tag.trim()) : [];
         
-        // Check if post should be visible based on active filters
-        const shouldShow = postTags.some(tag => this.activeFilters.has(tag.trim()));
+        // Check boolean filter - post must match the active boolean filter
+        const hasBooleanMatch = postTags.includes(this.activeBooleanFilter);
+        
+        // Check optional filters - if any optional filters are active, post must match at least one
+        const hasOptionalMatch = this.activeOptionalFilters.size === 0 || 
+          postTags.some(tag => this.activeOptionalFilters.has(tag));
+        
+        const shouldShow = hasBooleanMatch && hasOptionalMatch;
         
         if (shouldShow) {
           postElement.style.display = 'block';
@@ -206,8 +317,11 @@ const {
       });
     }
 
-    public getActiveFilters(): string[] {
-      return Array.from(this.activeFilters);
+    public getActiveFilters(): { boolean: string, optional: string[] } {
+      return {
+        boolean: this.activeBooleanFilter,
+        optional: Array.from(this.activeOptionalFilters)
+      };
     }
   }
 

@@ -2,65 +2,34 @@
 import Layout from '../layouts/Layout.astro';
 import StarExplosion from '../components/StarExplosion.astro';
 import PostFilter from '../components/PostFilter.astro';
+import { getAllPosts } from '../utils/posts.ts';
 
-// Sample post data
-const posts = [
-  {
-    id: 1,
-    title: "Building Ultra-Light Astro Apps",
-    tags: ["tech", "project"],
-    color: "#3b82f6",
-    excerpt: "Exploring the power of Astro for creating lightning-fast static sites with modern UI components."
-  },
-  {
-    id: 2,
-    title: "The Art of Minimalist Design",
-    tags: ["hobby", "idea"],
-    color: "#10b981",
-    excerpt: "How simplicity in design can create more impactful user experiences."
-  },
-  {
-    id: 3,
-    title: "Open Source Contribution Guide",
-    tags: ["oc", "tech"],
-    color: "#f59e0b",
-    excerpt: "My journey contributing to open source projects and what I've learned along the way."
-  },
-  {
-    id: 4,
-    title: "Sustainable Living in 2024",
-    tags: ["life", "movement"],
-    color: "#06b6d4",
-    excerpt: "Small changes that make a big difference in our environmental impact."
-  },
-  {
-    id: 5,
-    title: "Community Tech Meetup",
-    tags: ["event", "tech"],
-    color: "#8b5cf6",
-    excerpt: "Join us for an evening of tech talks and networking in the local community."
-  },
-  {
-    id: 6,
-    title: "Interesting Article on AI Ethics",
-    tags: ["share", "tech"],
-    color: "#ef4444",
-    excerpt: "A thoughtful piece on the ethical implications of AI in modern society."
-  }
-];
+// Load posts from markdown files
+const posts = getAllPosts();
 ---
 
-<Layout title="Bruce Starlove">
+<Layout title="Home">
   <StarExplosion />
   
   <div class="home-content" id="homeContent">
     <header class="hero">
-      <h1 class="hero-title" id="heroTitle">Bruce Starlove</h1>
-      <div class="hero-content" id="heroContent">
-        <div class="hero-text">
-          <p>Welcome to my digital space where I share thoughts on <strong>technology</strong>, <strong>design</strong>, and <strong>life</strong>. I'm passionate about creating meaningful experiences through code and fostering communities that drive positive change.</p>
-          <p>Here you'll find my original content, curated shares, project updates, and reflections on the intersection of technology and humanity.</p>
+      <div class="hero-header">
+        <div class="logo-container">
+          <div class="cycling-logo" id="cyclingLogo">
+            <div class="logo-item active">🌟</div>
+            <div class="logo-item">🚀</div>
+            <div class="logo-item">💻</div>
+            <div class="logo-item">🎨</div>
+            <div class="logo-item">🌙</div>
+          </div>
         </div>
+        <div class="hero-main">
+          <h1 class="hero-title" id="heroTitle">Bruce Starlove</h1>
+          <div class="hero-content" id="heroContent">
+            <div class="hero-text">
+              <p>Welcome to my digital space where I share thoughts on <strong>technology</strong>, <strong>design</strong>, and <strong>life</strong>. I'm passionate about creating meaningful experiences through code and fostering communities that drive positive change.</p>
+              <p>Here you'll find my original content, curated shares, project updates, and reflections on the intersection of technology and humanity.</p>
+            </div>
         
         <div class="social-links">
           <a href="https://github.com" class="social-link" aria-label="GitHub">
@@ -83,6 +52,7 @@ const posts = [
               <path fill="currentColor" d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z"/>
             </svg>
           </a>
+          </div>
         </div>
       </div>
     </header>
@@ -92,15 +62,15 @@ const posts = [
       
       <div class="posts-list">
         {posts.map((post) => (
-          <article class="post-item" data-tags={post.tags.join(', ')} key={post.id}>
-            <div class="post-star" style={`background-color: ${post.color}`}>
+          <article class="post-item" data-tags={post.frontmatter.tags.join(', ')} key={post.slug}>
+            <div class="post-star" style={`background-color: ${post.frontmatter.color}`}>
               ★
             </div>
             <div class="post-content">
-              <h3 class="post-title">{post.title}</h3>
-              <p class="post-excerpt">{post.excerpt}</p>
+              <h3 class="post-title">{post.frontmatter.title}</h3>
+              <p class="post-excerpt">{post.frontmatter.excerpt}</p>
               <div class="post-tags">
-                {post.tags.map((tag) => (
+                {post.frontmatter.tags.map((tag) => (
                   <span class="post-tag" key={tag}>{tag}</span>
                 ))}
               </div>
@@ -127,6 +97,53 @@ const posts = [
   .hero {
     margin-bottom: 3rem;
     text-align: left;
+  }
+
+  .hero-header {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .logo-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .cycling-logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .cycling-logo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .logo-item {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0;
+    transform: scale(0.5) rotate(180deg);
+    transition: all 0.5s ease;
+  }
+
+  .logo-item.active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .hero-main {
+    flex: 1;
   }
 
   .hero-title {
@@ -300,6 +317,20 @@ const posts = [
       margin-bottom: 2rem;
     }
 
+    .hero-header {
+      grid-template-columns: 64px 1fr;
+      gap: 1rem;
+    }
+
+    .logo-container {
+      width: 64px;
+      height: 64px;
+    }
+
+    .logo-item {
+      font-size: 1.5rem;
+    }
+
     .hero-text {
       font-size: 1rem;
     }
@@ -346,4 +377,26 @@ const posts = [
       homeContent.classList.add('reveal');
     }
   }, 4000);
+
+  // Logo cycling functionality
+  class LogoCycler {
+    constructor() {
+      this.logos = document.querySelectorAll('.logo-item');
+      this.currentIndex = 0;
+      this.startCycling();
+    }
+
+    startCycling() {
+      setInterval(() => {
+        this.logos[this.currentIndex].classList.remove('active');
+        this.currentIndex = (this.currentIndex + 1) % this.logos.length;
+        this.logos[this.currentIndex].classList.add('active');
+      }, 3000); // Change every 3 seconds
+    }
+  }
+
+  // Initialize logo cycling after DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new LogoCycler();
+  });
 </script>
