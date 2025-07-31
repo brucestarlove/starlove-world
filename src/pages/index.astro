@@ -121,7 +121,7 @@ const posts = getAllPosts();
               posts.map((post) => (
                 <article
                   class="post-item"
-                  style={`font-color: ${post.frontmatter.color}`}
+                  style={`background: linear-gradient(to right, ${post.frontmatter.color}, transparent)`}
                   data-tags={post.frontmatter.tags.join(", ")}
                   data-title={post.frontmatter.title.toLowerCase()}
                   data-excerpt={post.frontmatter.excerpt.toLowerCase()}
@@ -374,6 +374,7 @@ const posts = getAllPosts();
 
       .post-item:hover {
         transform: translateY(-2px);
+        border: 1px solid;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         border-color: var(--accent-bg);
       }
