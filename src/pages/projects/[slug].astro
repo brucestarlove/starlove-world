@@ -20,7 +20,7 @@ if (!project) {
 <Layout title={project.frontmatter.title}>
   <div class="project-detail" id="projectDetail">
     <nav class="project-nav">
-      <button class="back-button" id="backButton">
+      <a href="/projects" class="back-button">
         <svg viewBox="0 0 24 24" width="20" height="20">
           <path
             fill="currentColor"
@@ -28,7 +28,7 @@ if (!project) {
           ></path>
         </svg>
         Back to Projects
-      </button>
+      </a>
     </nav>
 
     <header class="project-header">
@@ -140,7 +140,7 @@ if (!project) {
     }
 
     .back-button {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       background: var(--secondary-bg);
@@ -400,19 +400,8 @@ if (!project) {
       }
     }
 
-    // Back button functionality
-    function setupBackButton() {
-      const backButton = document.getElementById("backButton");
-      if (backButton) {
-        backButton.addEventListener("click", () => {
-          window.location.href = "/projects";
-        });
-      }
-    }
-
     function initializeProjectDetail() {
       revealContent();
-      setupBackButton();
     }
 
     // Initialize immediately if DOM is ready

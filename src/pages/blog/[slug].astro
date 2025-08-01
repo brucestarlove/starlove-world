@@ -94,7 +94,7 @@ const htmlContent = parseMarkdown(post.content);
 <Layout title={post.frontmatter.title}>
   <div class="post-detail" id="postDetail">
     <nav class="post-nav">
-      <button class="back-button" id="backButton">
+      <a href="/" class="back-button">
         <svg viewBox="0 0 24 24" width="20" height="20">
           <path
             fill="currentColor"
@@ -102,7 +102,7 @@ const htmlContent = parseMarkdown(post.content);
           ></path>
         </svg>
         Back to Home
-      </button>
+      </a>
     </nav>
 
     <header class="post-header">
@@ -167,7 +167,7 @@ const htmlContent = parseMarkdown(post.content);
     }
 
     .back-button {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       background: var(--secondary-bg);
@@ -456,19 +456,8 @@ const htmlContent = parseMarkdown(post.content);
       }
     }
 
-    // Back button functionality
-    function setupBackButton() {
-      const backButton = document.getElementById("backButton");
-      if (backButton) {
-        backButton.addEventListener("click", () => {
-          window.location.href = "/";
-        });
-      }
-    }
-
     function initializePostDetail() {
       revealContent();
-      setupBackButton();
     }
 
     // Initialize immediately if DOM is ready

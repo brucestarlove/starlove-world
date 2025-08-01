@@ -9,7 +9,7 @@ const categories = Object.keys(projectsByCategory);
 <Layout title="Projects">
   <div class="projects-content" id="projectsContent">
     <nav class="projects-nav">
-      <button class="back-button" id="backButton">
+      <a href="/" class="back-button">
         <svg viewBox="0 0 24 24" width="20" height="20">
           <path
             fill="currentColor"
@@ -17,7 +17,7 @@ const categories = Object.keys(projectsByCategory);
           ></path>
         </svg>
         Back to Home
-      </button>
+      </a>
     </nav>
 
     <header class="projects-header">
@@ -103,7 +103,7 @@ const categories = Object.keys(projectsByCategory);
     }
 
     .back-button {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       background: var(--secondary-bg);
@@ -360,30 +360,15 @@ const categories = Object.keys(projectsByCategory);
       }
     }
 
-    // Back button functionality
-    function setupBackButton() {
-      const backButton = document.getElementById("backButton");
-      if (backButton) {
-        backButton.addEventListener("click", () => {
-          window.location.href = "/";
-        });
-      }
-    }
-
-    function initializeProjects() {
-      revealProjectsContent();
-      setupBackButton();
-    }
-
     // Initialize immediately if DOM is ready
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initializeProjects);
+      document.addEventListener("DOMContentLoaded", revealProjectsContent);
     } else {
-      initializeProjects();
+      revealProjectsContent();
     }
 
-    // Also initialize after navigation
-    document.addEventListener("astro:after-swap", initializeProjects);
+    // Also reveal after navigation
+    document.addEventListener("astro:after-swap", revealProjectsContent);
 
     // Fallback reveal
     setTimeout(revealProjectsContent, 100);
