@@ -25,11 +25,11 @@ The beauty of Astro lies in its simplicity:
 
 Here's what I've observed in real-world projects:
 
-| Metric | Traditional SPA | Astro Site |
-|--------|----------------|------------|
-| First Load | 2.3s | 0.8s |
-| Bundle Size | 250KB | 45KB |
-| Lighthouse Score | 78 | 98 |
+| Metric           | Traditional SPA | Astro Site |
+| ---------------- | --------------- | ---------- |
+| First Load       | 2.3s            | 0.8s       |
+| Bundle Size      | 250KB           | 45KB       |
+| Lighthouse Score | 78              | 98         |
 
 ## Getting Started
 
@@ -41,7 +41,7 @@ cd my-project
 npm run dev
 ```
 
-![Astro CLI Screenshot](https://via.placeholder.com/600x300/3b82f6/ffffff?text=Astro+CLI+Setup)
+![Astro CLI Screenshot](https://placehold.co/600x300/3b82f6/ffffff?text=Astro+CLI+Setup)
 
 ## Key Features I Love
 
