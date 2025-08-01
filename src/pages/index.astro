@@ -17,23 +17,28 @@ const posts = getAllPosts();
           <div class="logo-container">
             <div class="cycling-logo" id="cyclingLogo">
               <img
-                class="logo-item active"
-                src="public/pfp/Anarch-Sage-Sigil.webp"
-                alt="Profile"
-              />
-              <img
                 class="logo-item"
                 src="public/pfp/BruceStarlove.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/abyss-glitch.webp"
+                src="public/pfp/starlove-ogpfp.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
                 src="public/pfp/astralvitz-pfp.webp"
+                alt="Profile"
+              />
+              <img
+                class="logo-item active"
+                src="public/pfp/Anarch-Sage-Sigil.webp"
+                alt="Profile"
+              />
+              <img
+                class="logo-item"
+                src="public/pfp/abyss-glitch.webp"
                 alt="Profile"
               />
               <img
@@ -66,11 +71,6 @@ const posts = getAllPosts();
                 src="public/pfp/starlove-craft-pfp.webp"
                 alt="Profile"
               />
-              <img
-                class="logo-item"
-                src="public/pfp/starlove-ogpfp.webp"
-                alt="Profile"
-              />
             </div>
           </div>
           <h1 class="hero-title" id="heroTitle">Starlove's lil world</h1>
@@ -78,15 +78,18 @@ const posts = getAllPosts();
         <div class="hero-content" id="heroContent">
           <div class="hero-text">
             <p>
-              Welcome to my corner of the webspace where I share thoughts on <strong
-                >technology</strong
-              >, <strong>design</strong>, and <strong>life</strong>. I've been
-              assisting various small businesses & nonprofit orgs, playing
-              around with AI tools and blockchain, thinking about optimistic
-              solutions, dreaming of decentralized potentials, attending events
-              and meeting people, exploring life, enjoying hobbies, making some
-              arts, foolin around, learning to lead, hoping for better, calling
-              for peace //
+              Welcome to my corner of webspace where I tinker with creative
+              ideas and share thoughts on <strong>technology</strong>, <strong
+                >design</strong
+              >, and <strong>life</strong>.
+            </p>
+            <p>
+              I've been assisting various small businesses & nonprofit orgs,
+              playing around with AI tools and blockchain, thinking about
+              optimistic solutions, dreaming of decentralized potentials,
+              attending events and meeting people, exploring life, enjoying
+              hobbies, making some arts, foolin around, healing my psyche,
+              learning to lead, hoping for better, praying for peace //
             </p>
             <p>
               Here you'll find some of my oc, curated shares, project updates
@@ -608,6 +611,24 @@ const posts = getAllPosts();
         }
       });
 
+      // Check on page load if we should reveal immediately (for View Transitions)
+      document.addEventListener("astro:page-load", () => {
+        const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
+        if (hasPlayed) {
+          // Reveal content immediately if animation already played
+          const homeContent = document.getElementById("homeContent");
+          const cyberBg = document.querySelector(".cyber-bg");
+          const taskbar = document.querySelector(".taskbar");
+
+          if (cyberBg && !cyberBg.classList.contains("loaded"))
+            cyberBg.classList.add("loaded");
+          if (homeContent && !homeContent.classList.contains("reveal"))
+            homeContent.classList.add("reveal");
+          if (taskbar && !taskbar.classList.contains("reveal"))
+            taskbar.classList.add("reveal");
+        }
+      });
+
       // Fallback reveal in case event doesn't fire
       setTimeout(() => {
         const homeContent = document.getElementById("homeContent");
@@ -624,14 +645,24 @@ const posts = getAllPosts();
 
       // Logo cycling functionality
       class LogoCycler {
+        private logos: NodeListOf<Element>;
+        private currentIndex: number;
+
         constructor() {
           this.logos = document.querySelectorAll(".logo-item");
-          this.currentIndex = 0;
+          this.currentIndex = Array.from(this.logos).findIndex((logo: Element) => logo.classList.contains("active"));
+          if (this.currentIndex === -1) this.currentIndex = 0;
+          
+          // Clear any existing intervals to prevent duplicates
+          if ((window as any).logoCyclerInterval) {
+            clearInterval((window as any).logoCyclerInterval);
+          }
+          
           this.startCycling();
         }
 
         startCycling() {
-          setInterval(() => {
+          (window as any).logoCyclerInterval = setInterval(() => {
             this.logos[this.currentIndex].classList.remove("active");
             this.currentIndex = (this.currentIndex + 1) % this.logos.length;
             this.logos[this.currentIndex].classList.add("active");
@@ -639,10 +670,18 @@ const posts = getAllPosts();
         }
       }
 
+      function initializeLogoCycler() {
+        const cyclingLogo = document.getElementById("cyclingLogo");
+        if (cyclingLogo) {
+          new LogoCycler();
+        }
+      }
+
       // Initialize logo cycling after DOM is loaded
-      document.addEventListener("DOMContentLoaded", () => {
-        new LogoCycler();
-      });
+      document.addEventListener("DOMContentLoaded", initializeLogoCycler);
+      
+      // Reinitialize after client-side navigation
+      document.addEventListener("astro:after-swap", initializeLogoCycler);
 
       // Search functionality
       class PostSearch {

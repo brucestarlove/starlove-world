@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from "astro:transitions";
+
 export interface Props {
   title: string;
 }
@@ -15,32 +17,37 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body>
     <div class="cyber-bg"></div>
     <main class="main-content">
       <slot />
     </main>
-    <div class="taskbar">
+    <div class="taskbar" transition:persist>
       <div class="taskbar-content">
         <div class="taskbar-left">
           <button class="logo-button" id="logoButton">
             <div class="star-logo">
-              <svg viewBox="0 0 24 24" width="24" height="24">
+              <!-- <svg viewBox="0 0 24 24" width="24" height="24">
                 <path
                   d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
                   fill="currentColor"></path>
-              </svg>
+              </svg> -->
+              <img
+                class="logo-item active"
+                src="public/Starscape-Star.webp"
+                alt="Logo"
+                width="38"
+                height="38"
+              />
             </div>
           </button>
           <div class="menu-overlay" id="menuOverlay">
             <div class="menu-content">
               <nav class="menu-nav">
                 <a href="/" class="menu-item">Home</a>
-                <a href="/about" class="menu-item">About</a>
                 <a href="/projects" class="menu-item">Projects</a>
-                <a href="/blog" class="menu-item">Blog</a>
-                <a href="/contact" class="menu-item">Contact</a>
               </nav>
             </div>
           </div>
@@ -48,7 +55,7 @@ const { title } = Astro.props;
         <div class="taskbar-center">
           <div class="window-title">
             <!-- <span class="app-icon">★</span> -->
-            <span class="app-name">{title}</span>
+            <!-- <span class="app-name">{title}</span> -->
           </div>
         </div>
         <div class="taskbar-right">
@@ -288,7 +295,7 @@ const { title } = Astro.props;
   }
 
   .logo-button.active .star-logo {
-    transform: rotate(270deg);
+    transform: rotate(180deg);
   }
 
   .menu-overlay {
@@ -492,24 +499,6 @@ const { title } = Astro.props;
 </style>
 
 <script>
-  const logoButton = document.getElementById("logoButton");
-  const menuOverlay = document.getElementById("menuOverlay");
-  const themeToggle = document.getElementById("themeToggle");
-
-  // Menu toggle functionality
-  logoButton?.addEventListener("click", () => {
-    logoButton.classList.toggle("active");
-    menuOverlay?.classList.toggle("active");
-  });
-
-  // Close menu when clicking overlay
-  menuOverlay?.addEventListener("click", (e) => {
-    if (e.target === menuOverlay) {
-      logoButton?.classList.remove("active");
-      menuOverlay.classList.remove("active");
-    }
-  });
-
   // Theme toggle functionality
   const themes = ["cityscape", "forestscape", "starscape"];
 
@@ -526,21 +515,87 @@ const { title } = Astro.props;
     return "cityscape"; // Default theme
   };
 
-  // Initialize theme
-  setTheme(getTheme());
+  // Store event handlers globally to allow proper cleanup
+  let logoClickHandler: (() => void) | null = null;
+  let overlayClickHandler: ((e: Event) => void) | null = null;
+  let themeClickHandler: (() => void) | null = null;
 
-  themeToggle?.addEventListener("click", () => {
-    const currentTheme =
-      document.documentElement.getAttribute("data-theme") || "cityscape";
-    const currentIndex = themes.indexOf(currentTheme);
-    const nextIndex = (currentIndex + 1) % themes.length;
-    const newTheme = themes[nextIndex];
-    setTheme(newTheme);
-  });
+  function initializeApp() {
+    const logoButton = document.getElementById("logoButton");
+    const menuOverlay = document.getElementById("menuOverlay");
+    const themeToggle = document.getElementById("themeToggle");
 
-  // Handle system theme changes (removed since we're using custom themes)
+    // Remove existing event listeners to prevent duplicates
+    if (logoClickHandler) {
+      logoButton?.removeEventListener("click", logoClickHandler);
+    }
+    if (overlayClickHandler) {
+      menuOverlay?.removeEventListener("click", overlayClickHandler);
+    }
+    if (themeClickHandler) {
+      themeToggle?.removeEventListener("click", themeClickHandler);
+    }
 
-  // Load background with content reveal
+    // Menu toggle functionality
+    logoClickHandler = () => {
+      logoButton?.classList.toggle("active");
+      menuOverlay?.classList.toggle("active");
+    };
+
+    overlayClickHandler = (e: Event) => {
+      if (e.target === menuOverlay) {
+        logoButton?.classList.remove("active");
+        menuOverlay?.classList.remove("active");
+      }
+    };
+
+    themeClickHandler = () => {
+      const currentTheme =
+        document.documentElement.getAttribute("data-theme") || "cityscape";
+      const currentIndex = themes.indexOf(currentTheme);
+      const nextIndex = (currentIndex + 1) % themes.length;
+      const newTheme = themes[nextIndex];
+      setTheme(newTheme);
+    };
+
+    logoButton?.addEventListener("click", logoClickHandler);
+    menuOverlay?.addEventListener("click", overlayClickHandler);
+    themeToggle?.addEventListener("click", themeClickHandler);
+
+    // Close menu when clicking menu items
+    const menuItems = document.querySelectorAll(".menu-item");
+    menuItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        logoButton?.classList.remove("active");
+        menuOverlay?.classList.remove("active");
+      });
+    });
+
+    // Initialize theme
+    setTheme(getTheme());
+
+    // Load background with content reveal
+    const cyberBg = document.querySelector(".cyber-bg");
+    if (cyberBg && !cyberBg.classList.contains("loaded")) {
+      cyberBg.classList.add("loaded");
+    }
+
+    // Reveal taskbar
+    const taskbar = document.querySelector(".taskbar");
+    if (taskbar && !taskbar.classList.contains("reveal")) {
+      setTimeout(() => {
+        taskbar.classList.add("reveal");
+      }, 500);
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener("DOMContentLoaded", initializeApp);
+
+  // Reinitialize after client-side navigation
+  document.addEventListener("astro:after-swap", initializeApp);
+
+  // Handle starExplosion event
   document.addEventListener("starExplosionComplete", () => {
     const cyberBg = document.querySelector(".cyber-bg");
     if (cyberBg) {

@@ -1,22 +1,25 @@
----
-// Star explosion animation component
----
-
 <div class="star-explosion-container" id="starExplosion">
   <div class="star-center">
     <svg viewBox="0 0 100 100" class="star-svg">
-      <defs>
+      <image
+        href="public/Starscape-Star.png"
+        x="0"
+        y="0"
+        width="100"
+        height="100"
+        class="star-path"
+      />
+      <!-- <defs>
         <radialGradient id="starGradient" cx="50%" cy="50%" r="50%">
           <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1"></stop>
           <stop offset="50%" style="stop-color:#1d4ed8;stop-opacity:1"></stop>
-          <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.8"
-          ></stop>
+          <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.8"></stop>
         </radialGradient>
       </defs>
       <path
         d="M50 10 L58 35 L85 35 L65 52 L73 77 L50 62 L27 77 L35 52 L15 35 L42 35 Z"
         fill="url(#starGradient)"
-        class="star-path"></path>
+        class="star-path"></path> -->
     </svg>
   </div>
 
@@ -56,7 +59,7 @@
     width: 120px;
     height: 120px;
     transform: scale(0);
-    animation: starExplosion 2s ease-out forwards;
+    animation: starExplosion 2.5s linear forwards;
   }
 
   .star-svg {
@@ -65,7 +68,7 @@
   }
 
   .star-path {
-    animation: starPulse 0.5s ease-out 0.3s;
+    animation: starPulse 0.8s ease-in-out infinite;
   }
 
   .stardust-container {
@@ -204,16 +207,20 @@
       transform: scale(0) rotate(0deg);
       opacity: 0;
     }
-    30% {
-      transform: scale(1.5) rotate(180deg);
+    25% {
+      transform: scale(1.2) rotate(112.5deg);
       opacity: 1;
     }
-    60% {
-      transform: scale(2) rotate(360deg);
+    50% {
+      transform: scale(1.8) rotate(225deg);
+      opacity: 1;
+    }
+    75% {
+      transform: scale(1.2) rotate(337.5deg);
       opacity: 0.8;
     }
     100% {
-      transform: scale(0.1) rotate(540deg);
+      transform: scale(0.2) rotate(450deg);
       opacity: 0;
     }
   }
@@ -224,7 +231,7 @@
       transform: scale(1);
     }
     50% {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
   }
 
@@ -300,10 +307,20 @@
     }
 
     private init() {
-      // Start animation on page load
-      setTimeout(() => {
-        this.play();
-      }, 500);
+      // Check if animation has already played this session
+      const hasPlayed = sessionStorage.getItem('starExplosionPlayed');
+      
+      if (!hasPlayed) {
+        // Start animation on first load
+        setTimeout(() => {
+          this.play();
+        }, 500);
+      } else {
+        // Skip animation and reveal content immediately
+        setTimeout(() => {
+          this.complete();
+        }, 100);
+      }
     }
 
     public play() {
@@ -312,7 +329,7 @@
       this.isPlaying = true;
       this.container.classList.add("active");
 
-      // Complete animation after 2.5 seconds (1 second shorter)
+      // Complete animation after 2.5 seconds
       setTimeout(() => {
         this.complete();
       }, 2500);
@@ -323,6 +340,9 @@
 
       this.container.classList.add("completed");
       this.isPlaying = false;
+
+      // Mark as played for this session
+      sessionStorage.setItem('starExplosionPlayed', 'true');
 
       // Trigger content reveal
       document.dispatchEvent(new CustomEvent("starExplosionComplete"));
