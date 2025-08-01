@@ -8,6 +8,18 @@ const categories = Object.keys(projectsByCategory);
 
 <Layout title="Projects">
   <div class="projects-content" id="projectsContent">
+    <nav class="projects-nav">
+      <button class="back-button" id="backButton">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path
+            fill="currentColor"
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          ></path>
+        </svg>
+        Back to Home
+      </button>
+    </nav>
+
     <header class="projects-header">
       <h1 class="projects-title">Projects</h1>
       <p class="projects-subtitle">
@@ -81,6 +93,35 @@ const categories = Object.keys(projectsByCategory);
     .projects-content:not(.reveal) {
       opacity: 0;
       transform: translateY(20px);
+    }
+
+    .projects-nav {
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.6s ease-out 0.2s forwards;
+    }
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background: var(--accent-bg);
+      border-color: var(--accent-bg);
+      color: white;
+      transform: translateX(-2px);
     }
 
     .projects-header {
@@ -303,6 +344,11 @@ const categories = Object.keys(projectsByCategory);
         font-size: 0.7rem;
         padding: 0.2rem 0.4rem;
       }
+
+      .back-button {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+      }
     }
   </style>
 
@@ -314,15 +360,30 @@ const categories = Object.keys(projectsByCategory);
       }
     }
 
-    // Reveal content immediately if DOM is ready
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", revealProjectsContent);
-    } else {
-      revealProjectsContent();
+    // Back button functionality
+    function setupBackButton() {
+      const backButton = document.getElementById("backButton");
+      if (backButton) {
+        backButton.addEventListener("click", () => {
+          window.location.href = "/";
+        });
+      }
     }
 
-    // Also reveal after navigation
-    document.addEventListener("astro:after-swap", revealProjectsContent);
+    function initializeProjects() {
+      revealProjectsContent();
+      setupBackButton();
+    }
+
+    // Initialize immediately if DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeProjects);
+    } else {
+      initializeProjects();
+    }
+
+    // Also initialize after navigation
+    document.addEventListener("astro:after-swap", initializeProjects);
 
     // Fallback reveal
     setTimeout(revealProjectsContent, 100);
