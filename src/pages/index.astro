@@ -18,57 +18,57 @@ const posts = getAllPosts();
             <div class="cycling-logo" id="cyclingLogo">
               <img
                 class="logo-item"
-                src="public/pfp/BruceStarlove.webp"
+                src="/public/pfp/BruceStarlove.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/starlove-ogpfp.webp"
+                src="/public/pfp/starlove-ogpfp.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/astralvitz-pfp.webp"
+                src='/public/pfp/astralvitz-pfp.webp"'
                 alt="Profile"
               />
               <img
                 class="logo-item active"
-                src="public/pfp/Anarch-Sage-Sigil.webp"
+                src="/public/pfp/Anarch-Sage-Sigil.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/abyss-glitch.webp"
+                src="/public/pfp/abyss-glitch.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/astralvitz.webp"
+                src="/public/pfp/astralvitz.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/blacksabbath.webp"
+                src="/public/pfp/blacksabbath.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/emeraldarchon1.webp"
+                src="/public/pfp/emeraldarchon1.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/igpfp.webp"
+                src="/public/pfp/igpfp.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/jesus-pfp.webp"
+                src="/public/pfp/jesus-pfp.webp"
                 alt="Profile"
               />
               <img
                 class="logo-item"
-                src="public/pfp/starlove-craft-pfp.webp"
+                src="/public/pfp/starlove-craft-pfp.webp"
                 alt="Profile"
               />
             </div>
@@ -657,14 +657,16 @@ const posts = getAllPosts();
 
         constructor() {
           this.logos = document.querySelectorAll(".logo-item");
-          this.currentIndex = Array.from(this.logos).findIndex((logo: Element) => logo.classList.contains("active"));
+          this.currentIndex = Array.from(this.logos).findIndex(
+            (logo: Element) => logo.classList.contains("active")
+          );
           if (this.currentIndex === -1) this.currentIndex = 0;
-          
+
           // Clear any existing intervals to prevent duplicates
           if ((window as any).logoCyclerInterval) {
             clearInterval((window as any).logoCyclerInterval);
           }
-          
+
           this.startCycling();
         }
 

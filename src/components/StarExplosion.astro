@@ -2,7 +2,7 @@
   <div class="star-center">
     <svg viewBox="0 0 100 100" class="star-svg">
       <image
-        href="public/Starscape-Star.png"
+        href="/public/Starscape-Star.png"
         x="0"
         y="0"
         width="100"
@@ -308,8 +308,8 @@
 
     private init() {
       // Check if animation has already played this session
-      const hasPlayed = sessionStorage.getItem('starExplosionPlayed');
-      
+      const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
+
       if (!hasPlayed) {
         // Start animation on first load
         setTimeout(() => {
@@ -342,7 +342,7 @@
       this.isPlaying = false;
 
       // Mark as played for this session
-      sessionStorage.setItem('starExplosionPlayed', 'true');
+      sessionStorage.setItem("starExplosionPlayed", "true");
 
       // Trigger content reveal
       document.dispatchEvent(new CustomEvent("starExplosionComplete"));
