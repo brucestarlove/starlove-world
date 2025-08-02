@@ -1,0 +1,152 @@
+/* Global CSS Variables and Base Styles */
+
+:root {
+  /* Color System */
+  --primary-bg: #0f172a;
+  --secondary-bg: #1e293b;
+  --accent-bg: #3b82f6;
+  --text-primary: #f1f5f9;
+  --text-secondary: #e1e1e1;
+  --border-color: #334155;
+  --glow-color: #60a5fa;
+  --taskbar-bg: rgba(15, 23, 42, 0.95);
+  --taskbar-border: #1e293b;
+
+  /* Layout Tokens */
+  --grid-gap: 1rem;
+  --card-padding: 1rem;
+  --border-radius: 8px;
+  --border-radius-large: 12px;
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.8s ease-out;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Component-specific tokens */
+  --tag-padding: 0.25rem 0.5rem;
+  --button-padding: 0.75rem 1rem;
+  --input-padding: 0.75rem 1rem;
+}
+
+/* Theme Variations */
+[data-theme="cityscape"] {
+  --accent-bg: #fbbf24;
+  --glow-color: #fcd34d;
+}
+
+[data-theme="forestscape"] {
+  --accent-bg: #22c55e;
+  --glow-color: #4ade80;
+}
+
+[data-theme="starscape"] {
+  --accent-bg: #3b82f6;
+  --glow-color: #60a5fa;
+}
+
+/* Global Animations */
+@keyframes titleReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Global Reset Enhancement */
+* {
+  box-sizing: border-box;
+}
+
+/* Base Content Reveal Pattern */
+.content-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--transition-slow);
+}
+
+.content-reveal.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Global Typography */
+.title-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--accent-bg),
+    var(--glow-color)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-primary {
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 50%,
+    #f093fb 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-evershade {
+  background: linear-gradient(
+    135deg,
+    #3f7158 0%,
+    #89c9b8 50%,
+    #8fd7fb 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

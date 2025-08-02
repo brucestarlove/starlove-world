@@ -1,0 +1,21 @@
+---
+export interface Props {
+  id?: string;
+  class?: string;
+  delay?: string;
+}
+
+const { 
+  id,
+  class: className = "",
+  delay = "0s"
+} = Astro.props;
+---
+
+<div 
+  id={id}
+  class={`content-reveal ${className}`}
+  style={delay !== "0s" ? `animation-delay: ${delay}` : ""}
+>
+  <slot />
+</div>

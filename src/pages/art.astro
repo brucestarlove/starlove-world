@@ -1,15 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import ContentReveal from "../components/ui/ContentReveal.astro";
+import TagList from "../components/ui/TagList.astro";
 ---
 
 <Layout title="Art">
-  <div class="art-content" id="artContent">
-    <header class="art-header">
-      <h1 class="art-title">Art & Visuals</h1>
-      <p class="art-subtitle">
-        A collection of visual experiments, game concepts and misc digital art
-      </p>
-    </header>
+  <ContentReveal id="artContent" class="art-content">
+    <PageHeader 
+      title="Art & Visuals" 
+      subtitle="A collection of visual experiments, game concepts and misc digital art"
+      titleClass="title-gradient"
+    />
 
     <div class="art-sections">
       <section class="art-section">
@@ -26,12 +28,7 @@ import Layout from "../layouts/Layout.astro";
                 <p class="art-description">
                   A surreal exploration of light, shadow, and dreamlike landscapes
                 </p>
-                <div class="art-tags">
-                  <span class="art-tag">Digital Art</span>
-                  <span class="art-tag">Game Concept</span>
-                  <span class="art-tag">Surreal</span>
-                  <span class="art-tag">Gallery</span>
-                </div>
+                <TagList tags={["Digital Art", "Game Concept", "Surreal", "Gallery"]} />
               </div>
             </a>
           </article>
@@ -48,16 +45,14 @@ import Layout from "../layouts/Layout.astro";
                 <p class="art-description">
                   Additional art collections coming soon...
                 </p>
-                <div class="art-tags">
-                  <span class="art-tag">Coming Soon</span>
-                </div>
+                <TagList tags={["Coming Soon"]} />
               </div>
             </div>
           </article>
         </div>
       </section>
     </div>
-  </div>
+  </ContentReveal>
 
   <style>
     .art-content {

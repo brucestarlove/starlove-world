@@ -1,0 +1,17 @@
+---
+export interface Props {
+  stats: Array<{ label: string; value: string | number }>;
+  class?: string;
+}
+
+const { stats, class: className = "" } = Astro.props;
+---
+
+<div class={`stats-container ${className}`}>
+  {stats.map((stat, index) => (
+    <>
+      <span class="stat-item">{stat.value} {stat.label}</span>
+      {index < stats.length - 1 && <span class="stat-divider">•</span>}
+    </>
+  ))}
+</div>

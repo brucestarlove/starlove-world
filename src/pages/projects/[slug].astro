@@ -1,5 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import BackButton from "../../components/ui/BackButton.astro";
+import ContentReveal from "../../components/ui/ContentReveal.astro";
+import TagList from "../../components/ui/TagList.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
@@ -19,17 +22,9 @@ const { Content } = await project.render();
 ---
 
 <Layout title={project.data.title}>
-  <div class="project-detail" id="projectDetail">
+  <ContentReveal id="projectDetail" class="project-detail">
     <nav class="project-nav">
-      <a href="/projects" class="back-button">
-        <svg viewBox="0 0 24 24" width="20" height="20">
-          <path
-            fill="currentColor"
-            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
-          ></path>
-        </svg>
-        Back to Projects
-      </a>
+      <BackButton href="/projects" text="Back to Projects" />
     </nav>
 
     <header class="project-header">
@@ -57,15 +52,7 @@ const { Content } = await project.render();
 
       <div class="project-technologies">
         <h3>Technologies</h3>
-        <div class="tech-list">
-          {
-            project.data.technologies.map((tech) => (
-              <span class="tech-tag">
-                {tech}
-              </span>
-            ))
-          }
-        </div>
+        <TagList tags={project.data.technologies} class="tech-list" />
       </div>
 
       {
@@ -113,7 +100,7 @@ const { Content } = await project.render();
         <Content />
       </div>
     </main>
-  </div>
+  </ContentReveal>
 
   <style>
     .project-detail {
