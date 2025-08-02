@@ -24,3 +24,5 @@ pnpm-debug.log*
 
 # development symlinks
 public/public
+
+_notpublic/

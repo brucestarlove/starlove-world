@@ -1,0 +1,471 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// Evershade Dream gallery images from starlove-assets
+const galleryImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/aurora_citadel.webp",
+    alt: "Aurora Citadel - An ancient city built beneath eternal auroras, its stones carved from dreams. Whispers say time flows strangely here. Symbol: Aurora encircling an hourglass."
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/pools_of_astraya.webp",
+    alt: "Portals ripple like water beneath starlight; bathing here cleanses memories and resets destiny's threads. Symbol: Starry whirlpool reflecting galaxies."
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/falls_of_miraval.webp",
+    alt: "Cascading waters pour from endless sky, each droplet containing a single wish left unspoken. Seekers come to reclaim lost hopes. Symbol: Endless waterfalls suspended in mist."
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/temple_echoing_oasis.webp",
+    alt: "Winds whisper forgotten truths; step inside to relive echoes of lost selves. Symbol: Hourglass, sands flowing upwards."
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/sanctum_crescent_sky.webp",
+    alt: "Home of the twilight oracles, mapping prophecy beneath eternal crescent moons. Symbol: Crescent moon inscribed with runes."
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/cloudspire_ataraxis.webp",
+    alt: "Misty spires floating in perpetual serenity; a place of calm reflection guarded by veils of celestial fog. Symbol: A gentle spiral of mist ascending skyward."
+  }
+];
+---
+
+<Layout title="Evershade Dream - Art Gallery">
+  <div class="gallery-content" id="galleryContent">
+    <nav class="gallery-nav">
+      <a href="/art" class="back-button">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path
+            fill="currentColor"
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          ></path>
+        </svg>
+        Back to Art
+      </a>
+    </nav>
+
+    <header class="gallery-header">
+      <h1 class="gallery-title">Evershade Dream</h1>
+      <p class="gallery-subtitle">
+        A surreal exploration of light, shadow, and dreamlike landscapes where reality bends and imagination takes form
+      </p>
+      <div class="gallery-stats">
+        <span class="stat-item">{galleryImages.length} Images</span>
+        <span class="stat-divider">•</span>
+        <span class="stat-item">Digital Art Collection</span>
+        <span class="stat-item">Game Concept</span>
+        <span class="stat-divider">•</span>
+        <span class="stat-item">2025+</span>
+      </div>
+    </header>
+
+    <div class="gallery-container">
+      <div class="masonry-gallery" id="masonryGallery">
+        {galleryImages.map((image, index) => (
+          <div class="masonry-item">
+            <a 
+              data-fslightbox="evershade-gallery" 
+              href={image.src} 
+              class="gallery-link"
+              data-index={index}
+            >
+              <div class="image-container">
+                <img
+                  class="gallery-image lazy-image"
+                  data-src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                />
+                <div class="image-overlay">
+                  <div class="overlay-content">
+                    <svg 
+                      class="expand-icon" 
+                      viewBox="0 0 24 24" 
+                      width="24" 
+                      height="24"
+                    >
+                      <path 
+                        fill="currentColor" 
+                        d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .gallery-content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+      padding-bottom: 6rem;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .gallery-content.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-nav {
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.6s ease-out 0.2s forwards;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background: var(--accent-bg);
+      border-color: var(--accent-bg);
+      color: white;
+      transform: translateX(-2px);
+    }
+
+    .gallery-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .gallery-title {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        #667eea 0%,
+        #764ba2 50%,
+        #f093fb 100%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: titleReveal 1s ease-out 0.3s forwards;
+    }
+
+    .gallery-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.8s ease-out 0.6s forwards;
+    }
+
+    .gallery-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.8s ease-out 0.8s forwards;
+    }
+
+    .stat-item {
+      padding: 0.25rem 0.75rem;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .stat-divider {
+      color: var(--border-color);
+      font-weight: bold;
+    }
+
+    .gallery-container {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.8s ease-out 1s forwards;
+    }
+
+    .masonry-gallery {
+      columns: 3;
+      column-gap: 1rem;
+      line-height: 0;
+    }
+
+    .masonry-item {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 1rem;
+      break-inside: avoid;
+      transition: all 0.3s ease;
+    }
+
+    .masonry-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .gallery-link {
+      display: block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .image-container:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border-color: var(--accent-bg);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .gallery-image.loading {
+      opacity: 0.3;
+      filter: blur(2px);
+    }
+
+    .gallery-image.loaded {
+      opacity: 1;
+      filter: none;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .image-container:hover .image-overlay {
+      opacity: 1;
+    }
+
+    .overlay-content {
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .expand-icon {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    /* Loading skeleton */
+    .gallery-image:not(.loaded) {
+      background: linear-gradient(
+        90deg,
+        var(--secondary-bg) 25%,
+        var(--border-color) 50%,
+        var(--secondary-bg) 75%
+      );
+      background-size: 200% 100%;
+      animation: loading 2s infinite;
+      min-height: 200px;
+    }
+
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    @keyframes titleReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes contentReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .masonry-gallery {
+        columns: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-header {
+        margin-bottom: 2rem;
+      }
+
+      .gallery-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .stat-divider {
+        display: none;
+      }
+
+      .back-button {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .masonry-gallery {
+        columns: 1;
+        column-gap: 0;
+      }
+      
+      .masonry-item {
+        margin-bottom: 0.75rem;
+      }
+    }
+  </style>
+
+  <script>
+
+    class LazyImageLoader {
+      constructor() {
+        this.observer = null;
+        this.loadedImages = new Set();
+        this.init();
+      }
+
+      init() {
+        this.observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.dataset.src;
+                if (src && !this.loadedImages.has(src)) {
+                  this.loadImage(img, src);
+                }
+              }
+            });
+          },
+          {
+            rootMargin: '50px 0px',
+            threshold: 0.1
+          }
+        );
+
+        this.observeImages();
+      }
+
+      loadImage(img, src) {
+        img.classList.add('loading');
+        
+        const tempImg = new Image();
+        tempImg.onload = () => {
+          img.src = src;
+          img.classList.remove('loading');
+          img.classList.add('loaded');
+          this.loadedImages.add(src);
+          this.observer.unobserve(img);
+        };
+        
+        tempImg.onerror = () => {
+          img.classList.remove('loading');
+          console.warn(`Failed to load image: ${src}`);
+          this.observer.unobserve(img);
+        };
+        
+        tempImg.src = src;
+      }
+
+      observeImages() {
+        const lazyImages = document.querySelectorAll('.lazy-image');
+        lazyImages.forEach(img => {
+          if (this.observer) {
+            this.observer.observe(img);
+          }
+        });
+      }
+
+      refresh() {
+        this.observeImages();
+      }
+    }
+
+    function revealGalleryContent() {
+      const galleryContent = document.getElementById("galleryContent");
+      if (galleryContent && !galleryContent.classList.contains("reveal")) {
+        galleryContent.classList.add("reveal");
+      }
+    }
+
+    function initializeGallery() {
+      // Initialize lazy loading
+      const lazyLoader = new LazyImageLoader();
+      
+      // Initialize fslightbox after images are set up
+      setTimeout(() => {
+        if (typeof refreshFsLightbox !== 'undefined') {
+          refreshFsLightbox();
+        }
+      }, 100);
+      
+      // Reveal content
+      revealGalleryContent();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeGallery);
+    } else {
+      initializeGallery();
+    }
+
+    document.addEventListener("astro:after-swap", initializeGallery);
+  </script>
+
+  <!-- Include fslightbox -->
+  <script is:inline src="/fslightbox.js"></script>
+</Layout>

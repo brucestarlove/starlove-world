@@ -18,18 +18,21 @@ const posts = await getCollection('posts');
             <div class="cycling-logo" id="cyclingLogo">
               <img
                 class="logo-item"
-                src="/pfp/BruceStarlove.webp"
+                data-src="/pfp/BruceStarlove.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/starlove-ogpfp.webp"
+                data-src="/pfp/starlove-ogpfp.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/astralvitz-pfp.webp"
+                data-src="/pfp/astralvitz-pfp.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item active"
@@ -38,58 +41,69 @@ const posts = await getCollection('posts');
               />
               <img
                 class="logo-item"
-                src="/pfp/abyss-glitch.webp"
+                data-src="/pfp/abyss-glitch.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/astralvitz.webp"
+                data-src="/pfp/astralvitz.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/blacksabbath.webp"
+                data-src="/pfp/blacksabbath.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/emeraldarchon1.webp"
+                data-src="/pfp/emeraldarchon1.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/igpfp.webp"
+                data-src="/pfp/igpfp.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/jesus-pfp.webp"
+                data-src="/pfp/jesus-pfp.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/starlove-craft-pfp.webp"
+                data-src="/pfp/starlove-craft-pfp.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/Anarch-Sage-Sigil.webp"
+                data-src="/pfp/Anarch-Sage-Sigil.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/Lu_Bu_-_Wood_(DWU).webp"
+                data-src="/pfp/Lu_Bu_-_Wood_(DWU).webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/TrickLight-Lavitz.webp"
+                data-src="/pfp/TrickLight-Lavitz.webp"
                 alt="Profile"
+                loading="lazy"
               />
               <img
                 class="logo-item"
-                src="/pfp/MoonalphaSmall.webp"
+                data-src="/pfp/MoonalphaSmall.webp"
                 alt="Profile"
+                loading="lazy"
               />
             </div>
           </div>
@@ -404,6 +418,26 @@ const posts = await getCollection('posts');
         opacity: 1;
         visibility: visible;
         transform: translate(-50%, -50%) scale(1);
+      }
+
+      /* Mobile positioning - keep tooltip in upper viewport */
+      @media (max-width: 768px) {
+        .stuff-tooltip {
+          top: 30%;
+          max-width: 85vw;
+        }
+        
+        .stuff-tooltip.show {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      /* Small mobile screens - even higher */
+      @media (max-width: 480px) {
+        .stuff-tooltip {
+          top: 25%;
+          padding: 0.75rem;
+        }
       }
 
       .stuff-tooltip-image {
@@ -761,14 +795,41 @@ const posts = await getCollection('posts');
             clearInterval((window as any).logoCyclerInterval);
           }
 
+          // Preload next few images
+          this.preloadNextImages();
           this.startCycling();
+        }
+
+        preloadNextImages() {
+          // Preload the next 3 images that will be shown
+          for (let i = 1; i <= 3; i++) {
+            const nextIndex = (this.currentIndex + i) % this.logos.length;
+            const img = this.logos[nextIndex] as HTMLImageElement;
+            const dataSrc = img.getAttribute('data-src');
+            if (dataSrc && !img.src) {
+              img.src = dataSrc;
+              img.removeAttribute('data-src');
+            }
+          }
         }
 
         startCycling() {
           (window as any).logoCyclerInterval = setInterval(() => {
             this.logos[this.currentIndex].classList.remove("active");
             this.currentIndex = (this.currentIndex + 1) % this.logos.length;
+            
+            // Load the current image if not loaded
+            const currentImg = this.logos[this.currentIndex] as HTMLImageElement;
+            const dataSrc = currentImg.getAttribute('data-src');
+            if (dataSrc && !currentImg.src) {
+              currentImg.src = dataSrc;
+              currentImg.removeAttribute('data-src');
+            }
+            
             this.logos[this.currentIndex].classList.add("active");
+            
+            // Preload next few images
+            this.preloadNextImages();
           }, 3000); // Change every 3 seconds
         }
       }
