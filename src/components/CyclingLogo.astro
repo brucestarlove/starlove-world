@@ -1,0 +1,218 @@
+---
+
+---
+
+<div class="logo-container">
+  <div class="cycling-logo" id="cyclingLogo">
+    <img
+      class="logo-item"
+      data-src="/pfp/BruceStarlove.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/starlove-ogpfp.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/astralvitz-pfp.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item active"
+      src="/pfp/lavitz-rosestorm.webp"
+      alt="Profile"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/abyss-glitch.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/astralvitz.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/blacksabbath.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/emeraldarchon1.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/igpfp.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/jesus-pfp.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/starlove-craft-pfp.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/Anarch-Sage-Sigil.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/Lu_Bu_-_Wood_(DWU).webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/TrickLight-Lavitz.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+    <img
+      class="logo-item"
+      data-src="/pfp/MoonalphaSmall.webp"
+      alt="Profile"
+      loading="lazy"
+    />
+  </div>
+</div>
+
+<style>
+  .logo-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .cycling-logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+
+  .cycling-logo:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .logo-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.5) rotate(180deg);
+    transition: all 0.5s ease;
+  }
+
+  .logo-item.active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  @media (max-width: 768px) {
+    .logo-container {
+      width: 64px;
+      height: 64px;
+    }
+
+    .logo-item {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Logo cycling functionality
+  class LogoCycler {
+    private logos: NodeListOf<Element>;
+    private currentIndex: number;
+
+    constructor() {
+      this.logos = document.querySelectorAll(".logo-item");
+      this.currentIndex = Array.from(this.logos).findIndex(
+        (logo: Element) => logo.classList.contains("active")
+      );
+      if (this.currentIndex === -1) this.currentIndex = 0;
+
+      // Clear any existing intervals to prevent duplicates
+      if ((window as any).logoCyclerInterval) {
+        clearInterval((window as any).logoCyclerInterval);
+      }
+
+      // Preload next few images
+      this.preloadNextImages();
+      this.startCycling();
+    }
+
+    preloadNextImages() {
+      // Preload the next 3 images that will be shown
+      for (let i = 1; i <= 3; i++) {
+        const nextIndex = (this.currentIndex + i) % this.logos.length;
+        const img = this.logos[nextIndex] as HTMLImageElement;
+        const dataSrc = img.getAttribute('data-src');
+        if (dataSrc && !img.src) {
+          img.src = dataSrc;
+          img.removeAttribute('data-src');
+        }
+      }
+    }
+
+    startCycling() {
+      (window as any).logoCyclerInterval = setInterval(() => {
+        this.logos[this.currentIndex].classList.remove("active");
+        this.currentIndex = (this.currentIndex + 1) % this.logos.length;
+        
+        // Load the current image if not loaded
+        const currentImg = this.logos[this.currentIndex] as HTMLImageElement;
+        const dataSrc = currentImg.getAttribute('data-src');
+        if (dataSrc && !currentImg.src) {
+          currentImg.src = dataSrc;
+          currentImg.removeAttribute('data-src');
+        }
+        
+        this.logos[this.currentIndex].classList.add("active");
+        
+        // Preload next few images
+        this.preloadNextImages();
+      }, 3000); // Change every 3 seconds
+    }
+  }
+
+  function initializeLogoCycler() {
+    const cyclingLogo = document.getElementById("cyclingLogo");
+    if (cyclingLogo) {
+      new LogoCycler();
+    }
+  }
+
+  // Initialize logo cycling after DOM is loaded
+  document.addEventListener("DOMContentLoaded", initializeLogoCycler);
+
+  // Reinitialize after client-side navigation
+  document.addEventListener("astro:after-swap", initializeLogoCycler);
+</script>
