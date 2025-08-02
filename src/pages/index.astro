@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import StarExplosion from "../components/StarExplosion.astro";
+import SearchBar from "../components/ui/SearchBar.astro";
+import TagList from "../components/ui/TagList.astro";
 import { getCollection } from "astro:content";
 
 // Load posts from content collections
@@ -207,27 +209,7 @@ const posts = await getCollection('posts');
         </div>
 
         <section class="posts-section">
-          <div class="search-container">
-            <div class="search-bar">
-              <svg
-                class="search-icon"
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-              >
-                <path
-                  fill="currentColor"
-                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                ></path>
-              </svg>
-              <input
-                type="text"
-                id="searchInput"
-                placeholder="Search posts..."
-                class="search-input"
-              />
-            </div>
-          </div>
+          <SearchBar placeholder="Search posts..." id="searchInput" />
 
           <div class="posts-list" id="postsList">
             {
@@ -249,13 +231,7 @@ const posts = await getCollection('posts');
                     <div class="post-content">
                       <h3 class="post-title">{post.data.title}</h3>
                       <p class="post-excerpt">{post.data.excerpt}</p>
-                      <div class="post-tags">
-                        {post.data.tags.map((tag) => (
-                          <span class="post-tag">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                      <TagList tags={post.data.tags} />
                     </div>
                   </a>
                 </article>

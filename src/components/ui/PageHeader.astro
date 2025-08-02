@@ -1,0 +1,25 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  centered?: boolean;
+  titleClass?: string;
+  subtitleClass?: string;
+}
+
+const { 
+  title, 
+  subtitle, 
+  centered = false, 
+  titleClass = "",
+  subtitleClass = ""
+} = Astro.props;
+---
+
+<header class={`page-header ${centered ? 'text-center' : 'text-left'}`}>
+  <h1 class={`page-title ${titleClass}`}>{title}</h1>
+  {subtitle && (
+    <p class={`page-subtitle ${subtitleClass}`}>{subtitle}</p>
+  )}
+  <slot />
+</header>
