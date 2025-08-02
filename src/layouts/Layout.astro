@@ -981,13 +981,25 @@ const { title } = Astro.props;
       this.currentSound = null;
       this.playlist = [
         {
-          title: "Sample Track 1",
+          title: "loop-water-waves.wav",
+          src: "/public/audio/loop-water-waves.wav",
+        },
+        {
+          title: "Molecules_-_Kristoff_Krane_+_Sadistik",
           src: "/public/audio/Molecules-KK.mp3",
         },
-        // {
-        //   title: "Sample Track 2",
-        //   src: "/audio/sample2.mp3",
-        // },
+        {
+          title: "lavitz-harpoon.wave",
+          src: "/public/audio/Lavitz_Harpoon_Full.mp3",
+        },
+        {
+          title: "hit_-_with_1.mp3",
+          src: "/public/audio/hit_-_with_1.mp3",
+        },
+        {
+          title: "A Wake",
+          src: "/public/audio/Eyedea_ft._Slug_-_A_Wake_(192 kbps).mp3",
+        },
       ];
       this.currentTrackIndex = 0;
       this.isPlaying = false;

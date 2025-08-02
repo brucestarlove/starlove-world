@@ -80,16 +80,18 @@ const posts = getAllPosts();
             <p>
               Welcome to my corner of webspace where I tinker with creative
               ideas and share thoughts on <strong>technology</strong>, <strong
-                >design</strong
+                id="stuffWord"
+                class="stuff-trigger">stuff</strong
               >, and <strong>life</strong>.
             </p>
             <p>
               I've been assisting various small businesses & nonprofit orgs,
-              playing around with AI tools and blockchain, thinking about
+              playing around with AI tools and blockchain games, thinking about
               optimistic solutions, dreaming of decentralized potentials,
-              attending events and meeting people, exploring life, enjoying
-              hobbies, making some arts, foolin around, healing my psyche,
-              learning to lead, hoping for better, praying for peace //
+              attending events and meeting people, learning piano and salsa,
+              learning spanish and hindi, catsitting in NYC, exploring life,
+              enjoying hobbies, making some arts, foolin around, healing my
+              psyche, learning to lead, hoping for better, praying for peace //
             </p>
             <p>
               Here you'll find some of my oc, curated shares, project updates
@@ -211,6 +213,11 @@ const posts = getAllPosts();
       </div>
     </header>
 
+    <!-- Stuff Tooltip -->
+    <div class="stuff-tooltip" id="stuffTooltip">
+      <img src="/public/1xlamp.webp" alt="Lamp" class="stuff-tooltip-image" />
+    </div>
+
     <style>
       .home-content {
         opacity: 0;
@@ -320,6 +327,54 @@ const posts = getAllPosts();
       .hero-text strong {
         color: var(--accent-bg);
         font-weight: 600;
+      }
+
+      .stuff-trigger {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .stuff-trigger:hover {
+        color: var(--glow-color);
+        text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+      }
+
+      .stuff-tooltip {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--secondary-bg);
+        border: 2px solid var(--accent-bg);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.3),
+          0 0 20px rgba(59, 130, 246, 0.2);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -50%) scale(0.8);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        max-width: 90vw;
+        max-height: 90vh;
+      }
+
+      .stuff-tooltip.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .stuff-tooltip-image {
+        display: block;
+        max-width: 300px;
+        max-height: 300px;
+        width: auto;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
       }
 
       .social-links {
@@ -746,6 +801,60 @@ const posts = getAllPosts();
       // Initialize search after DOM is loaded
       document.addEventListener("DOMContentLoaded", () => {
         new PostSearch();
+      });
+
+      // Stuff tooltip functionality
+      class StuffTooltip {
+        constructor() {
+          this.stuffWord = document.getElementById("stuffWord");
+          this.tooltip = document.getElementById("stuffTooltip");
+          this.hasShown =
+            sessionStorage.getItem("stuffTooltipShown") === "true";
+          this.isShowing = false;
+          this.init();
+        }
+
+        init() {
+          if (!this.stuffWord || !this.tooltip || this.hasShown) return;
+
+          this.stuffWord.addEventListener("click", () => this.showTooltip());
+          this.tooltip.addEventListener("click", () => this.hideTooltip());
+
+          // Auto-hide after 6 seconds
+          setTimeout(() => {
+            if (this.isShowing) {
+              this.hideTooltip();
+            }
+          }, 6000);
+        }
+
+        showTooltip() {
+          if (this.hasShown || this.isShowing) return;
+
+          this.isShowing = true;
+          this.tooltip.classList.add("show");
+
+          // Mark as shown in session storage
+          sessionStorage.setItem("stuffTooltipShown", "true");
+          this.hasShown = true;
+        }
+
+        hideTooltip() {
+          if (!this.isShowing) return;
+
+          this.isShowing = false;
+          this.tooltip.classList.remove("show");
+        }
+      }
+
+      // Initialize stuff tooltip
+      document.addEventListener("DOMContentLoaded", () => {
+        new StuffTooltip();
+      });
+
+      // Reinitialize after navigation
+      document.addEventListener("astro:after-swap", () => {
+        new StuffTooltip();
       });
     </script>
   </div></Layout
