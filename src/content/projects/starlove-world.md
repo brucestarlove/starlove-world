@@ -11,7 +11,7 @@ date: "2025-08-02"
 
 # Starlove World
 
-this site! my dozenth personal website in over a dozen years... first time built with Astro -͟͟͞☆
+this site! yet another lil creative website. my real home base. this time for sure. first time built with Astro -͟͟͞☆
 
 ## Features
 
