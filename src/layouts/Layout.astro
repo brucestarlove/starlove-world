@@ -18,6 +18,9 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"
+    ></script>
   </head>
   <body>
     <div class="cyber-bg"></div>
@@ -53,9 +56,51 @@ const { title } = Astro.props;
           </div>
         </div>
         <div class="taskbar-center">
-          <div class="window-title">
-            <!-- <span class="app-icon">★</span> -->
-            <!-- <span class="app-name">{title}</span> -->
+          <div class="audio-player" id="audioPlayer">
+            <button class="player-btn prev-btn" id="prevBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  fill="currentColor"
+                  d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"></path>
+              </svg>
+            </button>
+
+            <button class="player-btn play-pause-btn" id="playPauseBtn">
+              <svg class="play-icon" viewBox="0 0 24 24" width="18" height="18">
+                <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z"
+                ></path>
+              </svg>
+              <svg
+                class="pause-icon"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                style="display: none;"
+              >
+                <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z"
+                ></path>
+              </svg>
+            </button>
+
+            <button class="player-btn next-btn" id="nextBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  fill="currentColor"
+                  d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"></path>
+              </svg>
+            </button>
+
+            <div class="track-info">
+              <span class="track-title" id="trackTitle">No track loaded</span>
+              <div class="progress-container">
+                <span class="time-current" id="timeCurrent">0:00</span>
+                <div class="progress-bar" id="progressBar">
+                  <div class="progress-fill" id="progressFill"></div>
+                  <div class="progress-handle" id="progressHandle"></div>
+                </div>
+                <span class="time-total" id="timeTotal">0:00</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="taskbar-right">
@@ -267,6 +312,8 @@ const { title } = Astro.props;
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
   }
 
   .logo-button {
@@ -409,6 +456,123 @@ const { title } = Astro.props;
     transform: rotate(0deg);
   }
 
+  /* Audio Player Styles */
+  .audio-player {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    min-width: 0;
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .player-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .player-btn:hover {
+    background: var(--accent-bg);
+    color: white;
+  }
+
+  .play-pause-btn {
+    background: var(--accent-bg);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+  }
+
+  .play-pause-btn:hover {
+    background: var(--glow-color);
+  }
+
+  .track-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .track-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .time-current,
+  .time-total {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    min-width: 60px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent-bg);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s ease;
+  }
+
+  .progress-handle {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: var(--accent-bg);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: grab;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    left: 0%;
+  }
+
+  .progress-bar:hover .progress-handle {
+    opacity: 1;
+  }
+
+  .progress-handle:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
   @media (max-width: 768px) {
     .main-content {
       padding: 0.75rem;
@@ -459,6 +623,25 @@ const { title } = Astro.props;
       padding: 0.75rem 1rem;
       font-size: 0.875rem;
     }
+
+    .audio-player {
+      gap: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      max-width: 300px;
+    }
+
+    .track-title {
+      font-size: 0.75rem;
+    }
+
+    .time-current,
+    .time-total {
+      font-size: 0.65rem;
+    }
+
+    .progress-bar {
+      min-width: 40px;
+    }
   }
 
   @media (max-width: 480px) {
@@ -494,6 +677,21 @@ const { title } = Astro.props;
     .menu-item {
       padding: 0.5rem 0.75rem;
       font-size: 0.8rem;
+    }
+
+    .audio-player {
+      gap: 0.4rem;
+      padding: 0.3rem 0.5rem;
+      max-width: 250px;
+    }
+
+    .track-title {
+      font-size: 0.7rem;
+    }
+
+    .time-current,
+    .time-total {
+      font-size: 0.6rem;
     }
   }
 </style>
@@ -622,4 +820,282 @@ const { title } = Astro.props;
       taskbar.classList.add("reveal");
     }
   }, 3000);
+
+  // Audio Player Implementation
+  class AudioPlayerManager {
+    currentSound: any;
+    playlist: { title: string; src: string }[];
+    currentTrackIndex: number;
+    isPlaying: boolean;
+    isDragging: boolean;
+    duration: number;
+    playPauseBtn!: HTMLElement | null;
+    prevBtn!: HTMLElement | null;
+    nextBtn!: HTMLElement | null;
+    trackTitle!: HTMLElement | null;
+    timeCurrent!: HTMLElement | null;
+    timeTotal!: HTMLElement | null;
+    progressBar!: HTMLElement | null;
+    progressFill!: HTMLElement | null;
+    progressHandle!: HTMLElement | null;
+    playIcon!: SVGElement | null;
+    pauseIcon!: SVGElement | null;
+
+    constructor() {
+      this.currentSound = null;
+      this.playlist = [
+        {
+          title: "Sample Track 1",
+          src: "/public/audio/Molecules-KK.mp3",
+        },
+        // {
+        //   title: "Sample Track 2",
+        //   src: "/audio/sample2.mp3",
+        // },
+      ];
+      this.currentTrackIndex = 0;
+      this.isPlaying = false;
+      this.isDragging = false;
+      this.duration = 0;
+      this.initializeElements();
+      this.loadTrack(this.currentTrackIndex);
+      this.attachEventListeners();
+    }
+
+    initializeElements() {
+      this.playPauseBtn = document.getElementById("playPauseBtn");
+      this.prevBtn = document.getElementById("prevBtn");
+      this.nextBtn = document.getElementById("nextBtn");
+      this.trackTitle = document.getElementById("trackTitle");
+      this.timeCurrent = document.getElementById("timeCurrent");
+      this.timeTotal = document.getElementById("timeTotal");
+      this.progressBar = document.getElementById("progressBar");
+      this.progressFill = document.getElementById("progressFill");
+      this.progressHandle = document.getElementById("progressHandle");
+      this.playIcon = this.playPauseBtn?.querySelector(".play-icon") ?? null;
+      this.pauseIcon = this.playPauseBtn?.querySelector(".pause-icon") ?? null;
+    }
+
+    loadTrack(index: number) {
+      if (index < 0 || index >= this.playlist.length) return;
+
+      if (this.currentSound) {
+        this.currentSound.unload();
+      }
+
+      const track = this.playlist[index];
+      this.currentTrackIndex = index;
+
+      if (this.trackTitle) {
+        this.trackTitle.textContent = track.title;
+      }
+
+      this.currentSound = new Howl({
+        src: [track.src],
+        html5: true,
+        onload: () => {
+          this.duration = this.currentSound.duration();
+          if (this.timeTotal) {
+            this.timeTotal.textContent = this.formatTime(this.duration);
+          }
+        },
+        onplay: () => {
+          this.isPlaying = true;
+          this.updatePlayPauseIcon();
+          this.startProgressUpdate();
+        },
+        onpause: () => {
+          this.isPlaying = false;
+          this.updatePlayPauseIcon();
+        },
+        onend: () => {
+          this.next();
+        },
+        onloaderror: () => {
+          console.warn(`Failed to load: ${track.src}`);
+          if (this.trackTitle) {
+            this.trackTitle.textContent = `${track.title} (unavailable)`;
+          }
+        },
+      });
+    }
+
+    play() {
+      if (this.currentSound) {
+        this.currentSound.play();
+      }
+    }
+
+    pause() {
+      if (this.currentSound) {
+        this.currentSound.pause();
+      }
+    }
+
+    togglePlayPause() {
+      if (this.isPlaying) {
+        this.pause();
+      } else {
+        this.play();
+      }
+    }
+
+    prev() {
+      const newIndex = this.currentTrackIndex - 1;
+      if (newIndex >= 0) {
+        this.loadTrack(newIndex);
+      }
+    }
+
+    next() {
+      const newIndex = this.currentTrackIndex + 1;
+      if (newIndex < this.playlist.length) {
+        this.loadTrack(newIndex);
+      }
+    }
+
+    updatePlayPauseIcon() {
+      if (this.playIcon && this.pauseIcon) {
+        if (this.isPlaying) {
+          this.playIcon.style.display = "none";
+          this.pauseIcon.style.display = "block";
+        } else {
+          this.playIcon.style.display = "block";
+          this.pauseIcon.style.display = "none";
+        }
+      }
+    }
+
+    startProgressUpdate() {
+      const updateProgress = () => {
+        if (this.currentSound && this.isPlaying && !this.isDragging) {
+          const seek = this.currentSound.seek() || 0;
+          const progress = (seek / this.duration) * 100;
+
+          if (this.progressFill) {
+            this.progressFill.style.width = `${progress}%`;
+          }
+          if (this.progressHandle) {
+            this.progressHandle.style.left = `${progress}%`;
+          }
+          if (this.timeCurrent) {
+            this.timeCurrent.textContent = this.formatTime(seek);
+          }
+        }
+
+        if (this.isPlaying) {
+          requestAnimationFrame(updateProgress);
+        }
+      };
+      updateProgress();
+    }
+
+    formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, "0")}`;
+    }
+
+    attachEventListeners() {
+      if (this.playPauseBtn) {
+        this.playPauseBtn.addEventListener("click", () =>
+          this.togglePlayPause()
+        );
+      }
+
+      if (this.prevBtn) {
+        this.prevBtn.addEventListener("click", () => this.prev());
+      }
+
+      if (this.nextBtn) {
+        this.nextBtn.addEventListener("click", () => this.next());
+      }
+
+      if (this.progressBar) {
+        this.progressBar.addEventListener("click", (e) => {
+          if (this.currentSound && this.duration) {
+            const rect = this.progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            const seekTime = percent * this.duration;
+            this.currentSound.seek(seekTime);
+          }
+        });
+
+        this.progressBar.addEventListener("mousedown", (e) => {
+          this.isDragging = true;
+          document.addEventListener("mousemove", this.handleProgressDrag);
+          document.addEventListener("mouseup", this.handleProgressDragEnd);
+        });
+      }
+    }
+
+    handleProgressDrag = (e) => {
+      if (
+        this.isDragging &&
+        this.progressBar &&
+        this.currentSound &&
+        this.duration
+      ) {
+        const rect = this.progressBar.getBoundingClientRect();
+        const percent = Math.max(
+          0,
+          Math.min(1, (e.clientX - rect.left) / rect.width)
+        );
+        const seekTime = percent * this.duration;
+
+        if (this.progressFill) {
+          this.progressFill.style.width = `${percent * 100}%`;
+        }
+        if (this.progressHandle) {
+          this.progressHandle.style.left = `${percent * 100}%`;
+        }
+        if (this.timeCurrent) {
+          this.timeCurrent.textContent = this.formatTime(seekTime);
+        }
+      }
+    };
+
+    handleProgressDragEnd = (e) => {
+      if (
+        this.isDragging &&
+        this.progressBar &&
+        this.currentSound &&
+        this.duration
+      ) {
+        const rect = this.progressBar.getBoundingClientRect();
+        const percent = Math.max(
+          0,
+          Math.min(1, (e.clientX - rect.left) / rect.width)
+        );
+        const seekTime = percent * this.duration;
+        this.currentSound.seek(seekTime);
+      }
+
+      this.isDragging = false;
+      document.removeEventListener("mousemove", this.handleProgressDrag);
+      document.removeEventListener("mouseup", this.handleProgressDragEnd);
+    };
+  }
+
+  // Initialize audio player when DOM is ready
+  let audioPlayer;
+  function initializeAudioPlayer() {
+    if (typeof Howl !== "undefined") {
+      audioPlayer = new AudioPlayerManager();
+    }
+  }
+
+  // Initialize after Howler.js is loaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(initializeAudioPlayer, 100);
+    });
+  } else {
+    setTimeout(initializeAudioPlayer, 100);
+  }
+
+  // Reinitialize after navigation
+  document.addEventListener("astro:after-swap", () => {
+    setTimeout(initializeAudioPlayer, 100);
+  });
 </script>
