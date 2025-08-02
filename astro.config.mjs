@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import remarkGfm from 'remark-gfm';
 import remarkDirective from 'remark-directive';
+import remarkDirectiveSugar from 'remark-directive-sugar';
 import remarkEmoji from 'remark-emoji';
 import remarkBreaks from 'remark-breaks';
 import remarkCodeTitle from 'remark-code-title';
@@ -13,6 +14,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkGfm,
       remarkDirective,
+      remarkDirectiveSugar,
       remarkEmoji,
       remarkBreaks,
       remarkCodeTitle,
