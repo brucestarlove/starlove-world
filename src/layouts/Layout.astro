@@ -1037,9 +1037,20 @@ const { title } = Astro.props;
         this.currentSound.unload();
       }
 
-      // Reset playing state when loading a new track
+      // Reset playing state and progress when loading a new track
       this.isPlaying = false;
       this.updatePlayPauseIcon();
+      
+      // Reset progress bar and time display
+      if (this.progressFill) {
+        this.progressFill.style.width = '0%';
+      }
+      if (this.progressHandle) {
+        this.progressHandle.style.left = '0%';
+      }
+      if (this.timeCurrent) {
+        this.timeCurrent.textContent = '0:00';
+      }
 
       const track = this.playlist[index];
       this.currentTrackIndex = index;

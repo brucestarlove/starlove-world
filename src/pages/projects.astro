@@ -193,6 +193,7 @@ const categories = Object.keys(projectsByCategory);
     }
 
     .project-link {
+      width: 100%;
       display: flex;
       align-items: flex-start;
       gap: 0.75rem;
@@ -203,11 +204,18 @@ const categories = Object.keys(projectsByCategory);
         rgba(255, 255, 255, 0.02) 70%,
         transparent 100%
       );
-      border: 1px solid var(--border-color);
+      border-image: linear-gradient(
+            135deg,
+            var(--border-color) 0%,
+            rgba(203, 213, 225, 0.3) 70%,
+            transparent 100%
+          )
+          1;
       border-radius: 8px;
       text-decoration: none;
       color: inherit;
       transition: all 0.3s ease;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
     }
