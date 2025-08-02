@@ -1,0 +1,92 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BackButton from "../ui/BackButton.astro";
+import PageHeader from "../ui/PageHeader.astro";
+import StatsBar from "../ui/StatsBar.astro";
+import ContentReveal from "../ui/ContentReveal.astro";
+import "../../styles/components.css";
+
+export interface Stat {
+  label: string;
+  value: string | number;
+}
+
+export interface Props {
+  title: string;
+  pageTitle?: string;
+  subtitle?: string;
+  description?: string;
+  gameDescription?: string;
+  titleClass?: string;
+  subtitleClass?: string;
+  stats?: Stat[];
+  backHref?: string;
+  backText?: string;
+  children?: any;
+  lightboxContent?: any;
+}
+
+const {
+  title,
+  pageTitle = `${title} - Art Gallery`,
+  subtitle = "",
+  description,
+  gameDescription,
+  titleClass = "text-gradient-evershade mb-0",
+  subtitleClass = "page-subtitle-starscape",
+  stats = [],
+  backHref = "/art",
+  backText = "Back to Art",
+  children,
+  lightboxContent,
+} = Astro.props;
+---
+
+<Layout title={pageTitle}>
+  <ContentReveal id="galleryContent" class="gallery-content">
+    <nav class="gallery-nav mb-lg">
+      <BackButton href={backHref} text={backText} />
+    </nav>
+
+    <!-- blank subtitle for special subtitle 'starscape' effect on Art page subtitles -->
+    <PageHeader
+      title={title}
+      subtitle=""
+      titleClass={titleClass}
+      centered={true}
+    >
+      {subtitle && <p class={subtitleClass}>{subtitle}</p>}
+      {description && <p class="gallery-text">{description}</p>}
+      {gameDescription && <p class="gallery-text">{gameDescription}</p>}
+      {stats.length > 0 && <StatsBar stats={stats} />}
+    </PageHeader>
+
+    <slot />
+  </ContentReveal>
+
+  {lightboxContent && <Fragment set:html={lightboxContent} />}
+
+  <script>
+    function revealGalleryContent() {
+      const galleryContent = document.getElementById("galleryContent");
+      if (galleryContent && !galleryContent.classList.contains("reveal")) {
+        galleryContent.classList.add("reveal");
+      }
+    }
+
+    function initializeArtPage() {
+      revealGalleryContent();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeArtPage);
+    } else {
+      initializeArtPage();
+    }
+
+    document.addEventListener("astro:after-swap", initializeArtPage);
+  </script>
+
+  <!-- Include fslightbox -->
+  <script is:inline src="/fslightbox.js"></script>
+</Layout>

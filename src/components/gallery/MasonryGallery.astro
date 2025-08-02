@@ -1,0 +1,143 @@
+---
+export interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
+export interface Props {
+  images: GalleryImage[];
+  galleryName: string;
+  children?: any;
+}
+
+const { images, galleryName, children } = Astro.props;
+---
+
+<div class="gallery-container">
+  <div class="masonry-gallery" id="masonryGallery">
+    {
+      images.map((image, index) => (
+        <div class="masonry-item">
+          <a
+            data-fslightbox={galleryName}
+            href={image.src}
+            class="gallery-link"
+            data-index={index}
+          >
+            <div class="image-container">
+              <img
+                class="gallery-image lazy-image"
+                data-src={image.src}
+                alt={image.alt}
+                loading="lazy"
+              />
+              <div class="image-overlay">
+                <div class="overlay-content">
+                  <svg
+                    class="expand-icon"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      ))
+    }
+
+    <slot />
+  </div>
+</div>
+
+<script>
+  class LazyImageLoader {
+    constructor() {
+      this.observer = null;
+      this.loadedImages = new Set();
+      this.init();
+    }
+
+    init() {
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              const src = img.dataset.src;
+              if (src && !this.loadedImages.has(src)) {
+                this.loadImage(img, src);
+              }
+            }
+          });
+        },
+        {
+          rootMargin: "50px 0px",
+          threshold: 0.1,
+        }
+      );
+
+      this.observeImages();
+    }
+
+    loadImage(img, src) {
+      img.classList.add("loading");
+
+      const tempImg = new Image();
+      tempImg.onload = () => {
+        img.src = src;
+        img.classList.remove("loading");
+        img.classList.add("loaded");
+        this.loadedImages.add(src);
+        this.observer.unobserve(img);
+      };
+
+      tempImg.onerror = () => {
+        img.classList.remove("loading");
+        console.warn(`Failed to load image: ${src}`);
+        this.observer.unobserve(img);
+      };
+
+      tempImg.src = src;
+    }
+
+    observeImages() {
+      const lazyImages = document.querySelectorAll(".lazy-image");
+      lazyImages.forEach((img) => {
+        if (this.observer) {
+          this.observer.observe(img);
+        }
+      });
+    }
+
+    refresh() {
+      this.observeImages();
+    }
+  }
+
+  // Initialize lazy loading
+  function initializeLazyLoading() {
+    const lazyLoader = new LazyImageLoader();
+
+    // Initialize fslightbox after images are set up
+    setTimeout(() => {
+      if (typeof refreshFsLightbox !== "undefined") {
+        refreshFsLightbox();
+      }
+    }, 100);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeLazyLoading);
+  } else {
+    initializeLazyLoading();
+  }
+
+  document.addEventListener("astro:after-swap", initializeLazyLoading);
+</script>

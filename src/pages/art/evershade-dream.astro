@@ -1,9 +1,7 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import BackButton from "../../components/ui/BackButton.astro";
-import PageHeader from "../../components/ui/PageHeader.astro";
-import StatsBar from "../../components/ui/StatsBar.astro";
-import ContentReveal from "../../components/ui/ContentReveal.astro";
+import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
+import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
+import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
 
 // Evershade Dream gallery images from starlove-assets
 const galleryImages = [
@@ -32,146 +30,19 @@ const galleryImages = [
     alt: "Misty spires floating in perpetual serenity; a place of calm reflection guarded by veils of celestial fog. Symbol: A gentle spiral of mist ascending skyward.",
   },
 ];
----
 
-<Layout title="Evershade Dream - Art Gallery">
-  <ContentReveal id="galleryContent" class="gallery-content">
-    <nav class="gallery-nav mb-lg">
-      <BackButton href="/art" text="Back to Art" />
-    </nav>
-
-    <PageHeader
-      title="Evershade Dream"
-      subtitle=""
-      titleClass="text-gradient-evershade mb-0"
-      centered={true}
-    >
-      <p class="page-subtitle-starscape">A Starscape Journey</p>
-      <p class="gallery-text">
-        A surreal exploration of light, shadow, and dreamlike landscapes.
-      </p>
-      <p class="gallery-text">
-        Game: A mythopoetic journey through cosmic doorways—blending luminous
-        worlds, forgotten memories, and sacred architecture into an interactive
-        dreamscape.
-      </p>
-      <StatsBar
-        stats={[
-          { label: "Images", value: galleryImages.length },
-          { label: "Digital Art Collection", value: "" },
-          { label: "Game Concept", value: "" },
-          { label: "2025+", value: "" },
-        ]}
-      />
-    </PageHeader>
-
-    <div class="gallery-container">
-      <div class="masonry-gallery" id="masonryGallery">
-        {
-          galleryImages.map((image, index) => (
-            <div class="masonry-item">
-              <a
-                data-fslightbox="evershade-gallery"
-                href={image.src}
-                class="gallery-link"
-                data-index={index}
-              >
-                <div class="image-container">
-                  <img
-                    class="gallery-image lazy-image"
-                    data-src={image.src}
-                    alt={image.alt}
-                    loading="lazy"
-                  />
-                  <div class="image-overlay">
-                    <div class="overlay-content">
-                      <svg
-                        class="expand-icon"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        height="24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          ))
-        }
-
-        <!-- Text lightbox item -->
-        <div class="masonry-item">
-          <a
-            data-fslightbox="evershade-gallery"
-            href="#about"
-            class="gallery-link"
-            data-class="d-block"
-          >
-            <div class="text-container">
-              <div class="text-content">
-                <div class="text-icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="32"
-                    height="32"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 class="text-title">Game Concept</h3>
-                <p class="text-description">
-                  Learn more about my Evershade Dream art inspiration and one
-                  idea for a new web game concept
-                </p>
-              </div>
-              <div class="text-overlay">
-                <div class="overlay-content">
-                  <svg
-                    class="expand-icon"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </ContentReveal>
-
+const lightboxContent = `
   <!-- Hidden content for text lightbox -->
   <div id="about" class="lightbox-content">
-    <div
-      style="padding: 2rem; background: linear-gradient(135deg, #3f7158 0%, #89c9b8 50%, #8fd7fb 100%); color: white; text-align: center; border-radius: 12px; max-width: 600px; margin: 0 auto;"
-    >
-      <!-- <h2 style="margin-bottom: 1rem; font-size: 1.8rem;">About Evershade Dream</h2> -->
+    <div style="padding: 2rem; background: linear-gradient(135deg, var(--evershade-start) 0%, var(--evershade-mid) 50%, var(--evershade-end) 100%); color: white; text-align: center; border-radius: 12px; max-width: 600px; margin: 0 auto;">
       <p style="line-height: 1.6; margin-bottom: 1rem;">
         You are a <strong>Wanderer</strong>, one who awakens between worlds,
-        lost yet destined. Each realm is a fragment of the <strong
-          >Evershade Dream</strong
-        >, a reality woven by the sleeping thoughts of beings known only as the <strong
-          >Zatvirs</strong
-        >.
+        lost yet destined. Each realm is a fragment of the <strong>Evershade Dream</strong>, 
+        a reality woven by the sleeping thoughts of beings known only as the <strong>Zatvirs</strong>.
       </p>
       <p style="line-height: 1.6; margin-bottom: 1rem;">
-        These realms drift like celestial islands, accessible only by <strong
-          >Portals of Sea and Sky</strong
-        >, pathways opened by deciphering riddles left in their wake. Each scene
+        These realms drift like celestial islands, accessible only by <strong>Portals of Sea and Sky</strong>, 
+        pathways opened by deciphering riddles left in their wake. Each scene
         is a living mystery, painted from memory fragments, echoes of a lost
         civilization seeking to reconnect its shattered truths.
       </p>
@@ -181,489 +52,44 @@ const galleryImages = [
       </p>
     </div>
   </div>
-
-  <style>
-    strong {
-      background: linear-gradient(
-        135deg,
-        #667eea 0%,
-        #764ba2 50%,
-        #f093fb 100%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 600;
-    }
-
-    .gallery-content {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease-out;
-      padding-bottom: 6rem;
-      padding-top: 0;
-      margin-top: 0;
-    }
-
-    .gallery-content.reveal {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .gallery-nav {
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.6s ease-out 0.2s forwards;
-    }
-
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .back-button:hover {
-      background: var(--accent-bg);
-      border-color: var(--accent-bg);
-      color: white;
-      transform: translateX(-2px);
-    }
-
-    .gallery-header {
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-
-    .gallery-title {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      font-weight: 700;
-      background: linear-gradient(
-        135deg,
-        #3f7158 0%,
-        /* moss & sage */ #89c9b8 50%,
-        /* moonlit mint */ #8fd7fb 100% /* pale ethereal blue-white */
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: titleReveal 1s ease-out 0.3s forwards;
-    }
-
-    .gallery-subtitle {
-      font-size: clamp(1.2rem, 4vw, 1.7rem);
-      font-style: italic;
-      color: var(--text-secondary);
-      background: linear-gradient(
-        135deg,
-        #667eea 0%,
-        #764ba2 50%,
-        #f093fb 100%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto 1.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.8s ease-out 0.6s forwards;
-    }
-
-    .gallery-text {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto 1.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.8s ease-out 0.6s forwards;
-    }
-
-    .gallery-stats {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.8s ease-out 0.8s forwards;
-    }
-
-    .stat-item {
-      padding: 0.25rem 0.75rem;
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-weight: 500;
-    }
-
-    .stat-divider {
-      color: var(--border-color);
-      font-weight: bold;
-    }
-
-    .gallery-container {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.8s ease-out 1s forwards;
-      margin-bottom: 4rem;
-    }
-
-    .masonry-gallery {
-      columns: 3;
-      column-gap: 1rem;
-      line-height: 0;
-    }
-
-    .masonry-item {
-      display: inline-block;
-      width: 100%;
-      margin-bottom: 1rem;
-      break-inside: avoid;
-      transition: all 0.3s ease;
-    }
-
-    .masonry-item:hover {
-      transform: translateY(-2px);
-    }
-
-    .gallery-link {
-      display: block;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .image-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .image-container:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      border-color: var(--accent-bg);
-    }
-
-    .gallery-image {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: all 0.3s ease;
-      opacity: 0;
-    }
-
-    .gallery-image.loading {
-      opacity: 0.3;
-      filter: blur(2px);
-    }
-
-    .gallery-image.loaded {
-      opacity: 1;
-      filter: none;
-    }
-
-    .image-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .image-container:hover .image-overlay {
-      opacity: 1;
-    }
-
-    .overlay-content {
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .expand-icon {
-      width: 32px;
-      height: 32px;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    }
-
-    /* Text container styles */
-    .text-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-      padding: 1.5rem;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .text-container:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      border-color: var(--accent-bg);
-    }
-
-    .text-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .text-icon {
-      color: var(--accent-bg);
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    .text-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .text-description {
-      color: var(--text-secondary);
-      line-height: 1.5;
-      font-size: 0.95rem;
-    }
-
-    .text-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .text-container:hover .text-overlay {
-      opacity: 1;
-    }
-
-    /* Hidden content styling */
-    .lightbox-content {
-      display: none;
-    }
-
-    /* Show content when in lightbox context */
-    .fslightbox-source .lightbox-content,
-    [id*="fslightbox"] .lightbox-content,
-    .lightbox-content.fslightbox-open {
-      display: block !important;
-    }
-
-    /* Class applied by data-class attribute */
-    .d-block {
-      display: block !important;
-    }
-
-    /* Loading skeleton */
-    .gallery-image:not(.loaded) {
-      background: linear-gradient(
-        90deg,
-        var(--secondary-bg) 25%,
-        var(--border-color) 50%,
-        var(--secondary-bg) 75%
-      );
-      background-size: 200% 100%;
-      animation: loading 2s infinite;
-      min-height: 200px;
-    }
-
-    @keyframes loading {
-      0% {
-        background-position: 200% 0;
-      }
-      100% {
-        background-position: -200% 0;
-      }
-    }
-
-    @keyframes titleReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes contentReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .masonry-gallery {
-        columns: 2;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .gallery-header {
-        margin-bottom: 2rem;
-      }
-
-      .gallery-stats {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .stat-divider {
-        display: none;
-      }
-
-      .back-button {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.85rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .masonry-gallery {
-        columns: 1;
-        column-gap: 0;
-      }
-
-      .masonry-item {
-        margin-bottom: 0.75rem;
-      }
-    }
-  </style>
-
-  <script>
-    class LazyImageLoader {
-      constructor() {
-        this.observer = null;
-        this.loadedImages = new Set();
-        this.init();
-      }
-
-      init() {
-        this.observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const img = entry.target;
-                const src = img.dataset.src;
-                if (src && !this.loadedImages.has(src)) {
-                  this.loadImage(img, src);
-                }
-              }
-            });
-          },
-          {
-            rootMargin: "50px 0px",
-            threshold: 0.1,
-          }
-        );
-
-        this.observeImages();
-      }
-
-      loadImage(img, src) {
-        img.classList.add("loading");
-
-        const tempImg = new Image();
-        tempImg.onload = () => {
-          img.src = src;
-          img.classList.remove("loading");
-          img.classList.add("loaded");
-          this.loadedImages.add(src);
-          this.observer.unobserve(img);
-        };
-
-        tempImg.onerror = () => {
-          img.classList.remove("loading");
-          console.warn(`Failed to load image: ${src}`);
-          this.observer.unobserve(img);
-        };
-
-        tempImg.src = src;
-      }
-
-      observeImages() {
-        const lazyImages = document.querySelectorAll(".lazy-image");
-        lazyImages.forEach((img) => {
-          if (this.observer) {
-            this.observer.observe(img);
-          }
-        });
-      }
-
-      refresh() {
-        this.observeImages();
-      }
-    }
-
-    function revealGalleryContent() {
-      const galleryContent = document.getElementById("galleryContent");
-      if (galleryContent && !galleryContent.classList.contains("reveal")) {
-        galleryContent.classList.add("reveal");
-      }
-    }
-
-    function initializeGallery() {
-      // Initialize lazy loading
-      const lazyLoader = new LazyImageLoader();
-
-      // Initialize fslightbox after images are set up
-      setTimeout(() => {
-        if (typeof refreshFsLightbox !== "undefined") {
-          refreshFsLightbox();
-        }
-      }, 100);
-
-      // Reveal content
-      revealGalleryContent();
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initializeGallery);
-    } else {
-      initializeGallery();
-    }
-
-    document.addEventListener("astro:after-swap", initializeGallery);
-  </script>
-
-  <!-- Include fslightbox -->
-  <script is:inline src="/fslightbox.js"></script>
-</Layout>
+`;
+---
+
+<ArtPageLayout
+  title="Evershade Dream"
+  subtitle="A Starscape Journey"
+  description="A surreal exploration of light, shadow, and dreamlike landscapes."
+  gameDescription="Game: A mythopoetic journey through cosmic doorways—blending luminous worlds, forgotten memories, and sacred architecture into an interactive dreamscape."
+  stats={[
+    { label: "Images", value: galleryImages.length },
+    { label: "Digital Art Collection", value: "" },
+    { label: "Game Concept", value: "" },
+    { label: "2025+", value: "" },
+  ]}
+  lightboxContent={lightboxContent}
+>
+  <MasonryGallery images={galleryImages} galleryName="evershade-gallery">
+    <TextLightboxItem
+      galleryName="evershade-gallery"
+      href="#about"
+      title="Game Concept"
+      description="Learn more about my Evershade Dream art inspiration and one idea for a new web game concept"
+      icon="document"
+    />
+  </MasonryGallery>
+</ArtPageLayout>
+
+<style>
+  strong {
+    background: linear-gradient(
+      135deg,
+      var(--starscape-start) 0%,
+      var(--starscape-mid) 50%,
+      var(--starscape-end) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+  }
+</style>

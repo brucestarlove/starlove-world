@@ -1,0 +1,71 @@
+---
+export interface Props {
+  galleryName: string;
+  href: string;
+  title: string;
+  description: string;
+  icon?: 'document' | 'info' | 'story' | 'custom';
+  iconSvg?: string;
+  dataClass?: string;
+}
+
+const { 
+  galleryName, 
+  href, 
+  title, 
+  description, 
+  icon = 'document',
+  iconSvg,
+  dataClass = 'd-block'
+} = Astro.props;
+
+// Default icon SVGs
+const iconPaths = {
+  document: "M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z",
+  info: "M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
+  story: "M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19Z"
+};
+
+const iconPath = iconSvg || iconPaths[icon];
+---
+
+<div class="masonry-item">
+  <a
+    data-fslightbox={galleryName}
+    href={href}
+    class="gallery-link"
+    data-class={dataClass}
+  >
+    <div class="text-container">
+      <div class="text-content">
+        <div class="text-icon">
+          <svg
+            viewBox="0 0 24 24"
+            width="32"
+            height="32"
+            fill="currentColor"
+          >
+            <path d={iconPath} />
+          </svg>
+        </div>
+        <h3 class="text-title">{title}</h3>
+        <p class="text-description">{description}</p>
+      </div>
+      <div class="text-overlay">
+        <div class="overlay-content">
+          <svg
+            class="expand-icon"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path
+              fill="currentColor"
+              d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
