@@ -1,0 +1,285 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Art">
+  <div class="art-content" id="artContent">
+    <header class="art-header">
+      <h1 class="art-title">Art & Visuals</h1>
+      <p class="art-subtitle">
+        A collection of visual experiments, digital art, and creative explorations
+      </p>
+    </header>
+
+    <div class="art-sections">
+      <section class="art-section">
+        <h2 class="section-title">Digital Collections</h2>
+        <div class="art-grid">
+          <article class="art-item">
+            <a href="/art/evershade-dream" class="art-link">
+              <div class="art-preview">
+                <div class="art-star">★</div>
+                <div class="art-gradient evershade"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">Evershade Dream</h3>
+                <p class="art-description">
+                  A surreal exploration of light, shadow, and dreamlike landscapes
+                </p>
+                <div class="art-tags">
+                  <span class="art-tag">Digital Art</span>
+                  <span class="art-tag">Surreal</span>
+                  <span class="art-tag">Gallery</span>
+                </div>
+              </div>
+            </a>
+          </article>
+
+          <!-- Placeholder for future collections -->
+          <article class="art-item coming-soon">
+            <div class="art-link">
+              <div class="art-preview">
+                <div class="art-star">★</div>
+                <div class="art-gradient placeholder"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">More Collections</h3>
+                <p class="art-description">
+                  Additional art collections coming soon...
+                </p>
+                <div class="art-tags">
+                  <span class="art-tag">Coming Soon</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <style>
+    .art-content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+      padding-bottom: 6rem;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .art-content.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .art-header {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .art-title {
+      font-size: clamp(2rem, 7vw, 3rem);
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        var(--accent-bg),
+        var(--glow-color)
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: titleReveal 1s ease-out 0.3s forwards;
+    }
+
+    .art-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.8s ease-out 0.6s forwards;
+    }
+
+    .art-sections {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: contentReveal 0.8s ease-out 0.9s forwards;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent-bg);
+      display: inline-block;
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .art-item {
+      transition: all 0.3s ease;
+    }
+
+    .art-item.coming-soon {
+      opacity: 0.6;
+    }
+
+    .art-link {
+      display: block;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .art-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      border-color: var(--accent-bg);
+    }
+
+    .art-preview {
+      position: relative;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .art-star {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-bg);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .art-gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+    }
+
+    .art-gradient.evershade {
+      background: linear-gradient(
+        135deg,
+        #667eea 0%,
+        #764ba2 50%,
+        #f093fb 100%
+      );
+    }
+
+    .art-gradient.placeholder {
+      background: linear-gradient(
+        135deg,
+        var(--border-color) 0%,
+        var(--secondary-bg) 50%,
+        var(--border-color) 100%
+      );
+    }
+
+    .art-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .art-description {
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .art-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .art-tag {
+      padding: 0.25rem 0.75rem;
+      background: var(--primary-bg);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-weight: 500;
+    }
+
+    @keyframes titleReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes contentReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .art-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .art-link {
+        padding: 1rem;
+      }
+
+      .art-preview {
+        height: 150px;
+      }
+    }
+  </style>
+
+  <script>
+    function revealArtContent() {
+      const artContent = document.getElementById("artContent");
+      if (artContent && !artContent.classList.contains("reveal")) {
+        artContent.classList.add("reveal");
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", revealArtContent);
+    } else {
+      revealArtContent();
+    }
+
+    document.addEventListener("astro:after-swap", revealArtContent);
+    setTimeout(revealArtContent, 100);
+  </script>
+</Layout>
