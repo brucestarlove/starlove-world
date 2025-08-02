@@ -1,0 +1,132 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CyclingLogo from "../components/CyclingLogo.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import "../styles/pages/about.css";
+---
+
+<Layout title="About">
+  <div class="about-content reveal" id="aboutContent">
+    <header class="hero">
+      <div class="hero-header">
+        <div class="title-row">
+          <CyclingLogo />
+          <h1 class="hero-title" id="heroTitle">About Me</h1>
+        </div>
+        <div class="hero-content" id="heroContent">
+          <div class="hero-text">
+            <p>
+              I've been assisting various small businesses & nonprofit orgs,
+              playing around with AI tools and blockchain games, thinking about
+              optimistic solutions, dreaming of decentralized potentials,
+              attending events and meeting people, learning piano and salsa,
+              learning spanish and hindi, catsitting in NYC, exploring life,
+              enjoying hobbies, making some arts, foolin around, healing my
+              psyche, learning to lead, hoping for better, praying for peace //
+            </p>
+            <p>—☆♡</p>
+          </div>
+
+          <SocialLinks />
+        </div>
+      </div>
+    </header>
+
+    <!-- Stuff Tooltip -->
+    <div class="stuff-tooltip" id="stuffTooltip">
+      <img src="/1xlamp.webp" alt="Lamp" class="stuff-tooltip-image" />
+    </div>
+
+    <script>
+      // Immediately reveal content (no star explosion transition)
+      document.addEventListener("DOMContentLoaded", () => {
+        const aboutContent = document.getElementById("aboutContent");
+        const cyberBg = document.querySelector(".cyber-bg");
+        const taskbar = document.querySelector(".taskbar");
+
+        if (cyberBg && !cyberBg.classList.contains("loaded"))
+          cyberBg.classList.add("loaded");
+        if (aboutContent && !aboutContent.classList.contains("reveal"))
+          aboutContent.classList.add("reveal");
+        if (taskbar && !taskbar.classList.contains("reveal"))
+          taskbar.classList.add("reveal");
+      });
+
+      // Also reveal after navigation
+      document.addEventListener("astro:after-swap", () => {
+        const aboutContent = document.getElementById("aboutContent");
+        const cyberBg = document.querySelector(".cyber-bg");
+        const taskbar = document.querySelector(".taskbar");
+
+        if (cyberBg && !cyberBg.classList.contains("loaded"))
+          cyberBg.classList.add("loaded");
+        if (aboutContent && !aboutContent.classList.contains("reveal"))
+          aboutContent.classList.add("reveal");
+        if (taskbar && !taskbar.classList.contains("reveal"))
+          taskbar.classList.add("reveal");
+      });
+
+      // Stuff tooltip functionality
+      class StuffTooltip {
+        private stuffWord: HTMLElement | null;
+        private tooltip: HTMLElement | null;
+        private isShowing: boolean;
+        private cooldownTimer: ReturnType<typeof setTimeout> | null;
+        private isOnCooldown: boolean;
+
+        constructor() {
+          this.stuffWord = document.getElementById("stuffWord");
+          this.tooltip = document.getElementById("stuffTooltip");
+          this.isShowing = false;
+          this.cooldownTimer = null;
+          this.isOnCooldown = false;
+          this.init();
+        }
+
+        init() {
+          if (!this.stuffWord || !this.tooltip) return;
+
+          this.stuffWord.addEventListener("click", () => this.showTooltip());
+          this.tooltip.addEventListener("click", () => this.hideTooltip());
+        }
+
+        showTooltip() {
+          if (this.isShowing || this.isOnCooldown) return;
+
+          this.isShowing = true;
+          this.tooltip.classList.add("show");
+
+          // Auto-hide after 6 seconds
+          setTimeout(() => {
+            if (this.isShowing) {
+              this.hideTooltip();
+            }
+          }, 6000);
+        }
+
+        hideTooltip() {
+          if (!this.isShowing) return;
+
+          this.isShowing = false;
+          this.tooltip.classList.remove("show");
+
+          // Start 10-second cooldown before allowing next click
+          this.isOnCooldown = true;
+          this.cooldownTimer = setTimeout(() => {
+            this.isOnCooldown = false;
+          }, 10000);
+        }
+      }
+
+      // Initialize stuff tooltip
+      document.addEventListener("DOMContentLoaded", () => {
+        new StuffTooltip();
+      });
+
+      // Reinitialize after navigation
+      document.addEventListener("astro:after-swap", () => {
+        new StuffTooltip();
+      });
+    </script>
+  </div>
+</Layout>
