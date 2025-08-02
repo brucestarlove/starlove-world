@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import { getAssetPath } from "../utils/assets.ts";
 
 export interface Props {
   title: string;
@@ -14,7 +15,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Bruce Starlove - Personal Website" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
@@ -39,7 +40,7 @@ const { title } = Astro.props;
               </svg> -->
               <img
                 class="logo-item active"
-                src="/public/Starscape-Star.webp"
+                src="/Starscape-Star.webp"
                 alt="Logo"
                 width="38"
                 height="38"
@@ -248,7 +249,7 @@ const { title } = Astro.props;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("/public/cityscape01.jpg");
+    background-image: url("/cityscape01.jpg");
     background-repeat: no-repeat;
     background-position: bottom center;
     background-size: cover;
@@ -263,11 +264,11 @@ const { title } = Astro.props;
   }
 
   [data-theme="forestscape"] .cyber-bg {
-    background-image: url("/public/forestscape01.jpg");
+    background-image: url("/forestscape01.jpg");
   }
 
   [data-theme="starscape"] .cyber-bg {
-    background-image: url("/public/starscape01.png");
+    background-image: url("/starscape01.png");
   }
 
   /* [data-theme="dark"] .cyber-bg {
@@ -982,23 +983,23 @@ const { title } = Astro.props;
       this.playlist = [
         {
           title: "loop-water-waves.wav",
-          src: "/public/audio/loop-water-waves.wav",
+          src: "/audio/loop-water-waves.wav",
         },
         {
           title: "Molecules_-_Kristoff_Krane_+_Sadistik",
-          src: "/public/audio/Molecules-KK.mp3",
+          src: "/audio/Molecules-KK.mp3",
         },
         {
           title: "lavitz-harpoon.wave",
-          src: "/public/audio/Lavitz_Harpoon_Full.mp3",
+          src: "/audio/Lavitz_Harpoon_Full.mp3",
         },
         {
           title: "hit_-_with_1.mp3",
-          src: "/public/audio/hit_-_with_1.mp3",
+          src: "/audio/hit_-_with_1.mp3",
         },
         {
           title: "A Wake",
-          src: "/public/audio/Eyedea_ft._Slug_-_A_Wake_(192 kbps).mp3",
+          src: "/audio/Eyedea_ft._Slug_-_A_Wake_(192 kbps).mp3",
         },
       ];
       this.currentTrackIndex = 0;

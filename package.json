@@ -3,8 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node scripts/clean-cache.js && astro dev",
+    "dev": "node scripts/setup-dev-assets.js && node scripts/clean-cache.js && astro dev",
     "dev:safe": "astro dev",
+    "setup:dev": "node scripts/setup-dev-assets.js",
     "clean": "node scripts/clean-cache.js",
     "build": "node scripts/clean-cache.js && astro build",
     "preview": "astro preview",
