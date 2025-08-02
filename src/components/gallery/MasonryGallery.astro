@@ -7,10 +7,9 @@ export interface GalleryImage {
 export interface Props {
   images: GalleryImage[];
   galleryName: string;
-  children?: any;
 }
 
-const { images, galleryName, children } = Astro.props;
+const { images, galleryName } = Astro.props;
 ---
 
 <div class="gallery-container">
@@ -58,6 +57,9 @@ const { images, galleryName, children } = Astro.props;
 
 <script>
   class LazyImageLoader {
+    private observer: IntersectionObserver | null;
+    private loadedImages: Set<string>;
+
     constructor() {
       this.observer = null;
       this.loadedImages = new Set();
@@ -69,7 +71,7 @@ const { images, galleryName, children } = Astro.props;
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const img = entry.target;
+              const img = entry.target as HTMLImageElement;
               const src = img.dataset.src;
               if (src && !this.loadedImages.has(src)) {
                 this.loadImage(img, src);
@@ -86,7 +88,7 @@ const { images, galleryName, children } = Astro.props;
       this.observeImages();
     }
 
-    loadImage(img, src) {
+    loadImage(img: HTMLImageElement, src: string) {
       img.classList.add("loading");
 
       const tempImg = new Image();
@@ -95,13 +97,13 @@ const { images, galleryName, children } = Astro.props;
         img.classList.remove("loading");
         img.classList.add("loaded");
         this.loadedImages.add(src);
-        this.observer.unobserve(img);
+        this.observer?.unobserve(img);
       };
 
       tempImg.onerror = () => {
         img.classList.remove("loading");
         console.warn(`Failed to load image: ${src}`);
-        this.observer.unobserve(img);
+        this.observer?.unobserve(img);
       };
 
       tempImg.src = src;
@@ -123,12 +125,12 @@ const { images, galleryName, children } = Astro.props;
 
   // Initialize lazy loading
   function initializeLazyLoading() {
-    const lazyLoader = new LazyImageLoader();
+    new LazyImageLoader();
 
     // Initialize fslightbox after images are set up
     setTimeout(() => {
-      if (typeof refreshFsLightbox !== "undefined") {
-        refreshFsLightbox();
+      if (typeof (window as any).refreshFsLightbox !== "undefined") {
+        (window as any).refreshFsLightbox();
       }
     }, 100);
   }

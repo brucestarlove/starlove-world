@@ -2,6 +2,7 @@
 import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
 import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
 import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
+import LightboxContent from "../../components/gallery/LightboxContent.astro";
 
 // Evershade Dream gallery images from starlove-assets
 const galleryImages = [
@@ -29,30 +30,83 @@ const galleryImages = [
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/cloudspire_ataraxis.webp",
     alt: "Misty spires floating in perpetual serenity; a place of calm reflection guarded by veils of celestial fog. Symbol: A gentle spiral of mist ascending skyward.",
   },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/astralites_spires.webp",
+    alt: "A sanctuary city woven among crystal cliffs. Residents vanished overnight; their whispers still echo beneath a half-forgotten moon.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/umbral_bazaar.webp",
+    alt: "A city eternally illuminated by lanterns, its bridges built above the Sea of Dreams. It trades not goods but secrets, desires, and regrets.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/gardens_of_astravell.webp",
+    alt: "An orchard beneath auroras, watched by twin moons in perpetual eclipse. Here, memories bloom as flowers, tended by spectral gardeners seeking remembrance.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/valewell_crossing.webp",
+    alt: "A resting place for pilgrims, and a hub of old rumors. The fountain speaks at midnight, but only in dreams.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/starfen_hollow.webp",
+    alt: "A moss-wrapped village where the trees remember your name. Travelers trade stories in the round, and some say the central stone pulses with the breath of a starfall.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/lunacleft_reservoirs.webp",
+    alt: "Water reflects not your face, but your inner myth. Bathe here to forget… or remember.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/circle_of_standing_echoes.webp",
+    alt: "The stones record the voices of those who seek truth. Each echo bends destiny slightly.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/isle_of_the_spiral_chapel.webp",
+    alt: "The sky above churns with memory. The path turns back if you do.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/verdelune_tier.webp",
+    alt: "Once a capital of celestial diplomacy. Now a sanctuary of whispered knowledge.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/blossomstone_heights.webp",
+    alt: "The stone itself blooms pink, and supports a people secluded in a quiet, scientific love.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/astravere.webp",
+    alt: "A bustling glade-city, where lanterns glow day and night and trade flows like song through the roots. But the trees have grown restless, and dreams whisper of change on the wind.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/caelivarra.webp",
+    alt: "Floating within the embrace of a rare mist condensing into perpetual, crystalline waterfalls which sustain the city's tiered gardens and power the mechanisms of its vast, humming archives. Here, knowledge flows as surely as water.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/murkwild_labrynth_01.webp",
+    alt: "Petal-draped and rootbound, this forest once served as a sacred threshold between realms. Now, it twists inward. Paths shift overnight. Caverns breathe. Some who enter seeking glory emerge with hollow eyes—and some don’t emerge at all. Still, the flowers bloom.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/murkwild_labrynth_02.webp",
+    alt: "Petal-draped and rootbound, this forest once served as a sacred threshold between realms. Now, it twists inward. Paths shift overnight. Caverns breathe. Some who enter seeking glory emerge with hollow eyes—and some don’t emerge at all. Still, the flowers bloom.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/murkwild_labrynth_03.webp",
+    alt: "Petal-draped and rootbound, this forest once served as a sacred threshold between realms. Now, it twists inward. Paths shift overnight. Caverns breathe. Some who enter seeking glory emerge with hollow eyes—and some don’t emerge at all. Still, the flowers bloom.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/murkwild_labrynth_04.webp",
+    alt: "Petal-draped and rootbound, this forest once served as a sacred threshold between realms. Now, it twists inward. Paths shift overnight. Caverns breathe. Some who enter seeking glory emerge with hollow eyes—and some don’t emerge at all. Still, the flowers bloom.",
+  },
 ];
 
-const lightboxContent = `
-  <!-- Hidden content for text lightbox -->
-  <div id="about" class="lightbox-content">
-    <div style="padding: 2rem; background: linear-gradient(135deg, var(--evershade-start) 0%, var(--evershade-mid) 50%, var(--evershade-end) 100%); color: white; text-align: center; border-radius: 12px; max-width: 600px; margin: 0 auto;">
-      <p style="line-height: 1.6; margin-bottom: 1rem;">
-        You are a <strong>Wanderer</strong>, one who awakens between worlds,
-        lost yet destined. Each realm is a fragment of the <strong>Evershade Dream</strong>, 
-        a reality woven by the sleeping thoughts of beings known only as the <strong>Zatvirs</strong>.
-      </p>
-      <p style="line-height: 1.6; margin-bottom: 1rem;">
-        These realms drift like celestial islands, accessible only by <strong>Portals of Sea and Sky</strong>, 
-        pathways opened by deciphering riddles left in their wake. Each scene
-        is a living mystery, painted from memory fragments, echoes of a lost
-        civilization seeking to reconnect its shattered truths.
-      </p>
-      <p style="font-style: italic; opacity: 0.9;">
-        Created with love for those who seek wonder in the spaces between dreams
-        and reality.
-      </p>
-    </div>
-  </div>
-`;
+// Lightbox content data
+const lightboxSections = [
+  {
+    text: "You are a **Wanderer**, one who awakens between worlds, lost yet destined. Each realm is a fragment of the **Evershade Dream**, a reality woven by the sleeping thoughts of beings known only as the **Zatvirs**.",
+    highlights: ["Wanderer", "Evershade Dream", "Zatvirs"],
+  },
+  {
+    text: "These realms drift like celestial islands, accessible only by **Portals of Sea and Sky**, pathways opened by deciphering riddles left in their wake. Each scene is a living mystery, painted from memory fragments, echoes of a lost civilization seeking to reconnect its shattered truths.",
+    highlights: ["Portals of Sea and Sky"],
+  },
+];
 ---
 
 <ArtPageLayout
@@ -66,7 +120,6 @@ const lightboxContent = `
     { label: "Game Concept", value: "" },
     { label: "2025+", value: "" },
   ]}
-  lightboxContent={lightboxContent}
 >
   <MasonryGallery images={galleryImages} galleryName="evershade-gallery">
     <TextLightboxItem
@@ -77,19 +130,11 @@ const lightboxContent = `
       icon="document"
     />
   </MasonryGallery>
-</ArtPageLayout>
 
-<style>
-  strong {
-    background: linear-gradient(
-      135deg,
-      var(--starscape-start) 0%,
-      var(--starscape-mid) 50%,
-      var(--starscape-end) 100%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-  }
-</style>
+  <LightboxContent
+    id="about"
+    theme="evershade"
+    sections={lightboxSections}
+    footer="Created with love for those who seek wonder in the spaces between dreams and reality."
+  />
+</ArtPageLayout>
