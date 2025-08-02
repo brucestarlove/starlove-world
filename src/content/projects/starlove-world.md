@@ -3,7 +3,7 @@ title: 'Starlove World'
 description: 'Personal website built with Astro featuring dynamic themes and smooth transitions'
 category: 'Web Development'
 status: 'in-progress'
-technologies: ['Astro', 'TypeScript', 'CSS']
+technologies: ['ALPHA_TEST', 'Astro', 'TypeScript', 'CSS']
 color: '#3b82f6'
 github: 'https://github.com/starlove/starlove-world'
 date: '2024-01-15'
