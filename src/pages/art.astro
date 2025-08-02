@@ -18,16 +18,17 @@ import Layout from "../layouts/Layout.astro";
           <article class="art-item">
             <a href="/art/evershade-dream" class="art-link">
               <div class="art-preview">
-                <div class="art-star">★</div>
+                <!-- <div class="art-star">★</div> -->
                 <div class="art-gradient evershade"></div>
               </div>
               <div class="art-info">
-                <h3 class="art-name">Evershade Dream</h3>
+                <h3 class="art-name">A Starscape Journey: Evershade Dream</h3>
                 <p class="art-description">
                   A surreal exploration of light, shadow, and dreamlike landscapes
                 </p>
                 <div class="art-tags">
                   <span class="art-tag">Digital Art</span>
+                  <span class="art-tag">Game Concept</span>
                   <span class="art-tag">Surreal</span>
                   <span class="art-tag">Gallery</span>
                 </div>
@@ -39,7 +40,7 @@ import Layout from "../layouts/Layout.astro";
           <article class="art-item coming-soon">
             <div class="art-link">
               <div class="art-preview">
-                <div class="art-star">★</div>
+                <!-- <div class="art-star">★</div> -->
                 <div class="art-gradient placeholder"></div>
               </div>
               <div class="art-info">
@@ -188,12 +189,7 @@ import Layout from "../layouts/Layout.astro";
     }
 
     .art-gradient.evershade {
-      background: linear-gradient(
-        135deg,
-        #667eea 0%,
-        #764ba2 50%,
-        #f093fb 100%
-      );
+      background: url('https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp');
     }
 
     .art-gradient.placeholder {
