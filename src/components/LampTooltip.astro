@@ -1,0 +1,135 @@
+---
+export interface Props {
+  triggerId?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+const { 
+  triggerId = "stuffWord",
+  imageUrl = "/1xlamp.webp",
+  imageAlt = "Lamp"
+} = Astro.props;
+---
+
+<!-- Lamp Tooltip -->
+<div class="lamp-tooltip" id="lampTooltip">
+  <img src={imageUrl} alt={imageAlt} class="lamp-tooltip-image" />
+</div>
+
+<style>
+  .lamp-tooltip {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--secondary-bg);
+    border: 2px solid var(--accent-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(59, 130, 246, 0.2);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lamp-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .lamp-tooltip-image {
+    display: block;
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Mobile positioning - keep tooltip in upper viewport */
+  @media (max-width: 768px) {
+    .lamp-tooltip {
+      top: 30%;
+      max-width: 85vw;
+    }
+    
+    .lamp-tooltip.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  /* Small mobile screens - even higher tooltip positioning */
+  @media (max-width: 480px) {
+    .lamp-tooltip {
+      top: 25%;
+      padding: 0.75rem;
+    }
+  }
+</style>
+
+<script define:vars={{ triggerId }}>
+  // Lamp tooltip functionality
+  class LampTooltip {
+    constructor() {
+      this.triggerWord = document.getElementById(triggerId);
+      this.tooltip = document.getElementById("lampTooltip");
+      this.isShowing = false;
+      this.cooldownTimer = null;
+      this.isOnCooldown = false;
+      this.init();
+    }
+
+    init() {
+      if (!this.triggerWord || !this.tooltip) return;
+
+      this.triggerWord.addEventListener("click", () => this.showTooltip());
+      this.tooltip.addEventListener("click", () => this.hideTooltip());
+    }
+
+    showTooltip() {
+      if (this.isShowing || this.isOnCooldown) return;
+
+      this.isShowing = true;
+      this.tooltip.classList.add("show");
+
+      // Auto-hide after 6 seconds
+      setTimeout(() => {
+        if (this.isShowing) {
+          this.hideTooltip();
+        }
+      }, 6000);
+    }
+
+    hideTooltip() {
+      if (!this.isShowing) return;
+
+      this.isShowing = false;
+      this.tooltip.classList.remove("show");
+
+      // Start 10-second cooldown before allowing next click
+      this.isOnCooldown = true;
+      this.cooldownTimer = setTimeout(() => {
+        this.isOnCooldown = false;
+      }, 10000);
+    }
+  }
+
+  // Initialize lamp tooltip
+  document.addEventListener("DOMContentLoaded", () => {
+    new LampTooltip();
+  });
+
+  // Reinitialize after navigation
+  document.addEventListener("astro:after-swap", () => {
+    new LampTooltip();
+  });
+</script>

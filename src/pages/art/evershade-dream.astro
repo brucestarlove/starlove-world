@@ -9,28 +9,28 @@ import ContentReveal from "../../components/ui/ContentReveal.astro";
 const galleryImages = [
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/aurora_citadel.webp",
-    alt: "Aurora Citadel - An ancient city built beneath eternal auroras, its stones carved from dreams. Whispers say time flows strangely here. Symbol: Aurora encircling an hourglass."
+    alt: "Aurora Citadel - An ancient city built beneath eternal auroras, its stones carved from dreams. Whispers say time flows strangely here. Symbol: Aurora encircling an hourglass.",
   },
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/pools_of_astraya.webp",
-    alt: "Portals ripple like water beneath starlight; bathing here cleanses memories and resets destiny's threads. Symbol: Starry whirlpool reflecting galaxies."
+    alt: "Portals ripple like water beneath starlight; bathing here cleanses memories and resets destiny's threads. Symbol: Starry whirlpool reflecting galaxies.",
   },
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/falls_of_miraval.webp",
-    alt: "Cascading waters pour from endless sky, each droplet containing a single wish left unspoken. Seekers come to reclaim lost hopes. Symbol: Endless waterfalls suspended in mist."
+    alt: "Cascading waters pour from endless sky, each droplet containing a single wish left unspoken. Seekers come to reclaim lost hopes. Symbol: Endless waterfalls suspended in mist.",
   },
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/temple_echoing_oasis.webp",
-    alt: "Winds whisper forgotten truths; step inside to relive echoes of lost selves. Symbol: Hourglass, sands flowing upwards."
+    alt: "Winds whisper forgotten truths; step inside to relive echoes of lost selves. Symbol: Hourglass, sands flowing upwards.",
   },
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/sanctum_crescent_sky.webp",
-    alt: "Home of the twilight oracles, mapping prophecy beneath eternal crescent moons. Symbol: Crescent moon inscribed with runes."
+    alt: "Home of the twilight oracles, mapping prophecy beneath eternal crescent moons. Symbol: Crescent moon inscribed with runes.",
   },
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/cloudspire_ataraxis.webp",
-    alt: "Misty spires floating in perpetual serenity; a place of calm reflection guarded by veils of celestial fog. Symbol: A gentle spiral of mist ascending skyward."
-  }
+    alt: "Misty spires floating in perpetual serenity; a place of calm reflection guarded by veils of celestial fog. Symbol: A gentle spiral of mist ascending skyward.",
+  },
 ];
 ---
 
@@ -40,95 +40,110 @@ const galleryImages = [
       <BackButton href="/art" text="Back to Art" />
     </nav>
 
-    <PageHeader 
-      title="Evershade Dream" 
-      subtitle="A StarScape Journey"
-      titleClass="text-gradient-evershade"
+    <PageHeader
+      title="Evershade Dream"
+      subtitle=""
+      titleClass="text-gradient-evershade mb-0"
       centered={true}
     >
+      <p class="page-subtitle-starscape">A Starscape Journey</p>
       <p class="gallery-text">
         A surreal exploration of light, shadow, and dreamlike landscapes.
       </p>
       <p class="gallery-text">
-        Game: A mythopoetic journey through cosmic doorways—blending luminous worlds, forgotten memories, and sacred architecture into an interactive dreamscape.
+        Game: A mythopoetic journey through cosmic doorways—blending luminous
+        worlds, forgotten memories, and sacred architecture into an interactive
+        dreamscape.
       </p>
-      <StatsBar 
+      <StatsBar
         stats={[
           { label: "Images", value: galleryImages.length },
           { label: "Digital Art Collection", value: "" },
           { label: "Game Concept", value: "" },
-          { label: "2025+", value: "" }
+          { label: "2025+", value: "" },
         ]}
       />
     </PageHeader>
 
     <div class="gallery-container">
       <div class="masonry-gallery" id="masonryGallery">
-        {galleryImages.map((image, index) => (
-          <div class="masonry-item">
-            <a 
-              data-fslightbox="evershade-gallery" 
-              href={image.src}
-              class="gallery-link"
-              data-index={index}
-            >
-              <div class="image-container">
-                <img
-                  class="gallery-image lazy-image"
-                  data-src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                />
-                <div class="image-overlay">
-                  <div class="overlay-content">
-                    <svg 
-                      class="expand-icon" 
-                      viewBox="0 0 24 24" 
-                      width="24" 
-                      height="24"
-                    >
-                      <path 
-                        fill="currentColor" 
-                        d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
-                      />
-                    </svg>
+        {
+          galleryImages.map((image, index) => (
+            <div class="masonry-item">
+              <a
+                data-fslightbox="evershade-gallery"
+                href={image.src}
+                class="gallery-link"
+                data-index={index}
+              >
+                <div class="image-container">
+                  <img
+                    class="gallery-image lazy-image"
+                    data-src={image.src}
+                    alt={image.alt}
+                    loading="lazy"
+                  />
+                  <div class="image-overlay">
+                    <div class="overlay-content">
+                      <svg
+                        class="expand-icon"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-          </div>
-        ))}
-        
+              </a>
+            </div>
+          ))
+        }
+
         <!-- Text lightbox item -->
         <div class="masonry-item">
-          <a 
-              data-fslightbox="evershade-gallery" 
-              href="#about"
-              class="gallery-link"
-              data-class="d-block"
-            >
+          <a
+            data-fslightbox="evershade-gallery"
+            href="#about"
+            class="gallery-link"
+            data-class="d-block"
+          >
             <div class="text-container">
               <div class="text-content">
                 <div class="text-icon">
-                  <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
-                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+                    ></path>
                   </svg>
                 </div>
-                <h3 class="text-title">About</h3>
-                <p class="text-description">Learn more about the Evershade Dream project and its mythopoetic vision</p>
+                <h3 class="text-title">Game Concept</h3>
+                <p class="text-description">
+                  Learn more about my Evershade Dream art inspiration and one
+                  idea for a new web game concept
+                </p>
               </div>
               <div class="text-overlay">
                 <div class="overlay-content">
-                  <svg 
-                    class="expand-icon" 
-                    viewBox="0 0 24 24" 
-                    width="24" 
+                  <svg
+                    class="expand-icon"
+                    viewBox="0 0 24 24"
+                    width="24"
                     height="24"
                   >
-                    <path 
-                      fill="currentColor" 
+                    <path
+                      fill="currentColor"
                       d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
-                    />
+                    ></path>
                   </svg>
                 </div>
               </div>
@@ -141,11 +156,29 @@ const galleryImages = [
 
   <!-- Hidden content for text lightbox -->
   <div id="about" class="lightbox-content">
-    <div style="padding: 2rem; background: linear-gradient(135deg, #3f7158 0%, #89c9b8 50%, #8fd7fb 100%); color: white; text-align: center; border-radius: 12px; max-width: 600px; margin: 0 auto;">
+    <div
+      style="padding: 2rem; background: linear-gradient(135deg, #3f7158 0%, #89c9b8 50%, #8fd7fb 100%); color: white; text-align: center; border-radius: 12px; max-width: 600px; margin: 0 auto;"
+    >
       <!-- <h2 style="margin-bottom: 1rem; font-size: 1.8rem;">About Evershade Dream</h2> -->
-      <p style="line-height: 1.6; margin-bottom: 1rem;">You are a <strong>Wanderer</strong>, one who awakens between worlds, lost yet destined. Each realm is a fragment of the <strong>Evershade Dream</strong>, a reality woven by the sleeping thoughts of beings known only as the <strong>Zatvirs</strong>.</p>
-      <p style="line-height: 1.6; margin-bottom: 1rem;">These realms drift like celestial islands, accessible only by <strong>Portals of Sea and Sky</strong>, pathways opened by deciphering riddles left in their wake. Each scene is a living mystery, painted from memory fragments, echoes of a lost civilization seeking to reconnect its shattered truths.</p>
-      <p style="font-style: italic; opacity: 0.9;">Created with love for those who seek wonder in the spaces between dreams and reality.</p>
+      <p style="line-height: 1.6; margin-bottom: 1rem;">
+        You are a <strong>Wanderer</strong>, one who awakens between worlds,
+        lost yet destined. Each realm is a fragment of the <strong
+          >Evershade Dream</strong
+        >, a reality woven by the sleeping thoughts of beings known only as the <strong
+          >Zatvirs</strong
+        >.
+      </p>
+      <p style="line-height: 1.6; margin-bottom: 1rem;">
+        These realms drift like celestial islands, accessible only by <strong
+          >Portals of Sea and Sky</strong
+        >, pathways opened by deciphering riddles left in their wake. Each scene
+        is a living mystery, painted from memory fragments, echoes of a lost
+        civilization seeking to reconnect its shattered truths.
+      </p>
+      <p style="font-style: italic; opacity: 0.9;">
+        Created with love for those who seek wonder in the spaces between dreams
+        and reality.
+      </p>
     </div>
   </div>
 
@@ -216,9 +249,9 @@ const galleryImages = [
       font-weight: 700;
       background: linear-gradient(
         135deg,
-        #3f7158 0%,    /* moss & sage */
-        #89c9b8 50%,    /* moonlit mint */
-        #8fd7fb 100%    /* pale ethereal blue-white */
+        #3f7158 0%,
+        /* moss & sage */ #89c9b8 50%,
+        /* moonlit mint */ #8fd7fb 100% /* pale ethereal blue-white */
       );
       background-clip: text;
       -webkit-background-clip: text;
@@ -527,7 +560,7 @@ const galleryImages = [
         columns: 1;
         column-gap: 0;
       }
-      
+
       .masonry-item {
         margin-bottom: 0.75rem;
       }
@@ -535,7 +568,6 @@ const galleryImages = [
   </style>
 
   <script>
-
     class LazyImageLoader {
       constructor() {
         this.observer = null;
@@ -557,8 +589,8 @@ const galleryImages = [
             });
           },
           {
-            rootMargin: '50px 0px',
-            threshold: 0.1
+            rootMargin: "50px 0px",
+            threshold: 0.1,
           }
         );
 
@@ -566,29 +598,29 @@ const galleryImages = [
       }
 
       loadImage(img, src) {
-        img.classList.add('loading');
-        
+        img.classList.add("loading");
+
         const tempImg = new Image();
         tempImg.onload = () => {
           img.src = src;
-          img.classList.remove('loading');
-          img.classList.add('loaded');
+          img.classList.remove("loading");
+          img.classList.add("loaded");
           this.loadedImages.add(src);
           this.observer.unobserve(img);
         };
-        
+
         tempImg.onerror = () => {
-          img.classList.remove('loading');
+          img.classList.remove("loading");
           console.warn(`Failed to load image: ${src}`);
           this.observer.unobserve(img);
         };
-        
+
         tempImg.src = src;
       }
 
       observeImages() {
-        const lazyImages = document.querySelectorAll('.lazy-image');
-        lazyImages.forEach(img => {
+        const lazyImages = document.querySelectorAll(".lazy-image");
+        lazyImages.forEach((img) => {
           if (this.observer) {
             this.observer.observe(img);
           }
@@ -610,14 +642,14 @@ const galleryImages = [
     function initializeGallery() {
       // Initialize lazy loading
       const lazyLoader = new LazyImageLoader();
-      
+
       // Initialize fslightbox after images are set up
       setTimeout(() => {
-        if (typeof refreshFsLightbox !== 'undefined') {
+        if (typeof refreshFsLightbox !== "undefined") {
           refreshFsLightbox();
         }
       }, 100);
-      
+
       // Reveal content
       revealGalleryContent();
     }

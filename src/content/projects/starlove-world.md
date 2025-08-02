@@ -1,50 +1,41 @@
 ---
-title: 'Starlove World'
-description: 'Personal website built with Astro featuring dynamic themes and smooth transitions'
-category: 'Web Development'
-status: 'in-progress'
-technologies: ['ALPHA_TEST', 'Astro', 'TypeScript', 'CSS']
-color: '#3b82f6'
-github: 'https://github.com/starlove/starlove-world'
-date: '2024-01-15'
+title: "Starlove World"
+description: "Personal website built with Astro featuring dynamic themes and smooth transitions"
+category: "Web Development"
+status: "in-progress"
+technologies: ["Astro", "TypeScript", "CSS", "Astro Remark", "FSLightbox"]
+color: "var(--accent-bg)"
+github: "https://github.com/brucestarlove/starlove-world"
+date: "2025-08-02"
 ---
 
 # Starlove World
 
-A modern personal website built with Astro, featuring:
+this site! my dozenth personal website in over a dozen years... first time built with Astro -͟͟͞☆
 
 ## Features
+
 - Dynamic theme switching (Cityscape, Forestscape, Starscape)
 - Smooth page transitions
 - Responsive design
 - Blog functionality
 - Project showcase
+- Easter eggs
 
 ## Technologies Used
+
 - **Astro** - Static site generator
 - **TypeScript** - Type safety
-- **CSS** - Custom styling with CSS variables
+- **CSS** - Custom styling with CSS variables (tested it after using tailwind--going back tailwind)
 
 ## Challenges & Solutions
-Built this site to explore modern web technologies while creating a unique personal brand presence online.
 
-### Code Example
-
-Here's a snippet of the dynamic theme system:
-
-```typescript
-class ThemeManager {
-  private currentTheme: string = 'starscape';
-  
-  switchTheme(theme: string) {
-    document.body.className = `theme-${theme}`;
-    this.currentTheme = theme;
-  }
-}
-```
+Built this site to have a lowkey place to post project portfolio, various writings, videos, art concepts, announcements, promotions and signal-boosts; while creating a unique personal brand presence online (aka I'm just doing what I like)
 
 ## Future Enhancements
-- [ ] Add dark/light mode toggle
-- [ ] Implement search functionality
-- [ ] Add comment system
-- [ ] Performance optimizations
+
+- [ ] a lot, maybe
+
+### Technical Improvements
+
+- [ ] better search

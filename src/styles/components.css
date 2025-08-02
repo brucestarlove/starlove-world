@@ -367,6 +367,22 @@
   animation: contentReveal 0.8s ease-out 0.6s forwards;
 }
 
+.page-subtitle-starscape {
+  /* for A Starscape Journey */
+  font-size: clamp(1.2rem, 4vw, 1.7rem);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  /* -webkit-text-fill-color: transparent; */
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: contentReveal 0.8s ease-out 0.6s forwards;
+}
+
 /* Stats Components */
 .stats-container {
   display: flex;
@@ -480,4 +496,16 @@
     width: 32px;
     height: 32px;
   }
+}
+
+/* Interactive Text Triggers */
+.stuff-trigger {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stuff-trigger:hover {
+  color: var(--glow-color);
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
 }

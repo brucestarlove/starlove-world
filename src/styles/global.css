@@ -43,6 +43,22 @@
   --tag-padding: 0.25rem 0.5rem;
   --button-padding: 0.75rem 1rem;
   --input-padding: 0.75rem 1rem;
+
+  /* Post Color Palette */
+  --post-red: #ef4444;
+  --post-purple: #8b5cf6;
+  --post-cyan: #06b6d4;
+  --post-green: #10b981;
+  --post-amber: #f59e0b;
+  --post-blue: #3b82f6;
+
+  /* Gradient Colors */
+  --starscape-start: #667eea;
+  --starscape-mid: #764ba2;
+  --starscape-end: #f093fb;
+  --evershade-start: #3f7158;
+  --evershade-mid: #89c9b8;
+  --evershade-end: #8fd7fb;
 }
 
 /* Theme Variations */
@@ -102,6 +118,9 @@
 * {
   box-sizing: border-box;
 }
+mb-0 {
+  margin-bottom: 0;
+}
 
 /* Base Content Reveal Pattern */
 .content-reveal {
@@ -117,22 +136,18 @@
 
 /* Global Typography */
 .title-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--accent-bg),
-    var(--glow-color)
-  );
+  background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-primary {
+.text-gradient-starscape {
   background: linear-gradient(
     135deg,
-    #667eea 0%,
-    #764ba2 50%,
-    #f093fb 100%
+    var(--starscape-start) 0%,
+    var(--starscape-mid) 50%,
+    var(--starscape-end) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -142,9 +157,9 @@
 .text-gradient-evershade {
   background: linear-gradient(
     135deg,
-    #3f7158 0%,
-    #89c9b8 50%,
-    #8fd7fb 100%
+    var(--evershade-start) 0%,
+    var(--evershade-mid) 50%,
+    var(--evershade-end) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
