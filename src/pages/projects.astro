@@ -1,8 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getProjectsByCategory } from "../utils/projects.ts";
+import { getCollection } from "astro:content";
 
-const projectsByCategory = getProjectsByCategory();
+const projects = await getCollection('projects');
+const projectsByCategory = projects.reduce((acc, project) => {
+  const category = project.data.category;
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(project);
+  return acc;
+}, {} as Record<string, typeof projects>);
+
 const categories = Object.keys(projectsByCategory);
 ---
 
@@ -29,37 +38,36 @@ const categories = Object.keys(projectsByCategory);
 
     <div class="projects-sections">
       {categories.map((category) => (
-        <section class="category-section" key={category}>
+        <section class="category-section">
           <h2 class="category-title">{category}</h2>
           <div class="projects-list">
             {projectsByCategory[category].map((project) => (
               <article
                 class="project-item"
-                style={`--project-color: ${project.frontmatter.color}`}
+                style={`--project-color: ${project.data.color}`}
                 data-category={category.toLowerCase()}
-                data-title={project.frontmatter.title.toLowerCase()}
-                data-description={project.frontmatter.description.toLowerCase()}
-                key={project.slug}
+                data-title={project.data.title.toLowerCase()}
+                data-description={project.data.description.toLowerCase()}
               >
                 <a href={`/projects/${project.slug}`} class="project-link">
                   <div
                     class="project-star"
-                    style={`background-color: ${project.frontmatter.color}`}
+                    style={`background-color: ${project.data.color}`}
                   >
                     ★
                   </div>
                   <div class="project-content">
                     <div class="project-header">
-                      <h3 class="project-title">{project.frontmatter.title}</h3>
-                      <span class={`status-badge status-${project.frontmatter.status}`}>
-                        {project.frontmatter.status === 'in-progress' ? 'In Progress' : 
-                         project.frontmatter.status === 'completed' ? 'Completed' : 'Planning'}
+                      <h3 class="project-title">{project.data.title}</h3>
+                      <span class={`status-badge status-${project.data.status}`}>
+                        {project.data.status === 'in-progress' ? 'In Progress' : 
+                         project.data.status === 'completed' ? 'Completed' : 'Planning'}
                       </span>
                     </div>
-                    <p class="project-description">{project.frontmatter.description}</p>
+                    <p class="project-description">{project.data.description}</p>
                     <div class="project-technologies">
-                      {project.frontmatter.technologies.map((tech) => (
-                        <span class="tech-tag" key={tech}>
+                      {project.data.technologies.map((tech) => (
+                        <span class="tech-tag">
                           {tech}
                         </span>
                       ))}

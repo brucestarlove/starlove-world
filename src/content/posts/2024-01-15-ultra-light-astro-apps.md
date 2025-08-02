@@ -1,7 +1,7 @@
 ---
 title: "Building Ultra-Light Astro Apps"
 date: "2024-01-15"
-tags: ["tech", "project", "oc"]
+tags: ["ALPHA_TEST", "tech", "project", "oc"]
 color: "#3b82f6"
 excerpt: "Exploring the power of Astro for creating lightning-fast static sites with modern UI components."
 ---

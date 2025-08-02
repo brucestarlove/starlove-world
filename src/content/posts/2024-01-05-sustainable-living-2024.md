@@ -1,7 +1,7 @@
 ---
 title: "Sustainable Living in 2024"
 date: "2024-01-05"
-tags: ["life", "movement", "oc"]
+tags: ["ALPHA_TEST", "life", "movement", "oc"]
 color: "#06b6d4"
 excerpt: "Small changes that make a big difference in our environmental impact."
 ---
@@ -33,6 +33,7 @@ But here's the thing: **small, consistent actions compound over time**. We don't
 
 ```markdown
 My monthly energy bill before/after sustainable changes:
+
 - Before: $180/month
 - After: $95/month
 - Savings: $85/month ($1,020/year)
@@ -42,14 +43,15 @@ My monthly energy bill before/after sustainable changes:
 
 **Rethinking how we move:**
 
-| Mode | CO2 per mile | Cost per mile |
-|------|-------------|---------------|
-| Walking/Biking | 0g | $0 |
-| Public Transit | 45g | $0.50 |
-| Electric Car | 60g | $0.12 |
-| Gas Car | 404g | $0.18 |
+| Mode           | CO2 per mile | Cost per mile |
+| -------------- | ------------ | ------------- |
+| Walking/Biking | 0g           | $0            |
+| Public Transit | 45g          | $0.50         |
+| Electric Car   | 60g          | $0.12         |
+| Gas Car        | 404g         | $0.18         |
 
 **My transportation evolution:**
+
 1. **2022**: 90% car, 10% walking
 2. **2023**: 60% car, 25% bike, 15% public transit
 3. **2024 Goal**: 40% car, 35% bike, 25% public transit
@@ -66,6 +68,7 @@ My monthly energy bill before/after sustainable changes:
 ### ♻️ Waste Reduction
 
 **The hierarchy that works:**
+
 1. **Refuse** what you don't need
 2. **Reduce** what you do use
 3. **Reuse** items creatively
@@ -75,17 +78,18 @@ My monthly energy bill before/after sustainable changes:
 ## Practical Changes I've Made
 
 ### Digital Sustainability
+
 Yes, even our online habits matter:
 
 ```javascript
 // Use efficient code practices
 const efficientQuery = async () => {
   // Cache results to reduce server requests
-  const cached = localStorage.getItem('data');
+  const cached = localStorage.getItem("data");
   if (cached) return JSON.parse(cached);
-  
-  const data = await fetch('/api/data');
-  localStorage.setItem('data', JSON.stringify(data));
+
+  const data = await fetch("/api/data");
+  localStorage.setItem("data", JSON.stringify(data));
   return data;
 };
 ```
@@ -98,16 +102,19 @@ const efficientQuery = async () => {
 ### Home Setup Changes
 
 **Kitchen:**
+
 - Switched to glass containers instead of plastic
 - Installed a water filter (no more bottled water)
 - Started composting kitchen scraps
 
 **Bathroom:**
+
 - Bamboo toothbrushes
 - Shampoo bars instead of bottles
 - Shorter showers (5 minutes max)
 
 **Office:**
+
 - Paperless workflow where possible
 - Refurbished electronics instead of new
 - Natural lighting during the day
@@ -146,6 +153,7 @@ The most successful sustainability changes I've made started tiny:
 ### Digital Communities
 
 Online sustainability communities provide:
+
 - **Accountability** partners
 - **Practical tips** from real experience
 - **Encouragement** when change feels hard
@@ -155,16 +163,17 @@ Online sustainability communities provide:
 
 ### My 2024 Goals
 
-| Category | 2023 Baseline | 2024 Goal | Progress |
-|----------|---------------|-----------|----------|
-| Energy Use | 800 kWh/month | 600 kWh/month | 720 kWh |
-| Car Miles | 1,200/month | 800/month | 950/month |
-| Waste | 3 bags/week | 2 bags/week | 2.5 bags |
-| Local Food | 20% | 40% | 28% |
+| Category   | 2023 Baseline | 2024 Goal     | Progress  |
+| ---------- | ------------- | ------------- | --------- |
+| Energy Use | 800 kWh/month | 600 kWh/month | 720 kWh   |
+| Car Miles  | 1,200/month   | 800/month     | 950/month |
+| Waste      | 3 bags/week   | 2 bags/week   | 2.5 bags  |
+| Local Food | 20%           | 40%           | 28%       |
 
 ### Tools for Tracking
 
 **Apps I use:**
+
 - **JouleBug**: Gamifies sustainable actions
 - **HowGood**: Checks food sustainability scores
 - **Oroeco**: Tracks carbon footprint
@@ -184,26 +193,31 @@ Total annual savings: $8,820
 ```
 
 **Initial investments:**
+
 - LED bulbs: $200
 - Bike and accessories: $600
 - Water filter: $150
 - Compost bin: $100
-**Total upfront: $1,050**
+  **Total upfront: $1,050**
 
 **ROI: 741% in the first year**
 
 ## Challenges & Solutions
 
 ### 🚫 Challenge: "It's too expensive"
+
 **Solution**: Start with free changes (shorter showers, walking more)
 
 ### 🚫 Challenge: "I don't have time"
+
 **Solution**: Bundle changes with existing habits
 
 ### 🚫 Challenge: "My impact doesn't matter"
+
 **Solution**: Connect with community to see collective impact
 
 ### 🚫 Challenge: "It's too complicated"
+
 **Solution**: Focus on one change at a time
 
 ## Looking Forward
@@ -218,6 +232,7 @@ Total annual savings: $8,820
 ### Policy Changes That Help
 
 Supporting legislation for:
+
 - Carbon pricing mechanisms
 - Renewable energy incentives
 - Public transportation funding
@@ -242,4 +257,4 @@ The planet doesn't need a few people doing sustainability perfectly. It needs mi
 
 ---
 
-*Share your sustainable living tips and progress—let's learn from each other and build a better future together.*
+_Share your sustainable living tips and progress—let's learn from each other and build a better future together._

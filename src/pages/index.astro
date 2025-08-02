@@ -1,10 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import StarExplosion from "../components/StarExplosion.astro";
-import { getAllPosts } from "../utils/posts.ts";
+import { getCollection } from "astro:content";
 
-// Load posts from markdown files
-const posts = getAllPosts();
+// Load posts from content collections
+const posts = await getCollection('posts');
 ---
 
 <Layout title="Home">
@@ -220,25 +220,24 @@ const posts = getAllPosts();
               posts.map((post) => (
                 <article
                   class="post-item"
-                  style={`--post-color: ${post.frontmatter.color}`}
-                  data-tags={post.frontmatter.tags.join(", ")}
-                  data-title={post.frontmatter.title.toLowerCase()}
-                  data-excerpt={post.frontmatter.excerpt.toLowerCase()}
-                  key={post.slug}
+                  style={`--post-color: ${post.data.color}`}
+                  data-tags={post.data.tags.join(", ")}
+                  data-title={post.data.title.toLowerCase()}
+                  data-excerpt={post.data.excerpt.toLowerCase()}
                 >
                   <a href={`/blog/${post.slug}`} class="post-link">
                     <div
                       class="post-star"
-                      style={`background-color: ${post.frontmatter.color}`}
+                      style={`background-color: ${post.data.color}`}
                     >
                       ★
                     </div>
                     <div class="post-content">
-                      <h3 class="post-title">{post.frontmatter.title}</h3>
-                      <p class="post-excerpt">{post.frontmatter.excerpt}</p>
+                      <h3 class="post-title">{post.data.title}</h3>
+                      <p class="post-excerpt">{post.data.excerpt}</p>
                       <div class="post-tags">
-                        {post.frontmatter.tags.map((tag) => (
-                          <span class="post-tag" key={tag}>
+                        {post.data.tags.map((tag) => (
+                          <span class="post-tag">
                             {tag}
                           </span>
                         ))}

@@ -1,97 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getAllPosts, getPostBySlug } from "../../utils/posts.ts";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = getAllPosts();
+  const posts = await getCollection('posts');
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));
 }
 
+type Props = {
+  post: CollectionEntry<'posts'>;
+};
+
 const { post } = Astro.props;
-
-if (!post) {
-  return Astro.redirect("/");
-}
-
-// Convert markdown content to HTML using a simple parser
-function parseMarkdown(content: string): string {
-  return (
-    content
-      // Headers
-      .replace(/^### (.*$)/gim, "<h3>$1</h3>")
-      .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-      .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-
-      // Bold and italic
-      .replace(/\*\*\*(.*?)\*\*\*/g, "<strong><em>$1</em></strong>")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.*?)\*/g, "<em>$1</em>")
-
-      // Links
-      .replace(
-        /\[([^\]]+)\]\(([^)]+)\)/g,
-        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
-
-      // Images
-      .replace(
-        /!\[([^\]]*)\]\(([^)]+)\)/g,
-        '<img src="$2" alt="$1" loading="lazy" />'
-      )
-
-      // Code blocks
-      .replace(
-        /```(\w+)?\n([\s\S]*?)```/g,
-        '<pre><code class="language-$1">$2</code></pre>'
-      )
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-
-      // Tables
-      .replace(/^\|(.+)\|\s*$/gim, (match, content) => {
-        const cells = content
-          .split("|")
-          .map((cell: string) => cell.trim())
-          .filter((cell: string) => cell);
-        return (
-          "<tr>" +
-          cells.map((cell: string) => `<td>${cell}</td>`).join("") +
-          "</tr>"
-        );
-      })
-
-      // Blockquotes
-      .replace(/^> (.*$)/gim, "<blockquote>$1</blockquote>")
-
-      // Lists
-      .replace(/^\* (.*$)/gim, "<li>$1</li>")
-      .replace(/^(\d+)\. (.*$)/gim, "<li>$2</li>")
-
-      // Paragraphs
-      .replace(/\n\n/g, "</p><p>")
-      .replace(/^(?!<[h|l|p|b|d|u|i])(.*$)/gim, "<p>$1</p>")
-
-      // Clean up empty paragraphs and fix nesting
-      .replace(/<p><\/p>/g, "")
-      .replace(/<p>(<[h|l|b|d|u|i])/g, "$1")
-      .replace(/(<\/[h|l|b|d|u|i][^>]*>)<\/p>/g, "$1")
-
-      // Wrap consecutive list items in ul/ol
-      .replace(/(<li>.*<\/li>)/g, (match) => {
-        if (!match.includes("<ul>") && !match.includes("<ol>")) {
-          return "<ul>" + match + "</ul>";
-        }
-        return match;
-      })
-  );
-}
-
-const htmlContent = parseMarkdown(post.content);
+const { Content } = await post.render();
 ---
 
-<Layout title={post.frontmatter.title}>
+<Layout title={post.data.title}>
   <div class="post-detail" id="postDetail">
     <nav class="post-nav">
       <a href="/" class="back-button">
@@ -108,12 +35,12 @@ const htmlContent = parseMarkdown(post.content);
     <header class="post-header">
       <div class="post-meta">
         <div class="post-info">
-          <h1 class="post-title">{post.frontmatter.title}</h1>
-          <p class="post-excerpt">{post.frontmatter.excerpt}</p>
+          <h1 class="post-title">{post.data.title}</h1>
+          <p class="post-excerpt">{post.data.excerpt}</p>
           <div class="post-details">
             <span class="post-date"
               >{
-                new Date(post.frontmatter.date).toLocaleDateString("en-US", {
+                post.data.date.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -122,8 +49,8 @@ const htmlContent = parseMarkdown(post.content);
             >
             <div class="post-tags-header">
               {
-                post.frontmatter.tags.map((tag) => (
-                  <span class="tag-badge" key={tag}>
+                post.data.tags.map((tag) => (
+                  <span class="tag-badge">
                     {tag}
                   </span>
                 ))
@@ -135,7 +62,9 @@ const htmlContent = parseMarkdown(post.content);
     </header>
 
     <main class="post-content">
-      <div class="content-wrapper" set:html={htmlContent} />
+      <div class="content-wrapper">
+        <Content />
+      </div>
     </main>
   </div>
 
@@ -265,55 +194,69 @@ const htmlContent = parseMarkdown(post.content);
     }
 
     /* Markdown content styling */
-    .content-wrapper h1,
-    .content-wrapper h2,
-    .content-wrapper h3,
-    .content-wrapper h4 {
+    .content-wrapper :global(h1),
+    .content-wrapper :global(h2),
+    .content-wrapper :global(h3),
+    .content-wrapper :global(h4),
+    .content-wrapper :global(h5),
+    .content-wrapper :global(h6) {
       color: var(--text-primary);
       margin-top: 2rem;
       margin-bottom: 1rem;
       font-weight: 600;
+      line-height: 1.3;
     }
 
-    .content-wrapper h1:first-child,
-    .content-wrapper h2:first-child {
+    .content-wrapper :global(h1:first-child),
+    .content-wrapper :global(h2:first-child),
+    .content-wrapper :global(h3:first-child) {
       margin-top: 0;
     }
 
-    .content-wrapper h1 {
+    .content-wrapper :global(h1) {
       font-size: 2rem;
       border-bottom: 2px solid var(--accent-bg);
       padding-bottom: 0.5rem;
     }
 
-    .content-wrapper h2 {
+    .content-wrapper :global(h2) {
       font-size: 1.5rem;
       color: var(--accent-bg);
     }
 
-    .content-wrapper h3 {
+    .content-wrapper :global(h3) {
       font-size: 1.25rem;
     }
 
-    .content-wrapper p {
+    .content-wrapper :global(h4) {
+      font-size: 1.1rem;
+    }
+
+    .content-wrapper :global(p) {
       color: var(--text-secondary);
       margin-bottom: 1.5rem;
       font-size: 1rem;
     }
 
-    .content-wrapper ul,
-    .content-wrapper ol {
+    .content-wrapper :global(ul),
+    .content-wrapper :global(ol) {
       color: var(--text-secondary);
       margin-bottom: 1.5rem;
       padding-left: 2rem;
     }
 
-    .content-wrapper li {
+    .content-wrapper :global(li) {
       margin-bottom: 0.75rem;
       line-height: 1.6;
     }
 
-    .content-wrapper blockquote {
+    .content-wrapper :global(li) :global(ul),
+    .content-wrapper :global(li) :global(ol) {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .content-wrapper :global(blockquote) {
       border-left: 4px solid var(--accent-bg);
       background: rgba(59, 130, 246, 0.1);
       padding: 1rem 1.5rem;
@@ -323,7 +266,7 @@ const htmlContent = parseMarkdown(post.content);
       color: var(--text-primary);
     }
 
-    .content-wrapper code {
+    .content-wrapper :global(code) {
       background: var(--primary-bg);
       color: var(--accent-bg);
       padding: 0.25rem 0.5rem;
@@ -332,7 +275,7 @@ const htmlContent = parseMarkdown(post.content);
       font-family: "Fira Code", "Courier New", monospace;
     }
 
-    .content-wrapper pre {
+    .content-wrapper :global(pre) {
       background: var(--primary-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
@@ -341,13 +284,30 @@ const htmlContent = parseMarkdown(post.content);
       margin: 1.5rem 0;
     }
 
-    .content-wrapper pre code {
+    .content-wrapper :global(pre) :global(code) {
       background: none;
       padding: 0;
       color: var(--text-secondary);
     }
 
-    .content-wrapper img {
+    /* Code title styling for remark-code-title */
+    .content-wrapper :global(.remark-code-title) {
+      background: var(--accent-bg);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid var(--border-color);
+      font-family: "Fira Code", "Courier New", monospace;
+    }
+
+    .content-wrapper :global(.remark-code-title + pre) {
+      margin-top: 0;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .content-wrapper :global(img) {
       max-width: 100%;
       height: auto;
       border-radius: 8px;
@@ -355,19 +315,19 @@ const htmlContent = parseMarkdown(post.content);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .content-wrapper a {
+    .content-wrapper :global(a) {
       color: var(--accent-bg);
       text-decoration: none;
       border-bottom: 1px solid transparent;
       transition: all 0.3s ease;
     }
 
-    .content-wrapper a:hover {
+    .content-wrapper :global(a:hover) {
       border-bottom-color: var(--accent-bg);
       color: var(--glow-color);
     }
 
-    .content-wrapper table {
+    .content-wrapper :global(table) {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5rem 0;
@@ -376,28 +336,44 @@ const htmlContent = parseMarkdown(post.content);
       overflow: hidden;
     }
 
-    .content-wrapper th,
-    .content-wrapper td {
+    .content-wrapper :global(th),
+    .content-wrapper :global(td) {
       padding: 0.75rem 1rem;
       text-align: left;
       border-bottom: 1px solid var(--border-color);
       color: var(--text-secondary);
     }
 
-    .content-wrapper th {
+    .content-wrapper :global(th) {
       background: var(--accent-bg);
       color: white;
       font-weight: 600;
     }
 
-    .content-wrapper strong {
+    .content-wrapper :global(strong) {
       color: var(--accent-bg);
       font-weight: 600;
     }
 
-    .content-wrapper em {
+    .content-wrapper :global(em) {
       color: var(--text-primary);
       font-style: italic;
+    }
+
+    /* Task list styling */
+    .content-wrapper :global(input[type="checkbox"]) {
+      margin-right: 0.5rem;
+      accent-color: var(--accent-bg);
+    }
+
+    .content-wrapper :global(.task-list-item) {
+      list-style: none;
+      margin-left: -1.5rem;
+    }
+
+    /* Emoji styling */
+    .content-wrapper :global(.emoji) {
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
     }
 
     @keyframes contentReveal {

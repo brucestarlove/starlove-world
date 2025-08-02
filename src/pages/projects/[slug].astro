@@ -1,23 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getAllProjects, getProjectBySlug } from "../../utils/projects.ts";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const projects = getAllProjects();
+  const projects = await getCollection('projects');
   return projects.map((project) => ({
     params: { slug: project.slug },
     props: { project },
   }));
 }
 
-const { project } = Astro.props;
+type Props = {
+  project: CollectionEntry<'projects'>;
+};
 
-if (!project) {
-  return Astro.redirect("/projects");
-}
+const { project } = Astro.props;
+const { Content } = await project.render();
 ---
 
-<Layout title={project.frontmatter.title}>
+<Layout title={project.data.title}>
   <div class="project-detail" id="projectDetail">
     <nav class="project-nav">
       <a href="/projects" class="back-button">
@@ -34,21 +35,21 @@ if (!project) {
     <header class="project-header">
       <div class="project-meta">
         <div class="project-info">
-          <h1 class="project-title">{project.frontmatter.title}</h1>
-          <p class="project-description">{project.frontmatter.description}</p>
+          <h1 class="project-title">{project.data.title}</h1>
+          <p class="project-description">{project.data.description}</p>
           <div class="project-details">
-            <span class="project-category">{project.frontmatter.category}</span>
-            <span class={`status-badge status-${project.frontmatter.status}`}>
+            <span class="project-category">{project.data.category}</span>
+            <span class={`status-badge status-${project.data.status}`}>
               {
-                project.frontmatter.status === "in-progress"
+                project.data.status === "in-progress"
                   ? "In Progress"
-                  : project.frontmatter.status === "completed"
+                  : project.data.status === "completed"
                     ? "Completed"
                     : "Planning"
               }
             </span>
             <span class="project-date"
-              >{new Date(project.frontmatter.date).toLocaleDateString()}</span
+              >{project.data.date.toLocaleDateString()}</span
             >
           </div>
         </div>
@@ -58,8 +59,8 @@ if (!project) {
         <h3>Technologies</h3>
         <div class="tech-list">
           {
-            project.frontmatter.technologies.map((tech) => (
-              <span class="tech-tag" key={tech}>
+            project.data.technologies.map((tech) => (
+              <span class="tech-tag">
                 {tech}
               </span>
             ))
@@ -68,11 +69,11 @@ if (!project) {
       </div>
 
       {
-        (project.frontmatter.link || project.frontmatter.github) && (
+        (project.data.link || project.data.github) && (
           <div class="project-links">
-            {project.frontmatter.link && (
+            {project.data.link && (
               <a
-                href={project.frontmatter.link}
+                href={project.data.link}
                 class="project-link-btn"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -86,9 +87,9 @@ if (!project) {
                 View Live
               </a>
             )}
-            {project.frontmatter.github && (
+            {project.data.github && (
               <a
-                href={project.frontmatter.github}
+                href={project.data.github}
                 class="project-link-btn"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -108,7 +109,9 @@ if (!project) {
     </header>
 
     <main class="project-content">
-      <div class="content-wrapper" set:html={project.content} />
+      <div class="content-wrapper">
+        <Content />
+      </div>
     </main>
   </div>
 
@@ -320,37 +323,171 @@ if (!project) {
       line-height: 1.6;
     }
 
-    .content-wrapper h1,
-    .content-wrapper h2,
-    .content-wrapper h3 {
+    .content-wrapper :global(h1),
+    .content-wrapper :global(h2),
+    .content-wrapper :global(h3),
+    .content-wrapper :global(h4),
+    .content-wrapper :global(h5),
+    .content-wrapper :global(h6) {
       color: var(--text-primary);
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      line-height: 1.3;
     }
 
-    .content-wrapper h1:first-child {
+    .content-wrapper :global(h1:first-child),
+    .content-wrapper :global(h2:first-child),
+    .content-wrapper :global(h3:first-child) {
       margin-top: 0;
     }
 
-    .content-wrapper p {
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
+    .content-wrapper :global(h1) {
+      font-size: 2rem;
+      border-bottom: 2px solid var(--accent-bg);
+      padding-bottom: 0.5rem;
     }
 
-    .content-wrapper ul,
-    .content-wrapper ol {
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      padding-left: 1.5rem;
+    .content-wrapper :global(h2) {
+      font-size: 1.5rem;
+      color: var(--accent-bg);
     }
 
-    .content-wrapper li {
+    .content-wrapper :global(h3) {
+      font-size: 1.25rem;
+    }
+
+    .content-wrapper :global(h4) {
+      font-size: 1.1rem;
+    }
+
+    .content-wrapper :global(p) {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .content-wrapper :global(ul),
+    .content-wrapper :global(ol) {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      padding-left: 2rem;
+    }
+
+    .content-wrapper :global(li) {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .content-wrapper :global(li) :global(ul),
+    .content-wrapper :global(li) :global(ol) {
+      margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
 
-    .content-wrapper strong {
+    .content-wrapper :global(blockquote) {
+      border-left: 4px solid var(--accent-bg);
+      background: rgba(59, 130, 246, 0.1);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--text-primary);
+    }
+
+    .content-wrapper :global(code) {
+      background: var(--primary-bg);
+      color: var(--accent-bg);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: "Fira Code", "Courier New", monospace;
+    }
+
+    .content-wrapper :global(pre) {
+      background: var(--primary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .content-wrapper :global(pre) :global(code) {
+      background: none;
+      padding: 0;
+      color: var(--text-secondary);
+    }
+
+    .content-wrapper :global(.remark-code-title) {
+      background: var(--accent-bg);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid var(--border-color);
+      font-family: "Fira Code", "Courier New", monospace;
+    }
+
+    .content-wrapper :global(.remark-code-title + pre) {
+      margin-top: 0;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .content-wrapper :global(strong) {
       color: var(--accent-bg);
       font-weight: 600;
+    }
+
+    .content-wrapper :global(em) {
+      color: var(--text-primary);
+      font-style: italic;
+    }
+
+    .content-wrapper :global(a) {
+      color: var(--accent-bg);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .content-wrapper :global(a:hover) {
+      border-bottom-color: var(--accent-bg);
+      color: var(--glow-color);
+    }
+
+    .content-wrapper :global(table) {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--primary-bg);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .content-wrapper :global(th),
+    .content-wrapper :global(td) {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .content-wrapper :global(th) {
+      background: var(--accent-bg);
+      color: white;
+      font-weight: 600;
+    }
+
+    .content-wrapper :global(input[type="checkbox"]) {
+      margin-right: 0.5rem;
+      accent-color: var(--accent-bg);
+    }
+
+    .content-wrapper :global(.task-list-item) {
+      list-style: none;
+      margin-left: -1.5rem;
     }
 
     @keyframes contentReveal {

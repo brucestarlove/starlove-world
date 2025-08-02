@@ -1037,6 +1037,10 @@ const { title } = Astro.props;
         this.currentSound.unload();
       }
 
+      // Reset playing state when loading a new track
+      this.isPlaying = false;
+      this.updatePlayPauseIcon();
+
       const track = this.playlist[index];
       this.currentTrackIndex = index;
 

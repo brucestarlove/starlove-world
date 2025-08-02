@@ -3,8 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/clean-cache.js && astro dev",
+    "dev:safe": "astro dev",
+    "clean": "node scripts/clean-cache.js",
+    "build": "node scripts/clean-cache.js && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -12,6 +14,11 @@
     "@astrojs/markdown-remark": "^6.3.3",
     "astro": "^5.12.6",
     "gray-matter": "^4.0.3",
-    "remark-gfm": "^4.0.1"
+    "remark-breaks": "^4.0.0",
+    "remark-code-title": "^0.2.5",
+    "remark-directive": "^4.0.0",
+    "remark-emoji": "^5.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-toc": "^9.0.0"
   }
 }
