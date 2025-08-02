@@ -46,8 +46,12 @@ const galleryImages = [
 
     <header class="gallery-header">
       <h1 class="gallery-title">Evershade Dream</h1>
-      <p class="gallery-subtitle">
-        A surreal exploration of light, shadow, and dreamlike landscapes where reality bends and imagination takes form
+      <h2 class="gallery-subtitle">A StarScape Journey</h2>
+      <p class="gallery-text">
+        A surreal exploration of light, shadow, and dreamlike landscapes.
+      </p>
+      <p class="gallery-text">
+        Game: A mythopoetic journey through cosmic doorways—blending luminous worlds, forgotten memories, and sacred architecture into an interactive dreamscape.
       </p>
       <div class="gallery-stats">
         <span class="stat-item">{galleryImages.length} Images</span>
@@ -65,7 +69,7 @@ const galleryImages = [
           <div class="masonry-item">
             <a 
               data-fslightbox="evershade-gallery" 
-              href={image.src} 
+              href={image.src}
               class="gallery-link"
               data-index={index}
             >
@@ -95,11 +99,71 @@ const galleryImages = [
             </a>
           </div>
         ))}
+        
+        <!-- Text lightbox item -->
+        <div class="masonry-item">
+          <a 
+              data-fslightbox="evershade-gallery" 
+              href="#about"
+              class="gallery-link"
+              data-class="d-block"
+            >
+            <div class="text-container">
+              <div class="text-content">
+                <div class="text-icon">
+                  <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                  </svg>
+                </div>
+                <h3 class="text-title">About</h3>
+                <p class="text-description">Learn more about the Evershade Dream project and its mythopoetic vision</p>
+              </div>
+              <div class="text-overlay">
+                <div class="overlay-content">
+                  <svg 
+                    class="expand-icon" 
+                    viewBox="0 0 24 24" 
+                    width="24" 
+                    height="24"
+                  >
+                    <path 
+                      fill="currentColor" 
+                      d="M15 3h6v6l-2-2-4 4-2-2 4-4-2-2zM9 21H3v-6l2 2 4-4 2 2-4 4 2 2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Hidden content for text lightbox -->
+  <div id="about" class="lightbox-content">
+    <div style="padding: 2rem; background: linear-gradient(135deg, #3f7158 0%, #89c9b8 50%, #8fd7fb 100%); color: white; text-align: center; border-radius: 12px; max-width: 600px; margin: 0 auto;">
+      <!-- <h2 style="margin-bottom: 1rem; font-size: 1.8rem;">About Evershade Dream</h2> -->
+      <p style="line-height: 1.6; margin-bottom: 1rem;">You are a <strong>Wanderer</strong>, one who awakens between worlds, lost yet destined. Each realm is a fragment of the <strong>Evershade Dream</strong>, a reality woven by the sleeping thoughts of beings known only as the <strong>Zatvirs</strong>.</p>
+      <p style="line-height: 1.6; margin-bottom: 1rem;">These realms drift like celestial islands, accessible only by <strong>Portals of Sea and Sky</strong>, pathways opened by deciphering riddles left in their wake. Each scene is a living mystery, painted from memory fragments, echoes of a lost civilization seeking to reconnect its shattered truths.</p>
+      <p style="font-style: italic; opacity: 0.9;">Created with love for those who seek wonder in the spaces between dreams and reality.</p>
+    </div>
+  </div>
+
   <style>
+    strong {
+      background: linear-gradient(
+        135deg,
+        #667eea 0%,
+        #764ba2 50%,
+        #f093fb 100%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+    }
+
     .gallery-content {
       opacity: 0;
       transform: translateY(20px);
@@ -153,6 +217,25 @@ const galleryImages = [
       font-weight: 700;
       background: linear-gradient(
         135deg,
+        #3f7158 0%,    /* moss & sage */
+        #89c9b8 50%,    /* moonlit mint */
+        #8fd7fb 100%    /* pale ethereal blue-white */
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: titleReveal 1s ease-out 0.3s forwards;
+    }
+
+    .gallery-subtitle {
+      font-size: clamp(1.2rem, 4vw, 1.7rem);
+      font-style: italic;
+      color: var(--text-secondary);
+      background: linear-gradient(
+        135deg,
         #667eea 0%,
         #764ba2 50%,
         #f093fb 100%
@@ -160,13 +243,15 @@ const galleryImages = [
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
       opacity: 0;
-      transform: translateY(30px);
-      animation: titleReveal 1s ease-out 0.3s forwards;
+      transform: translateY(20px);
+      animation: contentReveal 0.8s ease-out 0.6s forwards;
     }
 
-    .gallery-subtitle {
+    .gallery-text {
       font-size: 1.125rem;
       color: var(--text-secondary);
       line-height: 1.6;
@@ -293,6 +378,87 @@ const galleryImages = [
       width: 32px;
       height: 32px;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    /* Text container styles */
+    .text-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      padding: 1.5rem;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .text-container:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border-color: var(--accent-bg);
+    }
+
+    .text-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .text-icon {
+      color: var(--accent-bg);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .text-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .text-description {
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .text-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .text-container:hover .text-overlay {
+      opacity: 1;
+    }
+
+    /* Hidden content styling */
+    .lightbox-content {
+      display: none;
+    }
+
+    /* Show content when in lightbox context */
+    .fslightbox-source .lightbox-content,
+    [id*="fslightbox"] .lightbox-content,
+    .lightbox-content.fslightbox-open {
+      display: block !important;
+    }
+
+    /* Class applied by data-class attribute */
+    .d-block {
+      display: block !important;
     }
 
     /* Loading skeleton */
