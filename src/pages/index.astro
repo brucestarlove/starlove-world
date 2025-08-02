@@ -5,8 +5,10 @@ import SearchBar from "../components/ui/SearchBar.astro";
 import TagList from "../components/ui/TagList.astro";
 import { getCollection } from "astro:content";
 
-// Load posts from content collections
-const posts = await getCollection('posts');
+// Load posts from content collections and sort by date (newest first)
+const posts = (await getCollection('posts')).sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <Layout title="Home">
@@ -217,7 +219,7 @@ const posts = await getCollection('posts');
                 <article
                   class="post-item"
                   style={`--post-color: ${post.data.color}`}
-                  data-tags={post.data.tags.join(", ")}
+                  data-tags={post.data.tags.join(", ").toLowerCase()}
                   data-title={post.data.title.toLowerCase()}
                   data-excerpt={post.data.excerpt.toLowerCase()}
                 >
@@ -615,6 +617,7 @@ const posts = await getCollection('posts');
         border: 1px solid var(--border-color);
       }
 
+
       @keyframes titleReveal {
         to {
           opacity: 1;
@@ -823,61 +826,59 @@ const posts = await getCollection('posts');
       // Reinitialize after client-side navigation
       document.addEventListener("astro:after-swap", initializeLogoCycler);
 
-      // Search functionality
-      class PostSearch {
-        private searchInput: HTMLInputElement | null;
-        private postsList: HTMLElement | null;
-        private allPosts: NodeListOf<HTMLElement>;
-
-        constructor() {
-          this.searchInput = document.getElementById(
-            "searchInput"
-          ) as HTMLInputElement;
-          this.postsList = document.getElementById("postsList");
-          this.allPosts = document.querySelectorAll(".post-item");
-          this.init();
+      // Simple search function that always re-queries elements
+      function setupSearch() {
+        const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+        const postsList = document.getElementById("postsList");
+        
+        if (!searchInput || !postsList) {
+          console.log('Search elements not found, skipping setup');
+          return;
         }
 
-        private init() {
-          if (!this.searchInput) return;
-
-          this.searchInput.addEventListener("input", (e) => {
-            const query = (e.target as HTMLInputElement).value
-              .toLowerCase()
-              .trim();
-            this.filterPosts(query);
-          });
-
-          // Show all posts initially
-          this.showAllPosts();
-        }
-
-        private filterPosts(query: string) {
-          this.allPosts.forEach((post) => {
-            const title = post.getAttribute("data-title") || "";
-            const excerpt = post.getAttribute("data-excerpt") || "";
-            const tags = post.getAttribute("data-tags")?.toLowerCase() || "";
-
-            const matches =
-              title.includes(query) ||
-              excerpt.includes(query) ||
-              tags.includes(query);
-
-            post.style.display = matches || query === "" ? "flex" : "none";
-          });
-        }
-
-        private showAllPosts() {
-          this.allPosts.forEach((post) => {
-            post.style.display = "flex";
-          });
-        }
+        console.log('Setting up search...');
+        
+        // Remove any existing listeners by cloning the input
+        const newSearchInput = searchInput.cloneNode(true) as HTMLInputElement;
+        searchInput.parentNode?.replaceChild(newSearchInput, searchInput);
+        
+        // Add the search listener
+        newSearchInput.addEventListener("input", (e) => {
+          const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+          filterPosts(query);
+        });
+        
+        console.log('Search setup complete');
       }
 
-      // Initialize search after DOM is loaded
-      document.addEventListener("DOMContentLoaded", () => {
-        new PostSearch();
-      });
+      function filterPosts(query: string) {
+        console.log('Search query:', query);
+        const allPosts = document.querySelectorAll(".post-item") as NodeListOf<HTMLElement>;
+        let visibleCount = 0;
+        
+        allPosts.forEach((post) => {
+          const title = post.getAttribute("data-title") || "";
+          const excerpt = post.getAttribute("data-excerpt") || "";
+          const tags = post.getAttribute("data-tags") || "";
+
+          const matches =
+            title.includes(query) ||
+            excerpt.includes(query) ||
+            tags.includes(query);
+
+          const shouldShow = matches || query === "";
+          post.style.display = shouldShow ? "flex" : "none";
+          
+          if (shouldShow) visibleCount++;
+        });
+        
+        console.log(`Showing ${visibleCount} out of ${allPosts.length} posts`);
+      }
+
+      // Initialize search
+      document.addEventListener("DOMContentLoaded", setupSearch);
+      document.addEventListener("astro:after-swap", () => setTimeout(setupSearch, 100));
+      document.addEventListener("astro:page-load", () => setTimeout(setupSearch, 100));
 
       // Stuff tooltip functionality
       class StuffTooltip {

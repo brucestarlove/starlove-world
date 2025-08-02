@@ -1,0 +1,184 @@
+---
+export interface Props {
+  videoId: string;
+  title?: string;
+  thumbnail?: string;
+  class?: string;
+}
+
+const { videoId, title = "YouTube Video", thumbnail, class: className = "" } = Astro.props;
+
+// Generate YouTube thumbnail URL if not provided
+const thumbnailUrl = thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+// Use embed URL for better fslightbox compatibility
+const youtubeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+---
+
+<div class={`youtube-embed ${className}`}>
+  <a 
+    data-fslightbox="youtube-video" 
+    href={youtubeUrl}
+    class="youtube-link"
+    title={title}
+  >
+    <div class="youtube-thumbnail">
+      <img
+        src={thumbnailUrl}
+        alt={title}
+        loading="lazy"
+        class="thumbnail-image"
+      />
+      <div class="play-overlay">
+        <svg class="play-icon" viewBox="0 0 68 48" width="68" height="48">
+          <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+          <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+        </svg>
+      </div>
+      <div class="duration-badge" id={`duration-${videoId}`}></div>
+    </div>
+    <div class="youtube-info">
+      <h4 class="video-title">{title}</h4>
+    </div>
+  </a>
+</div>
+
+<style>
+  .youtube-embed {
+    margin: 2rem 0;
+    max-width: 100%;
+  }
+
+  .youtube-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .youtube-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-bg);
+  }
+
+  .youtube-thumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--primary-bg);
+  }
+
+  .thumbnail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .youtube-link:hover .thumbnail-image {
+    transform: scale(1.02);
+  }
+
+  .play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  }
+
+  .youtube-link:hover .play-overlay {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .play-icon {
+    width: 68px;
+    height: 48px;
+  }
+
+  .duration-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: none;
+  }
+
+  .duration-badge:not(:empty) {
+    display: block;
+  }
+
+  .youtube-info {
+    padding: 1rem;
+  }
+
+  .video-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .youtube-embed {
+      margin: 1.5rem 0;
+    }
+
+    .youtube-info {
+      padding: 0.75rem;
+    }
+
+    .video-title {
+      font-size: 1rem;
+    }
+
+    .play-icon {
+      width: 56px;
+      height: 40px;
+    }
+  }
+
+  /* Integration with your existing themes */
+  [data-theme="dark"] .youtube-link {
+    background: var(--secondary-bg);
+    border-color: var(--border-color);
+  }
+
+  [data-theme="dark"] .youtube-link:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+</style>
+
+<script>
+  // Initialize fslightbox after component loads
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (typeof refreshFsLightbox !== 'undefined') {
+        refreshFsLightbox();
+      }
+    }, 100);
+  });
+
+  // Also refresh after Astro navigation
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(() => {
+      if (typeof refreshFsLightbox !== 'undefined') {
+        refreshFsLightbox();
+      }
+    }, 100);
+  });
+</script>
