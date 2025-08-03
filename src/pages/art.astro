@@ -14,57 +14,61 @@ import TagList from "../components/ui/TagList.astro";
     />
 
     <div class="sections">
-      <h2 class="section-title">Collections</h2>
-      <div class="art-grid">
-        <article class="art-item">
-          <a href="/art/evershade-dream" class="art-link">
-            <div class="art-preview">
-              <!-- <div class="art-star">★</div> -->
-              <div class="art-gradient evershade"></div>
-            </div>
-            <div class="art-info">
-              <h3 class="art-name">A Starscape Journey: Evershade Dream</h3>
-              <p class="art-description">
-                A surreal exploration of light, shadow, and dreamlike landscapes
-              </p>
-              <TagList
-                tags={["Game Concept", "AI Art", "Surreal", "Gallery"]}
-              />
-            </div>
-          </a>
-        </article>
+      <div class="section">
+        <h2 class="section-title">Collections</h2>
+        <div class="art-grid">
+          <article class="art-item">
+            <a href="/art/evershade-dream" class="art-link">
+              <div class="art-preview">
+                <!-- <div class="art-star">★</div> -->
+                <div class="art-gradient evershade"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">A Starscape Journey: Evershade Dream</h3>
+                <p class="art-description">
+                  A surreal exploration of light, shadow, and dreamlike
+                  landscapes
+                </p>
+                <TagList
+                  tags={["Game Concept", "AI Art", "Surreal", "Gallery"]}
+                />
+              </div>
+            </a>
+          </article>
 
-        <article class="art-item">
-          <a href="/art/folded-horizons" class="art-link">
-            <div class="art-preview">
-              <!-- <div class="art-star">★</div> -->
-              <div class="art-gradient horizons"></div>
-            </div>
-            <div class="art-info">
-              <h3 class="art-name">Folded Horizons</h3>
-              <p class="art-description">
-                Earthscapes split by a central black line, creating the illusion
-                of viewing nature through the binding of an infinite atlas.
-              </p>
-              <TagList tags={["Surreal", "AI Art", "Gallery"]} />
-            </div>
-          </a>
-        </article>
+          <article class="art-item">
+            <a href="/art/folded-horizons" class="art-link">
+              <div class="art-preview">
+                <!-- <div class="art-star">★</div> -->
+                <div class="art-gradient horizons"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">Folded Horizons</h3>
+                <p class="art-description">
+                  Earthscapes split by a central black line, creating the
+                  illusion of viewing nature through the binding of an infinite
+                  atlas.
+                </p>
+                <TagList tags={["Surreal", "AI Art", "Gallery"]} />
+              </div>
+            </a>
+          </article>
 
-        <article class="art-item coming-soon">
-          <div class="art-link">
-            <div class="art-preview">
-              <div class="art-gradient placeholder"></div>
+          <article class="art-item coming-soon">
+            <div class="art-link">
+              <div class="art-preview">
+                <div class="art-gradient placeholder"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">Coming Soon</h3>
+                <p class="art-description">
+                  uploading backlog + new inspiration when it strikes
+                </p>
+                <TagList tags={["soon™"]} />
+              </div>
             </div>
-            <div class="art-info">
-              <h3 class="art-name">Coming Soon</h3>
-              <p class="art-description">
-                uploading backlog + new inspiration when it strikes
-              </p>
-              <TagList tags={["soon™"]} />
-            </div>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
     </div>
   </ContentReveal>

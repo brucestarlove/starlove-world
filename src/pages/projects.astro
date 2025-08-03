@@ -30,52 +30,52 @@ const categories = Object.keys(projectsByCategory);
     />
 
     <div class="sections">
-      { categories.map((category) => (
-        <h2 class="section-title">{category}</h2>
-        <div class="posts-list">
-          {projectsByCategory[category].map((project) => (
-            <article
-              class="post-item"
-              style={`--post-color: ${project.data.color}`}
-              data-category={category.toLowerCase()}
-              data-title={project.data.title.toLowerCase()}
-              data-description={project.data.description.toLowerCase()}
-            >
-              <a href={`/projects/${project.slug}`} class="item-link">
-                <div
-                  class="item-star"
-                  style={`background-color: ${project.data.color}`}
+      {
+        categories.map((category) => (
+          <div class="section">
+            <h2 class="section-title">{category}</h2>
+            <div class="posts-list">
+              {projectsByCategory[category].map((project) => (
+                <article
+                  class="post-item"
+                  style={`--post-color: ${project.data.color}`}
+                  data-category={category.toLowerCase()}
+                  data-title={project.data.title.toLowerCase()}
+                  data-description={project.data.description.toLowerCase()}
                 >
-                  ★
-                </div>
-                <div class="item-content">
-                  <div class="item-header">
-                    <h3 class="item-title">{project.data.title}</h3>
-                    <span
-                      class={`status-badge status-${project.data.status}`}
+                  <a href={`/projects/${project.slug}`} class="item-link">
+                    <div
+                      class="item-star"
+                      style={`background-color: ${project.data.color}`}
                     >
-                      {project.data.status === "in-progress"
-                        ? "In Progress"
-                        : project.data.status === "completed"
-                          ? "Completed"
-                          : "Planning"}
-                    </span>
-                  </div>
-                  <p class="item-description">
-                    {project.data.description}
-                  </p>
-                  <TagList
-                    tags={project.data.technologies}
-                    class="project-technologies"
-                  />
-                </div>
-              </a>
-            </article>
-          ))}
-        </div>
+                      ★
+                    </div>
+                    <div class="item-content">
+                      <div class="item-header">
+                        <h3 class="item-title">{project.data.title}</h3>
+                        <span
+                          class={`status-badge status-${project.data.status}`}
+                        >
+                          {project.data.status === "in-progress"
+                            ? "In Progress"
+                            : project.data.status === "completed"
+                              ? "Completed"
+                              : "Planning"}
+                        </span>
+                      </div>
+                      <p class="item-description">{project.data.description}</p>
+                      <TagList
+                        tags={project.data.technologies}
+                        class="project-technologies"
+                      />
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
         ))
       }
     </div>
   </ContentReveal>
-
 </Layout>
