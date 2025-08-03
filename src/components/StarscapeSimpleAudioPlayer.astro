@@ -378,8 +378,9 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     }
 
     cleanup() {
-      // Stop any existing audio
+      // Stop any existing audio immediately
       if (this.currentSound) {
+        this.currentSound.stop();
         this.currentSound.unload();
         this.currentSound = null;
       }
@@ -389,6 +390,12 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
         cancelAnimationFrame(this.progressUpdateId);
         this.progressUpdateId = null;
       }
+      
+      // Reset state
+      this.isPlaying = false;
+      this.currentTrackIndex = 0;
+      this.duration = 0;
+      this.isDragging = false;
     }
 
     initializeElements() {
@@ -684,7 +691,21 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     // Public method to destroy the player
     destroy() {
       this.cleanup();
-      // Remove event listeners would go here if we stored references to them
+      
+      // Clean up DOM event listeners
+      document.removeEventListener("mousemove", this.handleProgressDrag);
+      document.removeEventListener("mouseup", this.handleProgressDragEnd);
+      document.removeEventListener("mousemove", this.handleVolumeDrag);
+      document.removeEventListener("mouseup", this.handleVolumeDragEnd);
+      
+      // Reset UI elements
+      this.resetProgress();
+      this.updatePlayPauseIcon();
+      this.updateVolumeDisplay();
+      
+      if (this.trackTitle) {
+        this.trackTitle.textContent = "No track loaded";
+      }
     }
   }
 
@@ -714,6 +735,24 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     }
   }
 
+  // Global cleanup function to stop all audio players
+  function cleanupAllStarscapePlayers() {
+    // Find all starscape audio players and clean them up
+    const allPlayers = document.querySelectorAll('.starscape-audio-player[data-player-id]');
+    allPlayers.forEach(playerElement => {
+      if (playerElement._starscapePlayer) {
+        playerElement._starscapePlayer.destroy();
+        playerElement._starscapePlayer = null;
+      }
+    });
+    
+    // Also stop any Howl instances that might be lingering
+    if (typeof Howl !== 'undefined' && Howler) {
+      Howler.stop();
+      Howler.unload();
+    }
+  }
+
   // Initialize after DOM is ready and Howler.js is loaded
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
@@ -723,8 +762,16 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     setTimeout(initializeStarscapePlayer, 100);
   }
 
-  // Cleanup on page navigation for Astro
-  document.addEventListener("astro:before-swap", cleanupStarscapePlayer);
+  // Add global cleanup listener (only once per page load)
+  if (!window._starscapeCleanupAdded) {
+    window._starscapeCleanupAdded = true;
+    
+    // Cleanup on page navigation for Astro
+    document.addEventListener("astro:before-swap", cleanupAllStarscapePlayers);
+    
+    // Also cleanup on beforeunload as a safety net
+    window.addEventListener("beforeunload", cleanupAllStarscapePlayers);
+  }
   
   // Reinitialize after Astro navigation
   document.addEventListener("astro:after-swap", () => {
