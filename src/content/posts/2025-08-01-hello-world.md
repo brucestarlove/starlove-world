@@ -28,6 +28,8 @@ most of my effort rn is on client projects and meeting people. i'm new to New Yo
 
 yea i'm gonna keep this blog nice and simple and chill. i mean i'll talk about serious topics, and i do get mad at the wrong in the world but y'know i'm just a human sharing their perspective through a lens of wanting more love, peace, joy & abundance in the world. i spread that around to the few i encounter, and will try scaling my effectiveness up for the rest of my life.
 
+—☆♡
+
 ⠀⠀⠀⢸⣦⡀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⢸⣏⠻⣶⣤⡶⢾⡿⠁⠀⢠⣄⡀⢀⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⣀⣼⠷⠀⠀⠁⢀⣿⠃⠀⠀⢀⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
