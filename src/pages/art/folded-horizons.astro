@@ -4,7 +4,7 @@ import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
 import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
 import LightboxContent from "../../components/gallery/LightboxContent.astro";
 
-// Folded Horizon gallery images from starlove-assets
+// Main Folded Horizon gallery images from starlove-assets
 const galleryImages = [
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp",
@@ -62,9 +62,13 @@ const galleryImages = [
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image14.webp",
     alt: "Folded Horizon 14",
   },
+];
+
+// Bonus gallery - special edition
+const bonusImages = [
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image99.webp",
-    alt: "Folded Horizon 99",
+    alt: "Folded Horizon 99 - The Final Page",
   },
 ];
 
@@ -84,13 +88,13 @@ const lightboxSections = [
 <ArtPageLayout
   title="Folded Horizons"
   subtitle=""
-  description="A surreal exploration of ordinary landscapes transformed by the metaphor of an open book."
-  gameDescription="Series: Earthscapes split by a central black line, creating the illusion of viewing nature through the binding of an infinite atlas."
+  description="Earthscapes split by a central black line, creating the illusion of viewing nature through the binding of an infinite atlas."
+  gameDescription=""
   titleClass="text-gradient-horizons mb-0"
   stats={[
-    { label: "Images", value: galleryImages.length },
+    { label: "Main Series", value: galleryImages.length },
+    { label: "Bonus", value: bonusImages.length },
     { label: "Digital Art", value: "" },
-    { label: "ePhotography Series", value: "" },
     { label: "Surreal", value: "" },
     { label: "2024", value: "" },
   ]}
@@ -111,11 +115,82 @@ const lightboxSections = [
     sections={lightboxSections}
     footer="Where every landscape tells a story, and every story unfolds across the horizon."
   />
+
+  <!-- Bonus Gallery Section -->
+  <div class="bonus-section">
+    <div class="section-header">
+      <h2 class="section-title">Bonus</h2>
+    </div>
+
+    <MasonryGallery
+      images={bonusImages}
+      galleryName="folded-horizons-bonus-gallery"
+    />
+  </div>
 </ArtPageLayout>
 
 <style>
   /* Custom styling for this gallery if needed */
   .gallery-text {
     font-style: italic;
+  }
+
+  /* Bonus section styling */
+  .bonus-section {
+    margin-top: 4rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out 1.2s forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    background: linear-gradient(
+      135deg,
+      var(--horizons-start) 0%,
+      var(--horizons-mid) 50%,
+      var(--horizons-end) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .bonus-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .section-description {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
   }
 </style>
