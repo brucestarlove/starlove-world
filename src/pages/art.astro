@@ -33,21 +33,20 @@ import TagList from "../components/ui/TagList.astro";
             </a>
           </article>
 
-          <!-- Placeholder for future collections -->
-          <article class="art-item coming-soon">
-            <div class="art-link">
+          <article class="art-item">
+            <a href="/art/folded-horizons" class="art-link">
               <div class="art-preview">
                 <!-- <div class="art-star">★</div> -->
-                <div class="art-gradient placeholder"></div>
+                <div class="art-gradient horizons"></div>
               </div>
               <div class="art-info">
-                <h3 class="art-name">More Collections</h3>
+                <h3 class="art-name">Folded Horizons</h3>
                 <p class="art-description">
-                  Additional art collections coming soon...
+                  A surreal exploration of ordinary landscapes transformed by the metaphor of an open book
                 </p>
-                <TagList tags={["Coming Soon"]} />
+                <TagList tags={["Photography Series", "Surreal Landscapes", "Gallery"]} />
               </div>
-            </div>
+            </a>
           </article>
         </div>
       </section>
@@ -185,6 +184,12 @@ import TagList from "../components/ui/TagList.astro";
 
     .art-gradient.evershade {
       background: url('https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp');
+    }
+
+    .art-gradient.horizons {
+      background: url('https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp');
+      background-size: cover;
+      background-position: center;
     }
 
     .art-gradient.placeholder {

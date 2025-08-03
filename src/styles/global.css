@@ -59,6 +59,9 @@
   --evershade-start: #3f7158;
   --evershade-mid: #89c9b8;
   --evershade-end: #8fd7fb;
+  --horizons-start: #fce473;
+  --horizons-mid: #f2933d;
+  --horizons-end: #d94c2d;
 }
 
 /* Theme Variations */
@@ -160,6 +163,18 @@ mb-0 {
     var(--evershade-start) 0%,
     var(--evershade-mid) 50%,
     var(--evershade-end) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-horizons {
+  background: linear-gradient(
+    135deg,
+    var(--horizons-start) 0%,
+    var(--horizons-mid) 50%,
+    var(--horizons-end) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;

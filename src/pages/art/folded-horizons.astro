@@ -1,0 +1,120 @@
+---
+import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
+import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
+import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
+import LightboxContent from "../../components/gallery/LightboxContent.astro";
+
+// Folded Horizon gallery images from starlove-assets
+const galleryImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp",
+    alt: "Folded Horizon 01",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image02.webp",
+    alt: "Folded Horizon 02",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image03.webp",
+    alt: "Folded Horizon 03",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image04.webp",
+    alt: "Folded Horizon 04",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image05.webp",
+    alt: "Folded Horizon 05",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image06.webp",
+    alt: "Folded Horizon 06",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image07.webp",
+    alt: "Folded Horizon 07",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image08.webp",
+    alt: "Folded Horizon 08",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image09.webp",
+    alt: "Folded Horizon 09",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image10.webp",
+    alt: "Folded Horizon 10",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image11.webp",
+    alt: "Folded Horizon 11",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image12.webp",
+    alt: "Folded Horizon 12",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image13.webp",
+    alt: "Folded Horizon 13",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image14.webp",
+    alt: "Folded Horizon 14",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image99.webp",
+    alt: "Folded Horizon 99",
+  },
+];
+
+// Lightbox content data
+const lightboxSections = [
+  {
+    text: "**Folded Horizons** explores the liminal space between reality and imagination, where ordinary landscapes become pages in an infinite book of earth's stories.",
+    highlights: ["Folded Horizons"],
+  },
+  {
+    text: "Each image features the distinctive black spine running vertically through the center, creating the sensation that you're looking into the crease of an open book—but instead of words, you find worlds.",
+    highlights: [],
+  },
+];
+---
+
+<ArtPageLayout
+  title="Folded Horizons"
+  subtitle=""
+  description="A surreal exploration of ordinary landscapes transformed by the metaphor of an open book."
+  gameDescription="Series: Earthscapes split by a central black line, creating the illusion of viewing nature through the binding of an infinite atlas."
+  titleClass="text-gradient-horizons mb-0"
+  stats={[
+    { label: "Images", value: galleryImages.length },
+    { label: "ePhotography Series", value: "" },
+    { label: "Surreal Landscapes", value: "" },
+    { label: "2024", value: "" },
+  ]}
+>
+  <MasonryGallery images={galleryImages} galleryName="folded-horizons-gallery">
+    <TextLightboxItem
+      galleryName="folded-horizons-gallery"
+      href="#about-folded"
+      title="About the Series"
+      description="Discover the concept behind these surreal earthscapes and the book spine aesthetic"
+      icon="story"
+    />
+  </MasonryGallery>
+
+  <LightboxContent
+    id="about-folded"
+    theme="horizons"
+    sections={lightboxSections}
+    footer="Where every landscape tells a story, and every story unfolds across the horizon."
+  />
+</ArtPageLayout>
+
+<style>
+  /* Custom styling for this gallery if needed */
+  .gallery-text {
+    font-style: italic;
+  }
+</style>

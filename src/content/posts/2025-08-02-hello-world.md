@@ -24,9 +24,9 @@ _[→ projects page -͟͟͞☆](/projects)_
 
 this is my first project with `Astro` (rather than recent Next.js). chosen not for the name, although great and on-brand, but for this simple usecase.
 
-most of my effort rn is on client projects and meeting people. i'm new to New York City--and never thought I'd enjoy it as much as I have. and it's summer fun, though not so fun with the high temp days. i want to keep making connections, be them potential clients or collaborators or friends. i want to get out to the beach sometime. i want to listen to more live music and dance. i want to see, experience, love -- and keep building! prioritizing the former tbh while i have the opportunity, so all my extra projects including STARSCAPE APP will take longer than they could. for now.
+most of my effort rn is on client projects and meeting people. i'm new to New York City, coming here on a whim! a story for another time. i'm enjoying it here a lot. i want to keep making connections, be them potential clients or collaborators or friends. i want to get out to the beach sometime. i want to listen to more live music and dance. i want to see, experience, love -- and keep building! prioritizing the former tbh while i have the opportunity, so all my extra projects including STARSCAPE APP will take longer than they could. for now.
 
-yea i'm gonna keep this blog nice and simple and chill. i mean i'll talk about serious topics, and i do get mad at the wrong in the world but y'know i'm just a human sharing their perspective through a lens of wanting more love & peace & joy & abundance in the world. i spread that around to the few i encounter, and will try scaling my effectiveness up for the rest of my life.
+yea i'm gonna keep this blog nice and simple and chill. i mean i'll talk about serious topics, and i do get mad at the wrong in the world but y'know i'm just a human sharing their perspective through a lens of wanting more love, peace, joy & abundance in the world. i spread that around to the few i encounter, and will try scaling my effectiveness up for the rest of my life.
 
 ⠀⠀⠀⢸⣦⡀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⢸⣏⠻⣶⣤⡶⢾⡿⠁⠀⢠⣄⡀⢀⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀

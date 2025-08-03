@@ -6,7 +6,13 @@ export interface ContentSection {
 
 export interface Props {
   id: string;
-  theme?: 'evershade' | 'starscape' | 'cityscape' | 'forestscape' | 'custom';
+  theme?:
+    | "evershade"
+    | "starscape"
+    | "cityscape"
+    | "forestscape"
+    | "horizons"
+    | "custom";
   title?: string;
   sections: ContentSection[];
   footer?: string;
@@ -16,21 +22,26 @@ export interface Props {
 
 const {
   id,
-  theme = 'evershade',
+  theme = "evershade",
   title,
   sections,
   footer,
   customGradient,
-  maxWidth = '600px'
+  maxWidth = "600px",
 } = Astro.props;
 
 // Theme gradient mappings
 const themeGradients = {
-  evershade: 'linear-gradient(135deg, var(--evershade-start) 0%, var(--evershade-mid) 50%, var(--evershade-end) 100%)',
-  starscape: 'linear-gradient(135deg, var(--starscape-start) 0%, var(--starscape-mid) 50%, var(--starscape-end) 100%)',
-  cityscape: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)',
-  forestscape: 'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)',
-  custom: customGradient || 'linear-gradient(135deg, var(--accent-bg) 0%, var(--glow-color) 100%)'
+  evershade:
+    "linear-gradient(135deg, var(--evershade-start) 0%, var(--evershade-mid) 50%, var(--evershade-end) 100%)",
+  starscape:
+    "linear-gradient(135deg, var(--starscape-start) 0%, var(--starscape-mid) 50%, var(--starscape-end) 100%)",
+  cityscape: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)",
+  forestscape: "linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)",
+  horizons: "linear-gradient(135deg, #fce473 0%, #f2933d 50%, #d94c2d 100%)",
+  custom:
+    customGradient ||
+    "linear-gradient(135deg, var(--accent-bg) 0%, var(--glow-color) 100%)",
 };
 
 const gradient = themeGradients[theme];
@@ -38,34 +49,42 @@ const gradient = themeGradients[theme];
 // Function to process text with highlights
 function processText(text: string, highlights: string[] = []) {
   let processedText = text;
-  
+
   // Replace markdown-style bold (**text**)
-  processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  
+  processedText = processedText.replace(
+    /\*\*(.*?)\*\*/g,
+    "<strong>$1</strong>"
+  );
+
   // Apply highlights
-  highlights.forEach(highlight => {
-    const regex = new RegExp(`\\b${highlight}\\b`, 'gi');
-    processedText = processedText.replace(regex, `<strong>${highlight}</strong>`);
+  highlights.forEach((highlight) => {
+    const regex = new RegExp(`\\b${highlight}\\b`, "gi");
+    processedText = processedText.replace(
+      regex,
+      `<strong>${highlight}</strong>`
+    );
   });
-  
+
   return processedText;
 }
 ---
 
 <div id={id} class="lightbox-content">
-  <div 
+  <div
     class="lightbox-container"
     style={`background: ${gradient}; max-width: ${maxWidth};`}
   >
     {title && <h2 class="lightbox-title">{title}</h2>}
-    
-    {sections.map(section => (
-      <p 
-        class="lightbox-text" 
-        set:html={processText(section.text, section.highlights)}
-      />
-    ))}
-    
+
+    {
+      sections.map((section) => (
+        <p
+          class="lightbox-text"
+          set:html={processText(section.text, section.highlights)}
+        />
+      ))
+    }
+
     {footer && <p class="lightbox-footer">{footer}</p>}
   </div>
 </div>
