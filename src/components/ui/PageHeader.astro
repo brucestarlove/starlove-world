@@ -17,9 +17,9 @@ const {
 ---
 
 <header class={`page-header ${centered ? 'text-center' : 'text-left'}`}>
-  <h1 class={`page-title ${titleClass}`}>{title}</h1>
+  <h1 class={`page-title animate-title ${titleClass}`}>{title}</h1>
   {subtitle && (
-    <p class={`page-subtitle ${subtitleClass}`}>{subtitle}</p>
+    <p class={`page-subtitle animate-content-medium ${subtitleClass}`}>{subtitle}</p>
   )}
   <slot />
 </header>

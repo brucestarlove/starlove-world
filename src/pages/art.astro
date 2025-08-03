@@ -14,278 +14,252 @@ import TagList from "../components/ui/TagList.astro";
     />
 
     <div class="sections">
-      <section class="art-section">
-        <h2 class="section-title">Collections</h2>
-        <div class="art-grid">
-          <article class="art-item">
-            <a href="/art/evershade-dream" class="art-link">
-              <div class="art-preview">
-                <!-- <div class="art-star">★</div> -->
-                <div class="art-gradient evershade"></div>
-              </div>
-              <div class="art-info">
-                <h3 class="art-name">A Starscape Journey: Evershade Dream</h3>
-                <p class="art-description">
-                  A surreal exploration of light, shadow, and dreamlike
-                  landscapes
-                </p>
-                <TagList
-                  tags={["Game Concept", "AI Art", "Surreal", "Gallery"]}
-                />
-              </div>
-            </a>
-          </article>
-
-          <article class="art-item">
-            <a href="/art/folded-horizons" class="art-link">
-              <div class="art-preview">
-                <!-- <div class="art-star">★</div> -->
-                <div class="art-gradient horizons"></div>
-              </div>
-              <div class="art-info">
-                <h3 class="art-name">Folded Horizons</h3>
-                <p class="art-description">
-                  Earthscapes split by a central black line, creating the
-                  illusion of viewing nature through the binding of an infinite
-                  atlas.
-                </p>
-                <TagList tags={["Surreal", "AI Art", "Gallery"]} />
-              </div>
-            </a>
-          </article>
-
-          <article class="art-item coming-soon">
-            <div class="art-link">
-              <div class="art-preview">
-                <div class="art-gradient placeholder"></div>
-              </div>
-              <div class="art-info">
-                <h3 class="art-name">Coming Soon</h3>
-                <p class="art-description">
-                  uploading backlog + new inspiration when it strikes
-                </p>
-                <TagList tags={["soon™"]} />
-              </div>
+      <h2 class="section-title">Collections</h2>
+      <div class="art-grid">
+        <article class="art-item">
+          <a href="/art/evershade-dream" class="art-link">
+            <div class="art-preview">
+              <!-- <div class="art-star">★</div> -->
+              <div class="art-gradient evershade"></div>
             </div>
-          </article>
-        </div>
-      </section>
+            <div class="art-info">
+              <h3 class="art-name">A Starscape Journey: Evershade Dream</h3>
+              <p class="art-description">
+                A surreal exploration of light, shadow, and dreamlike landscapes
+              </p>
+              <TagList
+                tags={["Game Concept", "AI Art", "Surreal", "Gallery"]}
+              />
+            </div>
+          </a>
+        </article>
+
+        <article class="art-item">
+          <a href="/art/folded-horizons" class="art-link">
+            <div class="art-preview">
+              <!-- <div class="art-star">★</div> -->
+              <div class="art-gradient horizons"></div>
+            </div>
+            <div class="art-info">
+              <h3 class="art-name">Folded Horizons</h3>
+              <p class="art-description">
+                Earthscapes split by a central black line, creating the illusion
+                of viewing nature through the binding of an infinite atlas.
+              </p>
+              <TagList tags={["Surreal", "AI Art", "Gallery"]} />
+            </div>
+          </a>
+        </article>
+
+        <article class="art-item coming-soon">
+          <div class="art-link">
+            <div class="art-preview">
+              <div class="art-gradient placeholder"></div>
+            </div>
+            <div class="art-info">
+              <h3 class="art-name">Coming Soon</h3>
+              <p class="art-description">
+                uploading backlog + new inspiration when it strikes
+              </p>
+              <TagList tags={["soon™"]} />
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </ContentReveal>
+</Layout>
 
-  <style>
-    .art-content {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease-out;
-      padding-bottom: 6rem;
-      padding-top: 0;
-      margin-top: 0;
-    }
+<style>
+  .art-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+    padding-bottom: 6rem;
+    padding-top: 0;
+    margin-top: 0;
+  }
 
-    .art-content.reveal {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .art-content.reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .art-header {
-      margin-bottom: 2rem;
-      text-align: left;
-    }
+  .art-header {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
 
-    .art-title {
-      font-size: clamp(2rem, 7vw, 3rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: titleReveal 1s ease-out 0.3s forwards;
-    }
+  .art-title {
+    font-size: clamp(2rem, 7vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: titleReveal 1s ease-out 0.3s forwards;
+  }
 
-    .art-subtitle {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.8s ease-out 0.6s forwards;
-    }
+  .art-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: contentReveal 0.8s ease-out 0.6s forwards;
+  }
 
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent-bg);
-      display: inline-block;
-    }
+  .art-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
 
+  .art-item {
+    transition: all 0.3s ease;
+  }
+
+  .art-item.coming-soon {
+    opacity: 0.6;
+  }
+
+  .art-link {
+    display: block;
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .art-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-bg);
+  }
+
+  .art-preview {
+    position: relative;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .art-star {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    background: var(--accent-bg);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 2;
+  }
+
+  .art-gradient {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+  }
+
+  .art-gradient.evershade {
+    background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp");
+  }
+
+  .art-gradient.horizons {
+    background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .art-gradient.placeholder {
+    background: linear-gradient(
+      135deg,
+      var(--border-color) 0%,
+      var(--secondary-bg) 50%,
+      var(--border-color) 100%
+    );
+  }
+
+  .art-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .art-description {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .art-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .art-tag {
+    padding: 0.25rem 0.75rem;
+    background: var(--primary-bg);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+  }
+
+  /* Using global keyframes: titleReveal, contentReveal */
+
+  @media (max-width: 768px) {
     .art-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .art-item {
-      transition: all 0.3s ease;
-    }
-
-    .art-item.coming-soon {
-      opacity: 0.6;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .art-link {
-      display: block;
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .art-link:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-      border-color: var(--accent-bg);
+      padding: 1rem;
     }
 
     .art-preview {
-      position: relative;
-      height: 200px;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 150px;
     }
+  }
+</style>
 
-    .art-star {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 32px;
-      height: 32px;
-      background: var(--accent-bg);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: bold;
-      z-index: 2;
+<script>
+  function revealArtContent() {
+    const artContent = document.getElementById("artContent");
+    if (artContent && !artContent.classList.contains("reveal")) {
+      artContent.classList.add("reveal");
     }
+  }
 
-    .art-gradient {
-      position: absolute;
-      inset: 0;
-      border-radius: 8px;
-    }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", revealArtContent);
+  } else {
+    revealArtContent();
+  }
 
-    .art-gradient.evershade {
-      background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp");
-    }
-
-    .art-gradient.horizons {
-      background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp");
-      background-size: cover;
-      background-position: center;
-    }
-
-    .art-gradient.placeholder {
-      background: linear-gradient(
-        135deg,
-        var(--border-color) 0%,
-        var(--secondary-bg) 50%,
-        var(--border-color) 100%
-      );
-    }
-
-    .art-name {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .art-description {
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-
-    .art-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .art-tag {
-      padding: 0.25rem 0.75rem;
-      background: var(--primary-bg);
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      font-weight: 500;
-    }
-
-    @keyframes titleReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes contentReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .art-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .art-link {
-        padding: 1rem;
-      }
-
-      .art-preview {
-        height: 150px;
-      }
-    }
-  </style>
-
-  <script>
-    function revealArtContent() {
-      const artContent = document.getElementById("artContent");
-      if (artContent && !artContent.classList.contains("reveal")) {
-        artContent.classList.add("reveal");
-      }
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", revealArtContent);
-    } else {
-      revealArtContent();
-    }
-
-    document.addEventListener("astro:after-swap", revealArtContent);
-    setTimeout(revealArtContent, 100);
-  </script>
-</Layout>
+  document.addEventListener("astro:after-swap", revealArtContent);
+  setTimeout(revealArtContent, 100);
+</script>
