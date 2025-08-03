@@ -111,9 +111,11 @@ export class LightboxManager {
     lightbox.innerHTML = `
       <div class="lightbox-backdrop"></div>
       <div class="lightbox-container">
+        ${this.currentGallery ? `<div class="lightbox-counter"></div>` : ''}
         <div class="lightbox-content-wrapper">
           <div class="lightbox-content-area"></div>
         </div>
+        <div class="lightbox-caption"></div>
         <button class="lightbox-close" aria-label="Close lightbox">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
@@ -173,8 +175,12 @@ export class LightboxManager {
 
   private updateLightboxContent() {
     const contentArea = document.querySelector('.lightbox-content-area');
+    const counterElement = document.querySelector('.lightbox-counter');
+    const captionElement = document.querySelector('.lightbox-caption');
+    
     if (!contentArea || !this.currentContent) return;
 
+    // Update content
     if (this.currentContent.type === 'image') {
       contentArea.innerHTML = `
         <img 
@@ -188,6 +194,27 @@ export class LightboxManager {
       clonedElement.style.display = 'block';
       contentArea.innerHTML = '';
       contentArea.appendChild(clonedElement);
+    }
+
+    // Update counter (only for galleries with multiple items)
+    if (counterElement && this.currentGallery) {
+      const gallery = this.galleries.get(this.currentGallery);
+      if (gallery && gallery.length > 1) {
+        counterElement.textContent = `${this.currentIndex + 1} / ${gallery.length}`;
+        (counterElement as HTMLElement).style.display = 'block';
+      } else {
+        (counterElement as HTMLElement).style.display = 'none';
+      }
+    }
+
+    // Update caption (only for images)
+    if (captionElement) {
+      if (this.currentContent.type === 'image' && this.currentContent.alt) {
+        captionElement.textContent = this.currentContent.alt;
+        (captionElement as HTMLElement).style.display = 'block';
+      } else {
+        (captionElement as HTMLElement).style.display = 'none';
+      }
     }
   }
 

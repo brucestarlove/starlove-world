@@ -136,30 +136,42 @@ const { images, galleryName } = Astro.props;
     import('../../utils/LightboxManager.ts').then(({ LightboxManager }) => {
       const lightboxManager = LightboxManager.getInstance();
       
-      // Collect all gallery images
-      const galleryImages = Array.from(document.querySelectorAll('.gallery-image-btn')).map((btn, index) => ({
-        type: 'image' as const,
-        src: btn.getAttribute('data-src') || '',
-        alt: btn.getAttribute('data-alt') || '',
-        galleryName: btn.getAttribute('data-gallery') || '',
-        index
-      }));
-
-      // Register the gallery
-      const galleryName = galleryImages[0]?.galleryName;
-      if (galleryName) {
-        lightboxManager.registerGallery(galleryName, galleryImages);
-      }
-
-      // Add click handlers
-      document.querySelectorAll('.gallery-image-btn').forEach((btn, index) => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const content = galleryImages[index];
-          if (content) {
-            lightboxManager.open(content);
+      // Group gallery images by gallery name
+      const allButtons = Array.from(document.querySelectorAll('.gallery-image-btn'));
+      const galleriesByName = new Map();
+      
+      allButtons.forEach((btn, globalIndex) => {
+        const galleryName = btn.getAttribute('data-gallery') || '';
+        if (!galleriesByName.has(galleryName)) {
+          galleriesByName.set(galleryName, []);
+        }
+        galleriesByName.get(galleryName).push({
+          button: btn,
+          globalIndex,
+          content: {
+            type: 'image' as const,
+            src: btn.getAttribute('data-src') || '',
+            alt: btn.getAttribute('data-alt') || '',
+            galleryName,
+            index: galleriesByName.get(galleryName).length
           }
         });
+      });
+
+      // Register each gallery separately and add click handlers
+      galleriesByName.forEach((items, galleryName) => {
+        if (galleryName) {
+          const galleryImages = items.map(item => item.content);
+          lightboxManager.registerGallery(galleryName, galleryImages);
+          
+          // Add click handlers for this specific gallery
+          items.forEach((item) => {
+            item.button.addEventListener('click', (e) => {
+              e.preventDefault();
+              lightboxManager.open(item.content);
+            });
+          });
+        }
       });
     });
   }
