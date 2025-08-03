@@ -1,0 +1,169 @@
+---
+import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
+import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
+import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
+import LightboxContent from "../../components/gallery/LightboxContent.astro";
+import BonusGallery from "../../components/gallery/BonusGallery.astro";
+
+// Main Web One World gallery images from starlove-assets
+const galleryImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image01.webp",
+    alt: "Web One World 01",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image02.webp",
+    alt: "Web One World 02",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image03.webp",
+    alt: "Web One World 03",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image04.webp",
+    alt: "Web One World 04",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image05.webp",
+    alt: "Web One World 05",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image06.webp",
+    alt: "Web One World 06",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image07.webp",
+    alt: "Web One World 07",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image08.webp",
+    alt: "Web One World 08",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image09.webp",
+    alt: "Web One World 09",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image10.webp",
+    alt: "Web One World 10",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image11.webp",
+    alt: "Web One World 11",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/image12.webp",
+    alt: "Web One World 12",
+  },
+];
+
+// Dragon category bonus gallery
+const dragonImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dragon01.webp",
+    alt: "Dragon 01",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dragon02.webp",
+    alt: "Dragon 02",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dragon03.webp",
+    alt: "Dragon 03",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dragon04.webp",
+    alt: "Dragon 04",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dragon05.webp",
+    alt: "Dragon 05",
+  },
+];
+
+// Womanscape category bonus gallery
+const womanscapeImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/womanscape01.webp",
+    alt: "Womanscape 01",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/womanscape02.webp",
+    alt: "Womanscape 02",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/womanscape03.webp",
+    alt: "Womanscape 03",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/womanscape04.webp",
+    alt: "Womanscape 04",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/womanscape05.webp",
+    alt: "Womanscape 05",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/womanscape06.webp",
+    alt: "Womanscape 06",
+  },
+];
+
+// Lightbox content data
+const lightboxSections = [
+  {
+    text: "**Web One World** is just a lil collection of old web art I enjoy. Dear to my heart at least, and an inspirational surprise to some at best!",
+    highlights: ["Web One World"],
+  },
+];
+---
+
+<ArtPageLayout
+  title="Web One World"
+  subtitle=""
+  description="Digital landscapes exploring connection, transformation, and identity in our networked reality."
+  gameDescription=""
+  titleClass="text-gradient-starscape mb-0"
+  stats={[
+    { label: "Main Series", value: galleryImages.length },
+    { label: "Dragon", value: dragonImages.length },
+    { label: "Womanscape", value: womanscapeImages.length },
+    { label: "Digital", value: "" },
+    { label: "AI Art", value: "" },
+    { label: "2025", value: "" },
+  ]}
+>
+  <MasonryGallery images={galleryImages} galleryName="web-one-world-gallery">
+    <TextLightboxItem
+      galleryName="web-one-world-gallery"
+      href="#about-web-one-world"
+      title="About the Series"
+      description="a lil collection of old web art"
+      icon="story"
+    />
+  </MasonryGallery>
+
+  <LightboxContent
+    id="about-web-one-world"
+    theme="custom"
+    customGradient="linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f97316 100%)"
+    sections={lightboxSections}
+    footer=""
+  />
+
+  <!-- Dragon Bonus Gallery Section -->
+  <BonusGallery
+    title="Dragon"
+    images={dragonImages}
+    galleryName="web-one-world-dragon-gallery"
+    theme="starscape"
+  />
+
+  <!-- Womanscape Bonus Gallery Section -->
+  <BonusGallery
+    title="Womanscape"
+    images={womanscapeImages}
+    galleryName="web-one-world-womanscape-gallery"
+    theme="starscape"
+  />
+</ArtPageLayout>
