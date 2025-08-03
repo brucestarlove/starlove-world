@@ -1,0 +1,270 @@
+---
+// Example usage file for the StarscapeSimpleAudioPlayer component
+import StarscapeSimpleAudioPlayer from '../src/components/StarscapeSimpleAudioPlayer.astro';
+
+// Custom playlist example
+const customPlaylist = [
+  {
+    title: "Chill Vibes",
+    src: "/audio/chill-vibes.mp3"
+  },
+  {
+    title: "Electronic Dreams", 
+    src: "/audio/electronic-dreams.wav"
+  },
+  {
+    title: "Ambient Space",
+    src: "https://example.com/audio/ambient-space.ogg"
+  }
+];
+
+// Podcast playlist example
+const podcastPlaylist = [
+  {
+    title: "Episode 1: Getting Started",
+    src: "/podcasts/episode-1.mp3"
+  },
+  {
+    title: "Episode 2: Advanced Topics",
+    src: "/podcasts/episode-2.mp3"
+  }
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StarscapeSimpleAudioPlayer Examples</title>
+  
+  <!-- Required Howler.js dependency -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+  
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      padding: 2rem;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      space-y: 2rem;
+    }
+    
+    .example {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: #1e293b;
+      border-radius: 12px;
+      border: 1px solid #334155;
+    }
+    
+    .example h2 {
+      color: #3b82f6;
+      margin-bottom: 1rem;
+    }
+    
+    .example p {
+      color: #e1e1e1;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    /* Dark theme example */
+    .dark-theme {
+      --secondary-bg: #111827;
+      --border-color: #374151;
+      --accent-bg: #3b82f6;
+      --glow-color: #60a5fa;
+      --text-primary: #f9fafb;
+      --text-secondary: #d1d5db;
+    }
+    
+    /* Green theme example */
+    .green-theme {
+      --secondary-bg: #064e3b;
+      --border-color: #047857;
+      --accent-bg: #10b981;
+      --glow-color: #34d399;
+      --text-primary: #f0fdf4;
+      --text-secondary: #dcfce7;
+    }
+    
+    /* Purple theme example */
+    .purple-theme {
+      --secondary-bg: #4c1d95;
+      --border-color: #6d28d9;
+      --accent-bg: #8b5cf6;
+      --glow-color: #a78bfa;
+      --text-primary: #faf5ff;
+      --text-secondary: #ede9fe;
+    }
+    
+    /* Compact player */
+    .compact-player {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    
+    /* Full-width player */
+    .full-width-player {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>StarscapeSimpleAudioPlayer Component Examples</h1>
+    
+    <!-- Example 1: Default Player -->
+    <div class="example">
+      <h2>1. Default Player</h2>
+      <p>Basic audio player with default playlist and settings.</p>
+      <StarscapeSimpleAudioPlayer id="default-player" />
+    </div>
+    
+    <!-- Example 2: Custom Playlist -->
+    <div class="example">
+      <h2>2. Custom Playlist</h2>
+      <p>Player with a custom music playlist.</p>
+      <StarscapeSimpleAudioPlayer 
+        playlist={customPlaylist}
+        id="custom-playlist-player"
+      />
+    </div>
+    
+    <!-- Example 3: Autoplay with Custom Volume -->
+    <div class="example">
+      <h2>3. Autoplay & Custom Volume</h2>
+      <p>Player that starts automatically at 60% volume.</p>
+      <StarscapeSimpleAudioPlayer 
+        playlist={podcastPlaylist}
+        autoplay={true}
+        volume={0.6}
+        id="autoplay-player"
+      />
+    </div>
+    
+    <!-- Example 4: Dark Theme -->
+    <div class="example">
+      <h2>4. Dark Theme</h2>
+      <p>Player with custom dark theme colors.</p>
+      <StarscapeSimpleAudioPlayer 
+        className="dark-theme"
+        playlist={customPlaylist}
+        id="dark-theme-player"
+      />
+    </div>
+    
+    <!-- Example 5: Green Theme -->
+    <div class="example">
+      <h2>5. Green Theme</h2>
+      <p>Player with custom green color scheme.</p>
+      <StarscapeSimpleAudioPlayer 
+        className="green-theme"
+        playlist={customPlaylist}
+        id="green-theme-player"
+      />
+    </div>
+    
+    <!-- Example 6: Purple Theme -->
+    <div class="example">
+      <h2>6. Purple Theme</h2>
+      <p>Player with custom purple color scheme.</p>
+      <StarscapeSimpleAudioPlayer 
+        className="purple-theme"
+        playlist={podcastPlaylist}
+        id="purple-theme-player"
+      />
+    </div>
+    
+    <!-- Example 7: Compact Player -->
+    <div class="example">
+      <h2>7. Compact Player</h2>
+      <p>Smaller player suitable for sidebars or widgets.</p>
+      <StarscapeSimpleAudioPlayer 
+        className="compact-player"
+        playlist={[
+          { title: "Short Track", src: "/audio/short.mp3" }
+        ]}
+        id="compact-player"
+      />
+    </div>
+    
+    <!-- Example 8: Full Width Player -->
+    <div class="example">
+      <h2>8. Full Width Player</h2>
+      <p>Player that expands to fill available width.</p>
+      <StarscapeSimpleAudioPlayer 
+        className="full-width-player"
+        playlist={customPlaylist}
+        id="full-width-player"
+      />
+    </div>
+    
+    <!-- Example 9: Programmatic Control -->
+    <div class="example">
+      <h2>9. Programmatic Control</h2>
+      <p>Player with external control buttons.</p>
+      <StarscapeSimpleAudioPlayer 
+        playlist={customPlaylist}
+        className="controlled-player"
+        id="controlled-player"
+      />
+      
+      <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+        <button onclick="document.querySelector('[data-player-id*=controlled-player]')?._starscapePlayer?.play()" 
+                style="padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Play
+        </button>
+        <button onclick="document.querySelector('[data-player-id*=controlled-player]')?._starscapePlayer?.pause()" 
+                style="padding: 0.5rem 1rem; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Pause
+        </button>
+        <button onclick="document.querySelector('[data-player-id*=controlled-player]')?._starscapePlayer?.next()" 
+                style="padding: 0.5rem 1rem; background: #10b981; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Next
+        </button>
+        <button onclick="document.querySelector('[data-player-id*=controlled-player]')?._starscapePlayer?.setVolume(0.5)" 
+                style="padding: 0.5rem 1rem; background: #8b5cf6; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          50% Volume
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Example of accessing players programmatically
+    setTimeout(() => {
+      const controlledPlayer = document.querySelector('[data-player-id*=controlled-player]')?._starscapePlayer;
+      if (controlledPlayer) {
+        console.log('Controlled player is ready!');
+        console.log('Current playlist:', controlledPlayer.playlist);
+        
+        // Example: Set up custom event handlers for the controlled player
+        window.addEventListener('keydown', (e) => {
+          if (!controlledPlayer) return;
+          
+          switch(e.key) {
+            case ' ': // Spacebar
+              e.preventDefault();
+              controlledPlayer.togglePlayPause();
+              break;
+            case 'ArrowRight':
+              controlledPlayer.next();
+              break;
+            case 'ArrowLeft':
+              controlledPlayer.prev();
+              break;
+          }
+        });
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
