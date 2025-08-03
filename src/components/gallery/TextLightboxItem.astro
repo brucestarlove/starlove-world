@@ -63,36 +63,3 @@ const iconPath = iconSvg || (icon === 'custom' ? '' : iconPaths[icon]);
   </button>
 </div>
 
-<script>
-  function setupTextLightbox() {
-    // Import the lightbox manager
-    import('../../utils/LightboxManager.ts').then(({ LightboxManager }) => {
-      const lightboxManager = LightboxManager.getInstance();
-      
-      // Add click handlers for text lightbox items
-      document.querySelectorAll('.text-lightbox-btn').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const href = btn.getAttribute('data-href');
-          if (href) {
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-              lightboxManager.open({
-                type: 'html',
-                element: targetElement as HTMLElement
-              });
-            }
-          }
-        });
-      });
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupTextLightbox);
-  } else {
-    setupTextLightbox();
-  }
-
-  document.addEventListener("astro:after-swap", setupTextLightbox);
-</script>

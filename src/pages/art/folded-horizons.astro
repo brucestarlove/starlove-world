@@ -95,7 +95,7 @@ const bonusImages = [
 // Lightbox content data
 const lightboxSections = [
   {
-    text: "**Folded Horizons** explores the liminal space between reality and imagination, where ordinary landscapes become pages in an infinite book of earth's stories.",
+    text: "**Folded Horizons** explores the liminal space where ordinary landscapes become pages in an infinite book of earth's stories.",
     highlights: ["Folded Horizons"],
   },
   {
@@ -116,7 +116,8 @@ const lightboxSections = [
     { label: "Bonus", value: bonusImages.length },
     { label: "Digital Art", value: "" },
     { label: "Surreal", value: "" },
-    { label: "2024", value: "" },
+    { label: "Grok", value: "" },
+    { label: "2025", value: "" },
   ]}
 >
   <MasonryGallery images={galleryImages} galleryName="folded-horizons-gallery">
@@ -225,7 +226,7 @@ const lightboxSections = [
 
   // Execute immediately and on page events
   scrollToTop();
-  
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", scrollToTop);
   } else {

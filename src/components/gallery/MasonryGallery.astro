@@ -136,11 +136,13 @@ const { images, galleryName } = Astro.props;
     import('../../utils/LightboxManager.ts').then(({ LightboxManager }) => {
       const lightboxManager = LightboxManager.getInstance();
       
-      // Group gallery images by gallery name
-      const allButtons = Array.from(document.querySelectorAll('.gallery-image-btn'));
+      // Group gallery images and text items by gallery name
+      const allImageButtons = Array.from(document.querySelectorAll('.gallery-image-btn'));
+      const allTextButtons = Array.from(document.querySelectorAll('.text-lightbox-btn'));
       const galleriesByName = new Map();
       
-      allButtons.forEach((btn, globalIndex) => {
+      // Process image buttons
+      allImageButtons.forEach((btn, globalIndex) => {
         const galleryName = btn.getAttribute('data-gallery') || '';
         if (!galleriesByName.has(galleryName)) {
           galleriesByName.set(galleryName, []);
@@ -158,11 +160,36 @@ const { images, galleryName } = Astro.props;
         });
       });
 
+      // Process text lightbox buttons and add them to their respective galleries
+      allTextButtons.forEach((btn) => {
+        const galleryName = btn.getAttribute('data-gallery') || '';
+        const href = btn.getAttribute('data-href');
+        
+        if (galleryName && href) {
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            if (!galleriesByName.has(galleryName)) {
+              galleriesByName.set(galleryName, []);
+            }
+            galleriesByName.get(galleryName).push({
+              button: btn,
+              globalIndex: -1, // Text items don't have a global index
+              content: {
+                type: 'html' as const,
+                element: targetElement as HTMLElement,
+                galleryName,
+                index: galleriesByName.get(galleryName).length
+              }
+            });
+          }
+        }
+      });
+
       // Register each gallery separately and add click handlers
       galleriesByName.forEach((items, galleryName) => {
         if (galleryName) {
-          const galleryImages = items.map(item => item.content);
-          lightboxManager.registerGallery(galleryName, galleryImages);
+          const galleryContent = items.map(item => item.content);
+          lightboxManager.registerGallery(galleryName, galleryContent);
           
           // Add click handlers for this specific gallery
           items.forEach((item) => {

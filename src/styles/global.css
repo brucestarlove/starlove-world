@@ -360,5 +360,7 @@ mb-0 {
     max-width: 90%;
     font-size: 0.85rem;
     padding: 0.6rem 0.8rem;
+    left: auto;
+    transform: none;
   }
 }
