@@ -53,6 +53,21 @@ import TagList from "../components/ui/TagList.astro";
               </div>
             </a>
           </article>
+
+          <article class="art-item coming-soon">
+            <div class="art-link">
+              <div class="art-preview">
+                <div class="art-gradient placeholder"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">Coming Soon</h3>
+                <p class="art-description">
+                  uploading backlog + new inspiration when it strikes
+                </p>
+                <TagList tags={["soon™"]} />
+              </div>
+            </div>
+          </article>
         </div>
       </section>
     </div>
@@ -100,6 +115,7 @@ import TagList from "../components/ui/TagList.astro";
     }
 
     .art-sections {
+      margin-bottom: 6rem;
       opacity: 0;
       transform: translateY(20px);
       animation: contentReveal 0.8s ease-out 0.9s forwards;
