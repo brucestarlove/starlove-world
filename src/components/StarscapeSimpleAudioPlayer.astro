@@ -1,6 +1,7 @@
 ---
 export interface Props {
   playlist?: { title: string; src: string }[];
+  playlists?: { [key: string]: { title: string; src: string; artist?: string; duration?: string }[] };
   autoplay?: boolean;
   volume?: number;
   className?: string;
@@ -14,6 +15,7 @@ const {
       src: "/audio/Lavitz_Harpoon_Full.mp3",
     },
   ],
+  playlists = {},
   autoplay = false,
   volume = 1.0,
   className = "",
@@ -501,15 +503,15 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
   }
 </style>
 
-<script define:vars={{ playlist, autoplay, volume, playerId }} is:inline>
+<script define:vars={{ playlist, playlists, autoplay, volume, playerId }} is:inline>
   // Starscape Simple Audio Player Implementation
   class StarscapeSimpleAudioPlayer {
     constructor(playerElement, config = {}) {
       this.playerElement = playerElement;
       this.playerId = playerElement.dataset.playerId;
       this.currentSound = null;
-      this.playlists = {};
-      this.currentPlaylist = "Home";
+      this.playlists = config.playlists || {};
+      this.currentPlaylist = Object.keys(this.playlists)[0] || "Home";
       this.currentTrackIndex = 0;
       this.isPlaying = false;
       this.isDragging = false;
@@ -522,10 +524,8 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       this.cleanup();
 
       this.initializeElements();
-      this.loadPlaylist("Home").then(() => {
-        this.loadTrack(this.currentTrackIndex);
-        this.renderPlaylistMenu();
-      });
+      this.loadTrack(this.currentTrackIndex);
+      this.renderPlaylistMenu();
       this.attachEventListeners();
 
       if (this.autoplay) {
@@ -609,73 +609,6 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       return this.playlists[this.currentPlaylist] || [];
     }
 
-    async loadPlaylist(playlistName) {
-      if (this.playlists[playlistName]) {
-        return this.playlists[playlistName];
-      }
-
-      const playlistData = {
-        Home: [
-          {
-            title: "Tranquility.mid",
-            src: "/audio/playlist-home/Tranquility.mp3",
-            artist: "Ambient",
-            duration: "2:40",
-          },
-          {
-            title: "MidnightExpress.mid",
-            src: "/audio/playlist-home/MidnightExpress.mp3",
-            artist: "Ambient",
-            duration: "3:41",
-          },
-          {
-            title: "AcrossTheUniverse.mid",
-            src: "/audio/playlist-home/AcrossTheUniverse.mp3",
-            artist: "Ambient",
-            duration: "3:18",
-          },
-          {
-            title: "loop-water-waves.wav",
-            src: "/audio/playlist-home/loop-water-waves.wav",
-            artist: "Ambient",
-            duration: "3:42",
-          },
-        ],
-        Test: [
-          {
-            title: "lavitz-harpoon.wave",
-            src: "/audio/playlist-test/Lavitz_Harpoon_Full.mp3",
-            artist: "Lavitz",
-            duration: "4:15",
-          },
-          {
-            title: "Molecules",
-            src: "/audio/playlist-test/Molecules_KristoffKrane+Sadistik-compressed.mp3",
-            artist: "Kristoff Krane + Sadistik",
-            duration: "3:28",
-          },
-          {
-            title: "hit_-_with_1",
-            src: "/audio/playlist-test/hit_-_with_1.mp3",
-            artist: "Unknown",
-            duration: "2:45",
-          },
-          {
-            title: "A Wake",
-            src: "/audio/playlist-test/Eyedea_ft._Slug_-_A_Wake_(192_kbps)-compressed.mp3",
-            artist: "Eyedea ft. Slug",
-            duration: "4:12",
-          },
-        ],
-      };
-
-      if (playlistData[playlistName]) {
-        this.playlists[playlistName] = playlistData[playlistName];
-        return this.playlists[playlistName];
-      }
-
-      return [];
-    }
 
     loadTrack(index) {
       const playlist = this.currentPlaylistTracks;
@@ -983,8 +916,7 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     };
 
     // Playlist management methods
-    async switchToPlaylist(playlistName, trackIndex = 0) {
-      await this.loadPlaylist(playlistName);
+    switchToPlaylist(playlistName, trackIndex = 0) {
       if (this.playlists[playlistName]) {
         this.currentPlaylist = playlistName;
         this.currentTrackIndex = trackIndex;
@@ -1006,7 +938,7 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
 
       this.playlistList.innerHTML = "";
 
-      const availablePlaylists = ["Home", "Test"];
+      const availablePlaylists = Object.keys(this.playlists);
 
       availablePlaylists.forEach((playlistName) => {
         const isActive = playlistName === this.currentPlaylist;
@@ -1062,6 +994,7 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
         playerElement,
         {
           playlist,
+          playlists,
           autoplay,
           volume,
         }

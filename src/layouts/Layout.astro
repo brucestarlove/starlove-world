@@ -12,6 +12,62 @@ export interface Props {
 }
 
 const { title } = Astro.props;
+
+// Define playlists for the audio player
+const audioPlaylists = {
+  Home: [
+    {
+      title: "Tranquility.mid",
+      src: "/audio/playlist-home/Tranquility.mp3",
+      artist: "Ambient",
+      duration: "2:40",
+    },
+    {
+      title: "MidnightExpress.mid",
+      src: "/audio/playlist-home/MidnightExpress.mp3",
+      artist: "Ambient",
+      duration: "3:41",
+    },
+    {
+      title: "AcrossTheUniverse.mid",
+      src: "/audio/playlist-home/AcrossTheUniverse.mp3",
+      artist: "Ambient",
+      duration: "3:18",
+    },
+    {
+      title: "loop-water-waves.wav",
+      src: "/audio/playlist-home/loop-water-waves.wav",
+      artist: "Ambient",
+      duration: "3:42",
+    },
+  ],
+  First: [
+    {
+      title: "lavitz-harpoon.wave",
+      src: "/audio/playlist-first/Lavitz_Harpoon_Full.mp3",
+      artist: "Lavitz",
+      duration: "4:15",
+    },
+    {
+      title: "Molecules",
+      src: "/audio/playlist-first/Molecules_KristoffKrane+Sadistik-compressed.mp3",
+      artist: "Kristoff Krane + Sadistik",
+      duration: "3:28",
+    },
+    {
+      title: "hit_-_with_1",
+      src: "/audio/playlist-first/hit_-_with_1.mp3",
+      artist: "Unknown",
+      duration: "2:45",
+    },
+    {
+      title: "A Wake",
+      src: "/audio/playlist-first/Eyedea_ft._Slug_-_A_Wake_(192_kbps)-compressed.mp3",
+      artist: "Eyedea ft. Slug",
+      duration: "4:12",
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -69,7 +125,10 @@ const { title } = Astro.props;
           </div>
         </div>
         <div class="taskbar-center">
-          <StarscapeSimpleAudioPlayer id="taskbar-audio-player" />
+          <StarscapeSimpleAudioPlayer 
+            id="taskbar-audio-player" 
+            playlists={audioPlaylists}
+          />
         </div>
         <div class="taskbar-right">
           <button class="theme-toggle" id="themeToggle">
