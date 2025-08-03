@@ -23,13 +23,13 @@ const { Content } = await post.render();
   title={post.data.title}
   contentType="post"
   backHref="/"
-  backText="Back to Home"
+  backText="Back to Home Blog"
 >
   <header class="post-header" slot="header">
     <div class="post-meta">
       <div class="post-info">
-        <h1 class="post-title">{post.data.title}</h1>
-        <p class="post-excerpt">{post.data.excerpt}</p>
+        <!-- <h1 class="post-title">{post.data.title}</h1>
+        <p class="post-excerpt">{post.data.excerpt}</p> -->
         <div class="post-details">
           <span class="post-date">
             {

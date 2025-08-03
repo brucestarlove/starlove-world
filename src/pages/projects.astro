@@ -6,68 +6,83 @@ import ContentReveal from "../components/ui/ContentReveal.astro";
 import TagList from "../components/ui/TagList.astro";
 import { getCollection } from "astro:content";
 
-const projects = await getCollection('projects');
-const projectsByCategory = projects.reduce((acc, project) => {
-  const category = project.data.category;
-  if (!acc[category]) {
-    acc[category] = [];
-  }
-  acc[category].push(project);
-  return acc;
-}, {} as Record<string, typeof projects>);
+const projects = await getCollection("projects");
+const projectsByCategory = projects.reduce(
+  (acc, project) => {
+    const category = project.data.category;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(project);
+    return acc;
+  },
+  {} as Record<string, typeof projects>
+);
 
 const categories = Object.keys(projectsByCategory);
 ---
 
 <Layout title="Projects">
   <ContentReveal id="projectsContent" class="projects-content">
-    <nav class="projects-nav">
+    <!-- <nav class="projects-nav">
       <BackButton href="/" text="Back to Home" />
-    </nav>
+    </nav> -->
 
-    <PageHeader 
-      title="Projects" 
+    <PageHeader
+      title="Projects"
       subtitle="A collection of things I've built, am building or planning to build"
       titleClass="title-gradient"
     />
 
     <div class="projects-sections">
-      {categories.map((category) => (
-        <section class="category-section">
-          <h2 class="category-title">{category}</h2>
-          <div class="projects-list">
-            {projectsByCategory[category].map((project) => (
-              <article
-                class="project-item"
-                style={`--project-color: ${project.data.color}`}
-                data-category={category.toLowerCase()}
-                data-title={project.data.title.toLowerCase()}
-                data-description={project.data.description.toLowerCase()}
-              >
-                <a href={`/projects/${project.slug}`} class="project-link">
-                  <div
-                    class="project-star"
-                    style={`background-color: ${project.data.color}`}
-                  >
-                    ★
-                  </div>
-                  <div class="project-content">
-                    <div class="project-header">
-                      <h3 class="project-title">{project.data.title}</h3>
-                      <span class={`status-badge status-${project.data.status}`}>
-                        {project.data.status === 'in-progress' ? 'In Progress' : 
-                         project.data.status === 'completed' ? 'Completed' : 'Planning'}
-                      </span>
+      {
+        categories.map((category) => (
+          <section class="category-section">
+            <h2 class="category-title">{category}</h2>
+            <div class="projects-list">
+              {projectsByCategory[category].map((project) => (
+                <article
+                  class="project-item"
+                  style={`--project-color: ${project.data.color}`}
+                  data-category={category.toLowerCase()}
+                  data-title={project.data.title.toLowerCase()}
+                  data-description={project.data.description.toLowerCase()}
+                >
+                  <a href={`/projects/${project.slug}`} class="project-link">
+                    <div
+                      class="project-star"
+                      style={`background-color: ${project.data.color}`}
+                    >
+                      ★
                     </div>
-                    <p class="project-description">{project.data.description}</p>
-                    <TagList tags={project.data.technologies} class="project-technologies" />
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))}
+                    <div class="project-content">
+                      <div class="project-header">
+                        <h3 class="project-title">{project.data.title}</h3>
+                        <span
+                          class={`status-badge status-${project.data.status}`}
+                        >
+                          {project.data.status === "in-progress"
+                            ? "In Progress"
+                            : project.data.status === "completed"
+                              ? "Completed"
+                              : "Planning"}
+                        </span>
+                      </div>
+                      <p class="project-description">
+                        {project.data.description}
+                      </p>
+                      <TagList
+                        tags={project.data.technologies}
+                        class="project-technologies"
+                      />
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
   </ContentReveal>
 
@@ -129,11 +144,7 @@ const categories = Object.keys(projectsByCategory);
     .projects-title {
       font-size: clamp(2rem, 7vw, 3rem);
       font-weight: 700;
-      background: linear-gradient(
-        135deg,
-        var(--accent-bg),
-        var(--glow-color)
-      );
+      background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -194,12 +205,12 @@ const categories = Object.keys(projectsByCategory);
         transparent 100%
       );
       border-image: linear-gradient(
-            135deg,
-            var(--border-color) 0%,
-            rgba(203, 213, 225, 0.3) 70%,
-            transparent 100%
-          )
-          1;
+          135deg,
+          var(--border-color) 0%,
+          rgba(203, 213, 225, 0.3) 70%,
+          transparent 100%
+        )
+        1;
       border-radius: 8px;
       text-decoration: none;
       color: inherit;

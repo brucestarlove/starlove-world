@@ -5,7 +5,7 @@ category: "Web Development"
 status: "in-progress"
 technologies: ["Astro", "TypeScript", "CSS", "Astro Remark", "FSLightbox"]
 color: "var(--accent-bg)"
-github: "https://github.com/brucestarlove/starlove-world"
+github: ""
 date: "2025-08-02"
 ---
 

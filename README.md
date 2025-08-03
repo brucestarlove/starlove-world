@@ -73,7 +73,7 @@ All pages use shared Astro components to ensure consistency:
 
 ### Themes
 
-Three cyberpunk-inspired themes with unique color schemes:
+Themes with unique color schemes:
 
 - **Cityscape**: Blue/gold urban theme
 - **Forestscape**: Green nature theme
