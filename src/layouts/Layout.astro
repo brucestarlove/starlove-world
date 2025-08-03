@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import { getAssetPath } from "../utils/assets.ts";
 
 // Import shared styles
 import "../styles/global.css";
@@ -58,7 +57,7 @@ const { title } = Astro.props;
           <div class="menu-overlay" id="menuOverlay">
             <div class="menu-content">
               <nav class="menu-nav">
-                <a href="/" class="menu-item">Home</a>
+                <a href="/" class="menu-item">Home Blog</a>
                 <a href="/projects" class="menu-item">Projects</a>
                 <a href="/art" class="menu-item">Art</a>
                 <a href="/about" class="menu-item">About</a>
@@ -852,26 +851,30 @@ const { title } = Astro.props;
 
   // Update page name based on current route
   function updatePageName() {
-    const pageName = document.getElementById('pageName');
+    const pageName = document.getElementById("pageName");
     if (!pageName) return;
 
     const path = window.location.pathname;
-    let name = 'Home';
+    let name = "Home";
 
     const pathNames: Record<string, string> = {
-      art: 'Art',
-      projects: 'Projects',
-      blog: 'Blog',
-      about: 'About',
+      art: "Art",
+      projects: "Projects",
+      blog: "Blog",
+      about: "About",
     };
 
-    if (path === '/') {
-      name = 'Home';
+    if (path === "/") {
+      name = "Home";
     } else {
       // regex to avoid long else/if chains... maybe i'll regret this
       const match = path.match(/^\/([^/]+)/);
-      const segment = match ? match[1] : '';
-      name = pathNames[segment] || (segment ? segment.charAt(0).toUpperCase() + segment.slice(1) : 'Unknown');
+      const segment = match ? match[1] : "";
+      name =
+        pathNames[segment] ||
+        (segment
+          ? segment.charAt(0).toUpperCase() + segment.slice(1)
+          : "Unknown");
     }
 
     pageName.textContent = name;
@@ -1072,16 +1075,16 @@ const { title } = Astro.props;
       // Reset playing state and progress when loading a new track
       this.isPlaying = false;
       this.updatePlayPauseIcon();
-      
+
       // Reset progress bar and time display
       if (this.progressFill) {
-        this.progressFill.style.width = '0%';
+        this.progressFill.style.width = "0%";
       }
       if (this.progressHandle) {
-        this.progressHandle.style.left = '0%';
+        this.progressHandle.style.left = "0%";
       }
       if (this.timeCurrent) {
-        this.timeCurrent.textContent = '0:00';
+        this.timeCurrent.textContent = "0:00";
       }
 
       const track = this.playlist[index];

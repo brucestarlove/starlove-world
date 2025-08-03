@@ -1,0 +1,73 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BackButton from "../ui/BackButton.astro";
+import ContentReveal from "../ui/ContentReveal.astro";
+import "../../styles/components.css";
+
+export interface Props {
+  title: string;
+  contentType: 'post' | 'project';
+  backHref: string;
+  backText: string;
+  maxWidth?: string;
+  children?: any;
+}
+
+const { 
+  title, 
+  contentType, 
+  backHref, 
+  backText, 
+  maxWidth = '800px',
+  children 
+} = Astro.props;
+
+const detailId = `${contentType}Detail`;
+const detailClass = `${contentType}-detail`;
+const contentClass = `${contentType}-content`;
+const navClass = `${contentType}-nav`;
+const headerClass = `${contentType}-header`;
+---
+
+<Layout title={title}>
+  <ContentReveal id={detailId} class={detailClass}>
+    <nav class={navClass}>
+      <BackButton href={backHref} text={backText} />
+    </nav>
+
+    <slot name="header" />
+
+    <main class={contentClass}>
+      <div class="content-wrapper">
+        <slot />
+      </div>
+    </main>
+  </ContentReveal>
+
+  <script define:vars={{ detailId }}>
+    // Reveal content after page load
+    function revealContent() {
+      const detail = document.getElementById(detailId);
+      if (detail && !detail.classList.contains("reveal")) {
+        detail.classList.add("reveal");
+      }
+    }
+
+    function initializeDetail() {
+      revealContent();
+    }
+
+    // Initialize immediately if DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeDetail);
+    } else {
+      initializeDetail();
+    }
+
+    // Also initialize after navigation
+    document.addEventListener("astro:after-swap", initializeDetail);
+
+    // Fallback reveal
+    setTimeout(revealContent, 100);
+  </script>
+</Layout>

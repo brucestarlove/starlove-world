@@ -968,3 +968,120 @@
     margin-bottom: 0.75rem;
   }
 }
+
+/* Content Detail Layout Components (for [slug] pages) */
+.post-detail,
+.project-detail {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s ease-out;
+  padding-bottom: 6rem;
+  max-width: 800px;
+}
+
+.post-detail.reveal,
+.project-detail.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Only hide content initially if JavaScript is available */
+.post-detail:not(.reveal),
+.project-detail:not(.reveal) {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.post-nav,
+.project-nav {
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: contentReveal 0.6s ease-out 0.2s forwards;
+}
+
+.post-header,
+.project-header {
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: contentReveal 0.8s ease-out 0.4s forwards;
+}
+
+.post-content,
+.project-content {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: contentReveal 0.8s ease-out 0.6s forwards;
+}
+
+.post-info,
+.project-info {
+  flex: 1;
+}
+
+.post-title,
+.project-title {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.post-excerpt,
+.project-excerpt {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.post-details,
+.project-details {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.post-date,
+.project-date {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background: var(--secondary-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.post-tags-header,
+.project-tags-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Mobile responsive adjustments for detail pages */
+@media (max-width: 768px) {
+  .post-meta,
+  .project-meta {
+    text-align: center;
+  }
+
+  .post-star.large,
+  .project-star.large {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+    align-self: center;
+  }
+
+  .post-details,
+  .project-details {
+    justify-content: center;
+  }
+}
