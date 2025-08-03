@@ -64,6 +64,26 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     </div>
   </div>
 
+  <div class="playlist-control" data-element="playlist-control">
+    <button class="player-btn playlist-btn" data-btn="playlist">
+      <svg class="playlist-icon" viewBox="0 0 24 24" width="16" height="16">
+        <path
+          fill="currentColor"
+          d="M15,6H3V8H15V6M15,10H3V12H15V10M3,16H11V14H3V16M17,6V14.18C16.69,14.07 16.35,14 16,14A3,3 0 0,0 13,17A3,3 0 0,0 16,20A3,3 0 0,0 19,17V8H22V6H17Z"
+        ></path>
+      </svg>
+    </button>
+
+    <div class="playlist-tooltip" data-element="playlist-tooltip">
+      <div class="playlist-header">
+        <span>Playlists</span>
+      </div>
+      <div class="playlist-list" data-element="playlist-list">
+        <!-- Playlist items will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
   <div class="volume-control" id="volumeControl">
     <button class="player-btn volume-btn" data-btn="volume">
       <svg class="volume-icon" viewBox="0 0 24 24" width="16" height="16">
@@ -310,6 +330,138 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     font-variant-numeric: tabular-nums;
   }
 
+  /* Playlist Control Styles */
+  .playlist-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .playlist-btn {
+    position: relative;
+  }
+
+  .playlist-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--secondary-bg, #1e293b);
+    border: 1px solid var(--border-color, #334155);
+    border-radius: 8px;
+    padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 1000;
+    min-width: 280px;
+    max-width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .playlist-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--border-color, #334155);
+  }
+
+  .playlist-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--secondary-bg, #1e293b);
+    z-index: 1;
+  }
+
+  .playlist-control:hover .playlist-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .playlist-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color, #334155);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary, #f1f5f9);
+  }
+
+  .playlist-list {
+    padding: 0.5rem 0;
+  }
+
+  :global(.playlist-item) {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    margin: 0.25rem 0;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #e1e1e1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  :global(.playlist-item::before) {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.1) 0%,
+      rgba(96, 165, 250, 0.15) 50%,
+      rgba(59, 130, 246, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  :global(.playlist-item:hover) {
+    color: var(--text-primary, #f1f5f9);
+    transform: translateX(2px);
+    border-left-color: var(--glow-color, #60a5fa);
+  }
+
+  :global(.playlist-item:hover::before) {
+    opacity: 1;
+  }
+
+  :global(.playlist-item.active) {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.15) 0%,
+      rgba(96, 165, 250, 0.2) 50%,
+      rgba(59, 130, 246, 0.15) 100%
+    );
+    border-left-color: var(--accent-bg, #3b82f6);
+    color: var(--text-primary, #f1f5f9);
+    font-weight: 600;
+  }
+
+  :global(.playlist-item.active::before) {
+    opacity: 0;
+  }
+
   @media (max-width: 768px) {
     .starscape-audio-player {
       gap: 0.5rem;
@@ -356,7 +508,8 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       this.playerElement = playerElement;
       this.playerId = playerElement.dataset.playerId;
       this.currentSound = null;
-      this.playlist = config.playlist || [];
+      this.playlists = {};
+      this.currentPlaylist = "Home";
       this.currentTrackIndex = 0;
       this.isPlaying = false;
       this.isDragging = false;
@@ -369,7 +522,10 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       this.cleanup();
 
       this.initializeElements();
-      this.loadTrack(this.currentTrackIndex);
+      this.loadPlaylist("Home").then(() => {
+        this.loadTrack(this.currentTrackIndex);
+        this.renderPlaylistMenu();
+      });
       this.attachEventListeners();
 
       if (this.autoplay) {
@@ -438,10 +594,92 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       this.volumePercentage = this.playerElement.querySelector(
         '[data-element="volume-percentage"]'
       );
+      this.playlistBtn = this.playerElement.querySelector(
+        '[data-btn="playlist"]'
+      );
+      this.playlistTooltip = this.playerElement.querySelector(
+        '[data-element="playlist-tooltip"]'
+      );
+      this.playlistList = this.playerElement.querySelector(
+        '[data-element="playlist-list"]'
+      );
+    }
+
+    get currentPlaylistTracks() {
+      return this.playlists[this.currentPlaylist] || [];
+    }
+
+    async loadPlaylist(playlistName) {
+      if (this.playlists[playlistName]) {
+        return this.playlists[playlistName];
+      }
+
+      const playlistData = {
+        Home: [
+          {
+            title: "Tranquility.mid",
+            src: "/audio/playlist-home/Tranquility.mp3",
+            artist: "Ambient",
+            duration: "2:40",
+          },
+          {
+            title: "MidnightExpress.mid",
+            src: "/audio/playlist-home/MidnightExpress.mp3",
+            artist: "Ambient",
+            duration: "3:41",
+          },
+          {
+            title: "AcrossTheUniverse.mid",
+            src: "/audio/playlist-home/AcrossTheUniverse.mp3",
+            artist: "Ambient",
+            duration: "3:18",
+          },
+          {
+            title: "loop-water-waves.wav",
+            src: "/audio/playlist-home/loop-water-waves.wav",
+            artist: "Ambient",
+            duration: "3:42",
+          },
+        ],
+        Test: [
+          {
+            title: "lavitz-harpoon.wave",
+            src: "/audio/playlist-test/Lavitz_Harpoon_Full.mp3",
+            artist: "Lavitz",
+            duration: "4:15",
+          },
+          {
+            title: "Molecules",
+            src: "/audio/playlist-test/Molecules_KristoffKrane+Sadistik-compressed.mp3",
+            artist: "Kristoff Krane + Sadistik",
+            duration: "3:28",
+          },
+          {
+            title: "hit_-_with_1",
+            src: "/audio/playlist-test/hit_-_with_1.mp3",
+            artist: "Unknown",
+            duration: "2:45",
+          },
+          {
+            title: "A Wake",
+            src: "/audio/playlist-test/Eyedea_ft._Slug_-_A_Wake_(192_kbps)-compressed.mp3",
+            artist: "Eyedea ft. Slug",
+            duration: "4:12",
+          },
+        ],
+      };
+
+      if (playlistData[playlistName]) {
+        this.playlists[playlistName] = playlistData[playlistName];
+        return this.playlists[playlistName];
+      }
+
+      return [];
     }
 
     loadTrack(index) {
-      if (index < 0 || index >= this.playlist.length) return;
+      const playlist = this.currentPlaylistTracks;
+      if (index < 0 || index >= playlist.length) return;
 
       // Stop current sound first
       if (this.currentSound) {
@@ -455,9 +693,12 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       this.updatePlayPauseIcon();
       this.resetProgress();
 
-      const track = this.playlist[index];
+      const track = playlist[index];
       if (this.trackTitle) {
-        this.trackTitle.textContent = track.title;
+        const displayTitle = track.artist
+          ? `${track.title} - ${track.artist}`
+          : track.title;
+        this.trackTitle.textContent = displayTitle;
       }
 
       // Check if Howl is available
@@ -545,7 +786,8 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     next() {
       const wasPlaying = this.isPlaying;
       const newIndex = this.currentTrackIndex + 1;
-      if (newIndex < this.playlist.length) {
+      const playlist = this.currentPlaylistTracks;
+      if (newIndex < playlist.length) {
         this.loadTrack(newIndex);
         if (wasPlaying) {
           setTimeout(() => this.play(), 100);
@@ -667,6 +909,13 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
         });
       }
 
+      // Playlist button event listener
+      if (this.playlistBtn) {
+        this.playlistBtn.addEventListener("click", () => {
+          // Toggle playlist visibility or just let hover handle it
+        });
+      }
+
       this.updateVolumeDisplay();
     }
 
@@ -732,6 +981,48 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       document.removeEventListener("mousemove", this.handleVolumeDrag);
       document.removeEventListener("mouseup", this.handleVolumeDragEnd);
     };
+
+    // Playlist management methods
+    async switchToPlaylist(playlistName, trackIndex = 0) {
+      await this.loadPlaylist(playlistName);
+      if (this.playlists[playlistName]) {
+        this.currentPlaylist = playlistName;
+        this.currentTrackIndex = trackIndex;
+        this.loadTrack(trackIndex);
+        this.renderPlaylistMenu();
+      }
+    }
+
+    playTrack(playlistName, trackIndex) {
+      const wasPlaying = this.isPlaying;
+      this.switchToPlaylist(playlistName, trackIndex);
+      if (wasPlaying || !this.isPlaying) {
+        setTimeout(() => this.play(), 100);
+      }
+    }
+
+    renderPlaylistMenu() {
+      if (!this.playlistList) return;
+
+      this.playlistList.innerHTML = "";
+
+      const availablePlaylists = ["Home", "Test"];
+
+      availablePlaylists.forEach((playlistName) => {
+        const isActive = playlistName === this.currentPlaylist;
+
+        // Create simple playlist item
+        const playlistItem = document.createElement("div");
+        playlistItem.className = `playlist-item ${isActive ? "active" : ""}`;
+        playlistItem.textContent = playlistName;
+
+        playlistItem.addEventListener("click", () => {
+          this.switchToPlaylist(playlistName);
+        });
+
+        this.playlistList?.appendChild(playlistItem);
+      });
+    }
 
     // Public method to destroy the player
     destroy() {
