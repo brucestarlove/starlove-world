@@ -1,6 +1,6 @@
 ---
 title: "hello, world"
-date: "2025-08-02"
+date: "2025-08-01"
 tags: ["oc", "website", "first"]
 color: "#f093fb"
 excerpt: "simple site launch"
