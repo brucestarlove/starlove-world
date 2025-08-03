@@ -70,17 +70,26 @@ const {
 
     function initializeArtPage() {
       revealGalleryContent();
+      
+      // Ensure lightbox content is properly hidden for custom lightbox
+      setTimeout(() => {
+        const lightboxContents = document.querySelectorAll('.lightbox-content');
+        lightboxContents.forEach(content => {
+          if (content instanceof HTMLElement) {
+            content.style.display = 'none';
+          }
+        });
+      }, 100);
     }
 
+    // Initialize page
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", initializeArtPage);
     } else {
       initializeArtPage();
     }
 
+    // Handle Astro navigation
     document.addEventListener("astro:after-swap", initializeArtPage);
   </script>
-
-  <!-- Include fslightbox -->
-  <script is:inline src="/fslightbox.js"></script>
 </Layout>

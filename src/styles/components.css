@@ -784,6 +784,10 @@
   display: block;
   text-decoration: none;
   cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  width: 100%;
 }
 
 .gallery-link:hover {

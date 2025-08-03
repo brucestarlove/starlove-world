@@ -17,11 +17,13 @@ const { images, galleryName } = Astro.props;
     {
       images.map((image, index) => (
         <div class="masonry-item">
-          <a
-            data-fslightbox={galleryName}
-            href={image.src}
-            class="gallery-link"
+          <button
+            class="gallery-link gallery-image-btn"
+            data-gallery={galleryName}
+            data-src={image.src}
+            data-alt={image.alt}
             data-index={index}
+            type="button"
           >
             <div class="image-container">
               <img
@@ -46,7 +48,7 @@ const { images, galleryName } = Astro.props;
                 </div>
               </div>
             </div>
-          </a>
+          </button>
         </div>
       ))
     }
@@ -123,23 +125,50 @@ const { images, galleryName } = Astro.props;
     }
   }
 
-  // Initialize lazy loading
-  function initializeLazyLoading() {
+  // Initialize gallery with custom lightbox
+  function initializeGallery() {
     new LazyImageLoader();
+    setupCustomLightbox();
+  }
 
-    // Initialize fslightbox after images are set up
-    setTimeout(() => {
-      if (typeof (window as any).refreshFsLightbox !== "undefined") {
-        (window as any).refreshFsLightbox();
+  function setupCustomLightbox() {
+    // Import the lightbox manager
+    import('../../utils/LightboxManager.ts').then(({ LightboxManager }) => {
+      const lightboxManager = LightboxManager.getInstance();
+      
+      // Collect all gallery images
+      const galleryImages = Array.from(document.querySelectorAll('.gallery-image-btn')).map((btn, index) => ({
+        type: 'image' as const,
+        src: btn.getAttribute('data-src') || '',
+        alt: btn.getAttribute('data-alt') || '',
+        galleryName: btn.getAttribute('data-gallery') || '',
+        index
+      }));
+
+      // Register the gallery
+      const galleryName = galleryImages[0]?.galleryName;
+      if (galleryName) {
+        lightboxManager.registerGallery(galleryName, galleryImages);
       }
-    }, 100);
+
+      // Add click handlers
+      document.querySelectorAll('.gallery-image-btn').forEach((btn, index) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const content = galleryImages[index];
+          if (content) {
+            lightboxManager.open(content);
+          }
+        });
+      });
+    });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeLazyLoading);
+    document.addEventListener("DOMContentLoaded", initializeGallery);
   } else {
-    initializeLazyLoading();
+    initializeGallery();
   }
 
-  document.addEventListener("astro:after-swap", initializeLazyLoading);
+  document.addEventListener("astro:after-swap", initializeGallery);
 </script>
