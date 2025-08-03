@@ -1146,16 +1146,26 @@ const { title } = Astro.props;
     }
 
     prev() {
+      const wasPlaying = this.isPlaying;
       const newIndex = this.currentTrackIndex - 1;
       if (newIndex >= 0) {
         this.loadTrack(newIndex);
+        // Auto-play if the previous track was playing
+        if (wasPlaying) {
+          setTimeout(() => this.play(), 100);
+        }
       }
     }
 
     next() {
+      const wasPlaying = this.isPlaying;
       const newIndex = this.currentTrackIndex + 1;
       if (newIndex < this.playlist.length) {
         this.loadTrack(newIndex);
+        // Auto-play if the previous track was playing
+        if (wasPlaying) {
+          setTimeout(() => this.play(), 100);
+        }
       }
     }
 
