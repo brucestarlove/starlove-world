@@ -364,14 +364,14 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       this.volume = config.volume || 1.0;
       this.autoplay = config.autoplay || false;
       this.progressUpdateId = null;
-      
+
       // Cleanup any existing instance for this player
       this.cleanup();
-      
+
       this.initializeElements();
       this.loadTrack(this.currentTrackIndex);
       this.attachEventListeners();
-      
+
       if (this.autoplay) {
         setTimeout(() => this.play(), 1000);
       }
@@ -384,13 +384,13 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
         this.currentSound.unload();
         this.currentSound = null;
       }
-      
+
       // Cancel any progress updates
       if (this.progressUpdateId) {
         cancelAnimationFrame(this.progressUpdateId);
         this.progressUpdateId = null;
       }
-      
+
       // Reset state
       this.isPlaying = false;
       this.currentTrackIndex = 0;
@@ -400,22 +400,44 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
 
     initializeElements() {
       // Use scoped element selection within this player instance
-      this.playPauseBtn = this.playerElement.querySelector('[data-btn="play-pause"]');
+      this.playPauseBtn = this.playerElement.querySelector(
+        '[data-btn="play-pause"]'
+      );
       this.prevBtn = this.playerElement.querySelector('[data-btn="prev"]');
       this.nextBtn = this.playerElement.querySelector('[data-btn="next"]');
-      this.trackTitle = this.playerElement.querySelector('[data-element="track-title"]');
-      this.timeCurrent = this.playerElement.querySelector('[data-element="time-current"]');
-      this.timeTotal = this.playerElement.querySelector('[data-element="time-total"]');
-      this.progressBar = this.playerElement.querySelector('[data-element="progress-bar"]');
-      this.progressFill = this.playerElement.querySelector('[data-element="progress-fill"]');
-      this.progressHandle = this.playerElement.querySelector('[data-element="progress-handle"]');
+      this.trackTitle = this.playerElement.querySelector(
+        '[data-element="track-title"]'
+      );
+      this.timeCurrent = this.playerElement.querySelector(
+        '[data-element="time-current"]'
+      );
+      this.timeTotal = this.playerElement.querySelector(
+        '[data-element="time-total"]'
+      );
+      this.progressBar = this.playerElement.querySelector(
+        '[data-element="progress-bar"]'
+      );
+      this.progressFill = this.playerElement.querySelector(
+        '[data-element="progress-fill"]'
+      );
+      this.progressHandle = this.playerElement.querySelector(
+        '[data-element="progress-handle"]'
+      );
       this.playIcon = this.playPauseBtn?.querySelector(".play-icon");
       this.pauseIcon = this.playPauseBtn?.querySelector(".pause-icon");
       this.volumeBtn = this.playerElement.querySelector('[data-btn="volume"]');
-      this.volumeSlider = this.playerElement.querySelector('[data-element="volume-slider"]');
-      this.volumeFill = this.playerElement.querySelector('[data-element="volume-fill"]');
-      this.volumeHandle = this.playerElement.querySelector('[data-element="volume-handle"]');
-      this.volumePercentage = this.playerElement.querySelector('[data-element="volume-percentage"]');
+      this.volumeSlider = this.playerElement.querySelector(
+        '[data-element="volume-slider"]'
+      );
+      this.volumeFill = this.playerElement.querySelector(
+        '[data-element="volume-fill"]'
+      );
+      this.volumeHandle = this.playerElement.querySelector(
+        '[data-element="volume-handle"]'
+      );
+      this.volumePercentage = this.playerElement.querySelector(
+        '[data-element="volume-percentage"]'
+      );
     }
 
     loadTrack(index) {
@@ -439,8 +461,10 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
       }
 
       // Check if Howl is available
-      if (typeof Howl === 'undefined') {
-        console.warn('Howler.js not loaded. Please include Howler.js before initializing StarscapeSimpleAudioPlayer.');
+      if (typeof Howl === "undefined") {
+        console.warn(
+          "Howler.js not loaded. Please include Howler.js before initializing StarscapeSimpleAudioPlayer."
+        );
         return;
       }
 
@@ -600,7 +624,9 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
 
     attachEventListeners() {
       if (this.playPauseBtn) {
-        this.playPauseBtn.addEventListener("click", () => this.togglePlayPause());
+        this.playPauseBtn.addEventListener("click", () =>
+          this.togglePlayPause()
+        );
       }
 
       if (this.prevBtn) {
@@ -645,9 +671,17 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     }
 
     handleProgressDrag = (e) => {
-      if (this.isDragging && this.progressBar && this.currentSound && this.duration) {
+      if (
+        this.isDragging &&
+        this.progressBar &&
+        this.currentSound &&
+        this.duration
+      ) {
         const rect = this.progressBar.getBoundingClientRect();
-        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const percent = Math.max(
+          0,
+          Math.min(1, (e.clientX - rect.left) / rect.width)
+        );
         const seekTime = percent * this.duration;
 
         if (this.progressFill) {
@@ -663,9 +697,17 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     };
 
     handleProgressDragEnd = (e) => {
-      if (this.isDragging && this.progressBar && this.currentSound && this.duration) {
+      if (
+        this.isDragging &&
+        this.progressBar &&
+        this.currentSound &&
+        this.duration
+      ) {
         const rect = this.progressBar.getBoundingClientRect();
-        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const percent = Math.max(
+          0,
+          Math.min(1, (e.clientX - rect.left) / rect.width)
+        );
         const seekTime = percent * this.duration;
         this.currentSound.seek(seekTime);
       }
@@ -678,7 +720,10 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     handleVolumeDrag = (e) => {
       if (this.volumeSlider) {
         const rect = this.volumeSlider.getBoundingClientRect();
-        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const percent = Math.max(
+          0,
+          Math.min(1, (e.clientX - rect.left) / rect.width)
+        );
         this.setVolume(percent);
       }
     };
@@ -691,18 +736,18 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
     // Public method to destroy the player
     destroy() {
       this.cleanup();
-      
+
       // Clean up DOM event listeners
       document.removeEventListener("mousemove", this.handleProgressDrag);
       document.removeEventListener("mouseup", this.handleProgressDragEnd);
       document.removeEventListener("mousemove", this.handleVolumeDrag);
       document.removeEventListener("mouseup", this.handleVolumeDragEnd);
-      
+
       // Reset UI elements
       this.resetProgress();
       this.updatePlayPauseIcon();
       this.updateVolumeDisplay();
-      
+
       if (this.trackTitle) {
         this.trackTitle.textContent = "No track loaded";
       }
@@ -711,24 +756,33 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
 
   // Initialize this specific player instance
   function initializeStarscapePlayer() {
-    if (typeof Howl === 'undefined') {
-      console.warn('Howler.js not found. StarscapeSimpleAudioPlayer requires Howler.js to function.');
+    if (typeof Howl === "undefined") {
+      console.warn(
+        "Howler.js not found. StarscapeSimpleAudioPlayer requires Howler.js to function."
+      );
       return;
     }
 
-    const playerElement = document.querySelector(`[data-player-id="${playerId}"]`);
+    const playerElement = document.querySelector(
+      `[data-player-id="${playerId}"]`
+    );
     if (playerElement && !playerElement._starscapePlayer) {
-      playerElement._starscapePlayer = new StarscapeSimpleAudioPlayer(playerElement, {
-        playlist,
-        autoplay,
-        volume
-      });
+      playerElement._starscapePlayer = new StarscapeSimpleAudioPlayer(
+        playerElement,
+        {
+          playlist,
+          autoplay,
+          volume,
+        }
+      );
     }
   }
 
   // Cleanup function for page navigation
   function cleanupStarscapePlayer() {
-    const playerElement = document.querySelector(`[data-player-id="${playerId}"]`);
+    const playerElement = document.querySelector(
+      `[data-player-id="${playerId}"]`
+    );
     if (playerElement && playerElement._starscapePlayer) {
       playerElement._starscapePlayer.destroy();
       playerElement._starscapePlayer = null;
@@ -738,16 +792,18 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
   // Global cleanup function to stop all audio players
   function cleanupAllStarscapePlayers() {
     // Find all starscape audio players and clean them up
-    const allPlayers = document.querySelectorAll('.starscape-audio-player[data-player-id]');
-    allPlayers.forEach(playerElement => {
+    const allPlayers = document.querySelectorAll(
+      ".starscape-audio-player[data-player-id]"
+    );
+    allPlayers.forEach((playerElement) => {
       if (playerElement._starscapePlayer) {
         playerElement._starscapePlayer.destroy();
         playerElement._starscapePlayer = null;
       }
     });
-    
+
     // Also stop any Howl instances that might be lingering
-    if (typeof Howl !== 'undefined' && Howler) {
+    if (typeof Howl !== "undefined" && Howler) {
       Howler.stop();
       Howler.unload();
     }
@@ -765,14 +821,14 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
   // Add global cleanup listener (only once per page load)
   if (!window._starscapeCleanupAdded) {
     window._starscapeCleanupAdded = true;
-    
+
     // Cleanup on page navigation for Astro
     document.addEventListener("astro:before-swap", cleanupAllStarscapePlayers);
-    
+
     // Also cleanup on beforeunload as a safety net
     window.addEventListener("beforeunload", cleanupAllStarscapePlayers);
   }
-  
+
   // Reinitialize after Astro navigation
   document.addEventListener("astro:after-swap", () => {
     setTimeout(initializeStarscapePlayer, 100);

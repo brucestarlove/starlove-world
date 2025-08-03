@@ -1299,7 +1299,53 @@ const { title } = Astro.props;
 
     constructor() {
       this.currentSound = null;
-      this.playlists = {
+      this.playlists = {};
+      this.currentPlaylist = "Home";
+      this.currentTrackIndex = 0;
+      this.isPlaying = false;
+      this.isDragging = false;
+      this.duration = 0;
+      this.volume = 1.0;
+      this.initializeElements();
+      this.loadPlaylist("Home").then(() => {
+        this.loadTrack(this.currentTrackIndex);
+        this.renderPlaylistMenu();
+      });
+      this.attachEventListeners();
+    }
+
+    initializeElements() {
+      this.playPauseBtn = document.getElementById("playPauseBtn");
+      this.prevBtn = document.getElementById("prevBtn");
+      this.nextBtn = document.getElementById("nextBtn");
+      this.trackTitle = document.getElementById("trackTitle");
+      this.timeCurrent = document.getElementById("timeCurrent");
+      this.timeTotal = document.getElementById("timeTotal");
+      this.progressBar = document.getElementById("progressBar");
+      this.progressFill = document.getElementById("progressFill");
+      this.progressHandle = document.getElementById("progressHandle");
+      this.playIcon = this.playPauseBtn?.querySelector(".play-icon") ?? null;
+      this.pauseIcon = this.playPauseBtn?.querySelector(".pause-icon") ?? null;
+      this.volumeBtn = document.getElementById("volumeBtn");
+      this.volumeSlider = document.getElementById("volumeSlider");
+      this.volumeFill = document.getElementById("volumeFill");
+      this.volumeHandle = document.getElementById("volumeHandle");
+      this.volumePercentage = document.getElementById("volumePercentage");
+      this.playlistBtn = document.getElementById("playlistBtn");
+      this.playlistTooltip = document.getElementById("playlistTooltip");
+      this.playlistList = document.getElementById("playlistList");
+    }
+
+    get currentPlaylistTracks() {
+      return this.playlists[this.currentPlaylist] || [];
+    }
+
+    async loadPlaylist(playlistName: string) {
+      if (this.playlists[playlistName]) {
+        return this.playlists[playlistName];
+      }
+
+      const playlistData = {
         Home: [
           {
             title: "Tranquility.mid",
@@ -1353,42 +1399,13 @@ const { title } = Astro.props;
           },
         ],
       };
-      this.currentPlaylist = "Home";
-      this.currentTrackIndex = 0;
-      this.isPlaying = false;
-      this.isDragging = false;
-      this.duration = 0;
-      this.volume = 1.0;
-      this.initializeElements();
-      this.loadTrack(this.currentTrackIndex);
-      this.attachEventListeners();
-      this.renderPlaylistMenu();
-    }
 
-    initializeElements() {
-      this.playPauseBtn = document.getElementById("playPauseBtn");
-      this.prevBtn = document.getElementById("prevBtn");
-      this.nextBtn = document.getElementById("nextBtn");
-      this.trackTitle = document.getElementById("trackTitle");
-      this.timeCurrent = document.getElementById("timeCurrent");
-      this.timeTotal = document.getElementById("timeTotal");
-      this.progressBar = document.getElementById("progressBar");
-      this.progressFill = document.getElementById("progressFill");
-      this.progressHandle = document.getElementById("progressHandle");
-      this.playIcon = this.playPauseBtn?.querySelector(".play-icon") ?? null;
-      this.pauseIcon = this.playPauseBtn?.querySelector(".pause-icon") ?? null;
-      this.volumeBtn = document.getElementById("volumeBtn");
-      this.volumeSlider = document.getElementById("volumeSlider");
-      this.volumeFill = document.getElementById("volumeFill");
-      this.volumeHandle = document.getElementById("volumeHandle");
-      this.volumePercentage = document.getElementById("volumePercentage");
-      this.playlistBtn = document.getElementById("playlistBtn");
-      this.playlistTooltip = document.getElementById("playlistTooltip");
-      this.playlistList = document.getElementById("playlistList");
-    }
+      if (playlistData[playlistName as keyof typeof playlistData]) {
+        this.playlists[playlistName] = playlistData[playlistName as keyof typeof playlistData];
+        return this.playlists[playlistName];
+      }
 
-    get currentPlaylistTracks() {
-      return this.playlists[this.currentPlaylist] || [];
+      return [];
     }
 
     loadTrack(index: number) {
@@ -1687,7 +1704,8 @@ const { title } = Astro.props;
     };
 
     // Playlist management methods
-    switchToPlaylist(playlistName: string, trackIndex: number = 0) {
+    async switchToPlaylist(playlistName: string, trackIndex: number = 0) {
+      await this.loadPlaylist(playlistName);
       if (this.playlists[playlistName]) {
         this.currentPlaylist = playlistName;
         this.currentTrackIndex = trackIndex;
@@ -1709,45 +1727,21 @@ const { title } = Astro.props;
 
       this.playlistList.innerHTML = "";
 
-      Object.keys(this.playlists).forEach((playlistName) => {
-        const playlist = this.playlists[playlistName];
+      const availablePlaylists = ["Home", "First"];
+      
+      availablePlaylists.forEach((playlistName) => {
         const isActive = playlistName === this.currentPlaylist;
 
-        // Create playlist header
+        // Create simple playlist item
         const playlistItem = document.createElement("div");
         playlistItem.className = `playlist-item ${isActive ? "active" : ""}`;
-        playlistItem.innerHTML = `
-          <div class="playlist-name">${playlistName}</div>
-          <div class="playlist-info">${playlist.length} tracks</div>
-        `;
+        playlistItem.textContent = playlistName;
 
         playlistItem.addEventListener("click", () => {
           this.switchToPlaylist(playlistName);
         });
 
         this.playlistList?.appendChild(playlistItem);
-
-        // Add tracks if this is the active playlist
-        if (isActive) {
-          playlist.forEach((track, index) => {
-            const trackItem = document.createElement("div");
-            const isPlaying = isActive && index === this.currentTrackIndex;
-            trackItem.className = `track-item ${isPlaying ? "playing" : ""}`;
-
-            const duration = track.duration || "0:00";
-            const displayTitle = track.artist
-              ? `${track.title} - ${track.artist}`
-              : track.title;
-            trackItem.textContent = `${displayTitle} (${duration})`;
-
-            trackItem.addEventListener("click", (e) => {
-              e.stopPropagation();
-              this.playTrack(playlistName, index);
-            });
-
-            this.playlistList?.appendChild(trackItem);
-          });
-        }
       });
     }
   }
