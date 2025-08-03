@@ -989,6 +989,13 @@ const { title } = Astro.props;
     pageName.textContent = name;
   }
 
+  // Global scroll-to-top utility
+  function scrollToTop() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+
   function initializeApp() {
     const logoButton = document.getElementById("logoButton");
     const radialMenu = document.getElementById("radialMenu");
@@ -1047,6 +1054,9 @@ const { title } = Astro.props;
 
     // Update page name
     updatePageName();
+
+    // Execute scroll to top
+    scrollToTop();
 
     // Only reveal immediately if star explosion already played
     const hasPlayed = sessionStorage.getItem("starExplosionPlayed");

@@ -1,0 +1,78 @@
+---
+import MasonryGallery from "./MasonryGallery.astro";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  images: Array<{
+    src: string;
+    alt: string;
+  }>;
+  galleryName: string;
+  theme?: "evershade" | "horizons" | "starscape";
+}
+
+const {
+  title = "Bonus",
+  description,
+  images,
+  galleryName,
+  theme,
+} = Astro.props;
+
+// Generate theme-specific gradient variables
+const getThemeGradient = (theme?: string) => {
+  switch (theme) {
+    case "evershade":
+      return "linear-gradient(135deg, var(--evershade-start) 0%, var(--evershade-mid) 50%, var(--evershade-end) 100%)";
+    case "horizons":
+      return "linear-gradient(135deg, var(--horizons-start) 0%, var(--horizons-mid) 50%, var(--horizons-end) 100%)";
+    case "starscape":
+      return "linear-gradient(135deg, var(--starscape-start) 0%, var(--starscape-mid) 50%, var(--starscape-end) 100%)";
+    default:
+      return "linear-gradient(135deg, var(--accent-bg), var(--glow-color))";
+  }
+};
+---
+
+<div class="bonus-section">
+  <div class="section-header">
+    <h2 class={`section-title section-title-gradient ${theme ? `section-title-${theme}` : ""}`}>
+      {title}
+    </h2>
+    {description && <p class="section-subtitle">{description}</p>}
+  </div>
+
+  <MasonryGallery images={images} galleryName={galleryName} />
+</div>
+
+<style define:vars={{ themeGradient: getThemeGradient(theme) }}>
+  .bonus-section {
+    margin-top: 4rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out 1.2s forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Override gradient with theme-specific colors */
+  .section-title-gradient {
+    background: var(--themeGradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .bonus-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
+  }
+</style>

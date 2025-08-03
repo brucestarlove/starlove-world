@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import BackButton from "../components/ui/BackButton.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
 import ContentReveal from "../components/ui/ContentReveal.astro";
 import TagList from "../components/ui/TagList.astro";
@@ -24,63 +23,56 @@ const categories = Object.keys(projectsByCategory);
 
 <Layout title="Projects">
   <ContentReveal id="projectsContent" class="projects-content">
-    <!-- <nav class="projects-nav">
-      <BackButton href="/" text="Back to Home" />
-    </nav> -->
-
     <PageHeader
       title="Projects"
       subtitle="A collection of things I've built, am building or planning to build"
       titleClass="title-gradient"
     />
 
-    <div class="projects-sections">
-      {
-        categories.map((category) => (
-          <section class="category-section">
-            <h2 class="category-title">{category}</h2>
-            <div class="projects-list">
-              {projectsByCategory[category].map((project) => (
-                <article
-                  class="project-item"
-                  style={`--project-color: ${project.data.color}`}
-                  data-category={category.toLowerCase()}
-                  data-title={project.data.title.toLowerCase()}
-                  data-description={project.data.description.toLowerCase()}
+    <div class="sections">
+      { categories.map((category) => (
+        <h2 class="category-title">{category}</h2>
+        <div class="projects-list">
+          {projectsByCategory[category].map((project) => (
+            <article
+              class="project-item"
+              style={`--project-color: ${project.data.color}`}
+              data-category={category.toLowerCase()}
+              data-title={project.data.title.toLowerCase()}
+              data-description={project.data.description.toLowerCase()}
+            >
+              <a href={`/projects/${project.slug}`} class="project-link">
+                <div
+                  class="project-star"
+                  style={`background-color: ${project.data.color}`}
                 >
-                  <a href={`/projects/${project.slug}`} class="project-link">
-                    <div
-                      class="project-star"
-                      style={`background-color: ${project.data.color}`}
+                  ★
+                </div>
+                <div class="project-content">
+                  <div class="project-header">
+                    <h3 class="project-title">{project.data.title}</h3>
+                    <span
+                      class={`status-badge status-${project.data.status}`}
                     >
-                      ★
-                    </div>
-                    <div class="project-content">
-                      <div class="project-header">
-                        <h3 class="project-title">{project.data.title}</h3>
-                        <span
-                          class={`status-badge status-${project.data.status}`}
-                        >
-                          {project.data.status === "in-progress"
-                            ? "In Progress"
-                            : project.data.status === "completed"
-                              ? "Completed"
-                              : "Planning"}
-                        </span>
-                      </div>
-                      <p class="project-description">
-                        {project.data.description}
-                      </p>
-                      <TagList
-                        tags={project.data.technologies}
-                        class="project-technologies"
-                      />
-                    </div>
-                  </a>
-                </article>
-              ))}
-            </div>
-          </section>
+                      {project.data.status === "in-progress"
+                        ? "In Progress"
+                        : project.data.status === "completed"
+                          ? "Completed"
+                          : "Planning"}
+                    </span>
+                  </div>
+                  <p class="project-description">
+                    {project.data.description}
+                  </p>
+                  <TagList
+                    tags={project.data.technologies}
+                    class="project-technologies"
+                  />
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
         ))
       }
     </div>
@@ -160,16 +152,6 @@ const categories = Object.keys(projectsByCategory);
       opacity: 0;
       transform: translateY(20px);
       animation: contentReveal 0.8s ease-out 0.6s forwards;
-    }
-
-    .projects-sections {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: contentReveal 0.8s ease-out 0.9s forwards;
-    }
-
-    .category-section {
-      margin-bottom: 3rem;
     }
 
     .category-title {
@@ -327,10 +309,6 @@ const categories = Object.keys(projectsByCategory);
     @media (max-width: 768px) {
       .projects-header {
         margin-bottom: 1.5rem;
-      }
-
-      .category-section {
-        margin-bottom: 2rem;
       }
 
       .category-title {

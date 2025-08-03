@@ -318,10 +318,17 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Section Headers */
+/* Sections (seen delineating groups of projects */
+.sections {
+  margin-bottom: 6rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: contentReveal 0.8s ease-out 0.9s forwards;
+}
+
 .section-header {
   margin-bottom: var(--space-xl);
-  text-align: left;
+  text-align: center;
 }
 
 .section-title {
@@ -339,6 +346,15 @@
   color: var(--text-secondary);
   line-height: 1.6;
   max-width: 600px;
+}
+
+/* Gradient Section Titles */
+.section-title-gradient {
+  background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: none;
 }
 
 /* Page Headers */

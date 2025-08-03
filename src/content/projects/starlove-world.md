@@ -11,7 +11,9 @@ date: "2025-08-02"
 
 # Starlove World
 
-this site! yet another lil creative website. my real home base. this time for sure. first time built with Astro -͟͟͞☆
+this site! yet another lil creative website. my real home base. "this time for sure." first time built with `Astro` -͟͟͞☆
+
+it's also an art project, no?
 
 ## Features
 

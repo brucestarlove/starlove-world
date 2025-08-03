@@ -10,11 +10,13 @@ excerpt: "folded horizons // claude code rebuilt a library"
 
 ::video-youtube{#62j1xAdYKAQ}
 
-many things were involved in coding a second art gallery page. a lot of favored componentization/reusability of code. an issue i couldn't seem to solve with multiple fslightboxes--i asked claude to take a step back in Plan Mode and figure out what the problems might be. it said fk it and just rewrote all the lightbox functionality we needed, plus more like captions and counter that i asked it to write.
+many things were involved in coding a second art gallery page. a lot of favored componentization/reusability of code. an issue i couldn't seem to solve with multiple `fslightbox`es--i asked claude to take a step back in Plan Mode and figure out what the problems might be. it said fk it and just rewrote all the lightbox functionality we needed, plus more like captions and counter that i asked it to write.
 
 _[→ Folded Horizons art page -͟͟͞☆](/art/folded-horizons)_
 
 actually incredible.
+
+this website is also an art project, no?
 
 i'm telling a programmer what i want it to program. and it does it.
 

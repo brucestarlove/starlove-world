@@ -3,6 +3,7 @@ import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
 import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
 import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
 import LightboxContent from "../../components/gallery/LightboxContent.astro";
+import BonusGallery from "../../components/gallery/BonusGallery.astro";
 
 // Main Folded Horizon gallery images from starlove-assets
 const galleryImages = [
@@ -138,101 +139,11 @@ const lightboxSections = [
   />
 
   <!-- Bonus Gallery Section -->
-  <div class="bonus-section">
-    <div class="section-header">
-      <h2 class="section-title">Bonus</h2>
-    </div>
-
-    <MasonryGallery
-      images={bonusImages}
-      galleryName="folded-horizons-bonus-gallery"
-    />
-  </div>
+  <BonusGallery
+    title="Bonus"
+    images={bonusImages}
+    galleryName="folded-horizons-bonus-gallery"
+    theme="horizons"
+  />
 </ArtPageLayout>
 
-<style>
-  /* Custom styling for this gallery if needed */
-  .gallery-text {
-    font-style: italic;
-  }
-
-  /* Bonus section styling */
-  .bonus-section {
-    margin-top: 4rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease-out 1.2s forwards;
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
-    font-weight: 600;
-    background: linear-gradient(
-      135deg,
-      var(--horizons-start) 0%,
-      var(--horizons-mid) 50%,
-      var(--horizons-end) 100%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-description {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 768px) {
-    .bonus-section {
-      margin-top: 3rem;
-      padding-top: 2rem;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-    }
-
-    .section-description {
-      font-size: 1rem;
-      padding: 0 1rem;
-    }
-  }
-</style>
-
-<script>
-  // Ensure page scrolls to top on load
-  function scrollToTop() {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  }
-
-  // Execute immediately and on page events
-  scrollToTop();
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", scrollToTop);
-  } else {
-    scrollToTop();
-  }
-
-  document.addEventListener("astro:after-swap", scrollToTop);
-  window.addEventListener("load", scrollToTop);
-</script>
