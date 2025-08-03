@@ -876,6 +876,52 @@
   cursor: pointer;
 }
 
+/* Theme-specific gradient backgrounds for text containers */
+.text-container-evershade {
+  background: linear-gradient(
+    135deg,
+    var(--evershade-start) 0%,
+    var(--evershade-mid) 50%,
+    var(--evershade-end) 100%
+  );
+  border-color: var(--evershade-mid);
+}
+
+.text-container-evershade:hover {
+  border-color: var(--evershade-start);
+  box-shadow: 0 8px 24px rgba(63, 113, 88, 0.25);
+}
+
+.text-container-horizons {
+  background: linear-gradient(
+    135deg,
+    var(--horizons-start) 0%,
+    var(--horizons-mid) 50%,
+    var(--horizons-end) 100%
+  );
+  border-color: var(--horizons-mid);
+}
+
+.text-container-horizons:hover {
+  border-color: var(--horizons-start);
+  box-shadow: 0 8px 24px rgba(252, 228, 115, 0.25);
+}
+
+.text-container-starscape {
+  background: linear-gradient(
+    135deg,
+    var(--starscape-start) 0%,
+    var(--starscape-mid) 50%,
+    var(--starscape-end) 100%
+  );
+  border-color: var(--starscape-mid);
+}
+
+.text-container-starscape:hover {
+  border-color: var(--starscape-start);
+  box-shadow: 0 8px 24px rgba(103, 126, 234, 0.25);
+}
+
 .text-content {
   position: relative;
   z-index: 2;

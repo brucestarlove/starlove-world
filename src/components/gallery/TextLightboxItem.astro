@@ -7,6 +7,7 @@ export interface Props {
   icon?: "document" | "info" | "story" | "custom";
   iconSvg?: string;
   dataClass?: string;
+  theme?: "evershade" | "horizons" | "starscape";
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   icon = "document",
   iconSvg,
   dataClass = "d-block",
+  theme,
 } = Astro.props;
 
 // Default icon SVGs
@@ -39,7 +41,7 @@ const iconPath = iconSvg || (icon === 'custom' ? '' : iconPaths[icon]);
     data-class={dataClass}
     type="button"
   >
-    <div class="text-container">
+    <div class={`text-container ${theme ? `text-container-${theme}` : ''}`}>
       <div class="text-content">
         <div class="text-icon">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
