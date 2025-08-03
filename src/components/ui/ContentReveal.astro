@@ -5,17 +5,65 @@ export interface Props {
   delay?: string;
 }
 
-const { 
-  id,
-  class: className = "",
-  delay = "0s"
-} = Astro.props;
+const { id, class: className = "", delay = "0s" } = Astro.props;
 ---
 
-<div 
+<div
   id={id}
-  class={`content-reveal animate-content ${className}`}
+  class={`content content-reveal content-hidden ${className}`}
   style={delay !== "0s" ? `animation-delay: ${delay}` : ""}
 >
   <slot />
 </div>
+
+<style>
+  .content-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .content-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+</style>
+
+<script>
+  // Wait for star explosion to complete before revealing content
+  document.addEventListener("starExplosionComplete", () => {
+    const contentElements = document.querySelectorAll(".content-reveal");
+    contentElements.forEach(el => {
+      el.classList.remove("content-hidden");
+      el.classList.add("content-revealed");
+    });
+  });
+
+  // Also check if star explosion already completed (for navigation)
+  document.addEventListener("DOMContentLoaded", () => {
+    const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
+    if (hasPlayed) {
+      setTimeout(() => {
+        const contentElements = document.querySelectorAll(".content-reveal");
+        contentElements.forEach(el => {
+          el.classList.remove("content-hidden");
+          el.classList.add("content-revealed");
+        });
+      }, 150); // Small delay to let star explosion complete event fire
+    }
+  });
+
+  // Handle Astro navigation
+  document.addEventListener("astro:after-swap", () => {
+    const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
+    if (hasPlayed) {
+      setTimeout(() => {
+        const contentElements = document.querySelectorAll(".content-reveal");
+        contentElements.forEach(el => {
+          el.classList.remove("content-hidden");
+          el.classList.add("content-revealed");
+        });
+      }, 150);
+    }
+  });
+</script>

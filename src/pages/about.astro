@@ -3,18 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import LampTooltip from "../components/LampTooltip.astro";
-import "../styles/pages/about.css";
 ---
 
 <Layout title="About">
-  <div class="about-content reveal" id="aboutContent">
+  <div class="page-content reveal" id="aboutContent">
     <header class="hero">
       <div class="hero-header">
         <div class="title-row">
           <CyclingLogo />
-          <h1 class="hero-title" id="heroTitle">a lil about me</h1>
+          <h1 class="hero-title animate-title-delayed" id="heroTitle">
+            a lil about me
+          </h1>
         </div>
-        <div class="hero-content" id="heroContent">
+        <div class="hero-content animate-content-slow" id="heroContent">
           <div class="hero-text">
             <p>
               hello and good tidings. my name is Bruce. i'm kinda weird. i like
@@ -25,8 +26,8 @@ import "../styles/pages/about.css";
               people, learning piano and salsa, learning spanish and hindi,
               catsitting in NYC, exploring life, enjoying hobbies, making some
               arts, foolin around with <strong
-                id="stuffWord"
-                class="stuff-trigger">stuff</strong
+                id="lampWord"
+                class="lamp-trigger">stuff</strong
               >, healing my psyche, learning to lead, hoping for better, praying
               for peace //
             </p>

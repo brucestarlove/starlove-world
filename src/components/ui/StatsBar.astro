@@ -7,7 +7,7 @@ export interface Props {
 const { stats, class: className = "" } = Astro.props;
 ---
 
-<div class={`stats-container ${className}`}>
+<div class={`stats-container animate-content-gallery ${className}`}>
   {stats.map((stat, index) => (
     <>
       <span class="stat-item">{stat.value} {stat.label}</span>

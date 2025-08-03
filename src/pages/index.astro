@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import StarExplosion from "../components/StarExplosion.astro";
+import ContentReveal from "../components/ui/ContentReveal.astro";
 import SearchBar from "../components/ui/SearchBar.astro";
 import TagList from "../components/ui/TagList.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
@@ -10,28 +11,30 @@ import "../styles/pages/home.css";
 import { getCollection } from "astro:content";
 
 // Load posts from content collections and sort by date (newest first)
-const posts = (await getCollection('posts')).sort((a, b) => 
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+const posts = (await getCollection("posts")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
 
 <Layout title="Home">
   <StarExplosion />
 
-  <div class="home-content" id="homeContent">
+  <ContentReveal id="homeContent" class="page-content">
     <header class="hero">
       <div class="hero-header">
         <div class="title-row">
           <CyclingLogo />
-          <h1 class="hero-title" id="heroTitle">Starlove's lil world</h1>
+          <h1 class="hero-title animate-title-delayed" id="heroTitle">
+            Starlove's lil world
+          </h1>
         </div>
-        <div class="hero-content" id="heroContent">
+        <div class="hero-content animate-content-slow" id="heroContent">
           <div class="hero-text">
             <p>
               Welcome to my corner of webspace where I tinker with creative
               ideas and share thoughts on <strong>technology</strong>, <strong
-                id="stuffWord"
-                class="stuff-trigger">stuff</strong
+                id="lampWord"
+                class="lamp-trigger">stuff</strong
               >, and <strong>life</strong>.
             </p>
             <p>
@@ -43,7 +46,7 @@ const posts = (await getCollection('posts')).sort((a, b) =>
           <SocialLinks />
         </div>
 
-        <section class="posts-section">
+        <div class="animate-content-extra-slow">
           <SearchBar placeholder="Search posts..." id="searchInput" />
 
           <div class="posts-list" id="postsList">
@@ -56,7 +59,7 @@ const posts = (await getCollection('posts')).sort((a, b) =>
                   data-title={post.data.title.toLowerCase()}
                   data-excerpt={post.data.excerpt.toLowerCase()}
                 >
-                  <a href={`/blog/${post.slug}`} class="post-link">
+                  <a href={`/blog/${post.slug}`} class="item-link">
                     <div
                       class="item-star"
                       style={`background-color: ${post.data.color}`}
@@ -73,39 +76,30 @@ const posts = (await getCollection('posts')).sort((a, b) =>
               ))
             }
           </div>
-        </section>
+        </div>
       </div>
     </header>
 
     <LampTooltip />
 
-
     <script>
       // Handle star explosion completion
       document.addEventListener("starExplosionComplete", () => {
-        const homeContent = document.getElementById("homeContent");
         const cyberBg = document.querySelector(".cyber-bg");
         const taskbar = document.querySelector(".taskbar");
-        if (homeContent) {
-          if (cyberBg) cyberBg.classList.add("loaded");
-          if (homeContent) homeContent.classList.add("reveal");
-          if (taskbar) taskbar.classList.add("reveal");
-        }
+        if (cyberBg) cyberBg.classList.add("loaded");
+        if (taskbar) taskbar.classList.add("reveal");
       });
 
       // Check on page load if we should reveal immediately (for View Transitions)
       document.addEventListener("astro:page-load", () => {
         const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
         if (hasPlayed) {
-          // Reveal content immediately if animation already played
-          const homeContent = document.getElementById("homeContent");
           const cyberBg = document.querySelector(".cyber-bg");
           const taskbar = document.querySelector(".taskbar");
 
           if (cyberBg && !cyberBg.classList.contains("loaded"))
             cyberBg.classList.add("loaded");
-          if (homeContent && !homeContent.classList.contains("reveal"))
-            homeContent.classList.add("reveal");
           if (taskbar && !taskbar.classList.contains("reveal"))
             taskbar.classList.add("reveal");
         }
@@ -113,49 +107,51 @@ const posts = (await getCollection('posts')).sort((a, b) =>
 
       // Fallback reveal in case event doesn't fire
       setTimeout(() => {
-        const homeContent = document.getElementById("homeContent");
         const cyberBg = document.querySelector(".cyber-bg");
         const taskbar = document.querySelector(".taskbar");
 
         if (cyberBg && !cyberBg.classList.contains("loaded"))
           cyberBg.classList.add("loaded");
-        if (homeContent && !homeContent.classList.contains("reveal"))
-          homeContent.classList.add("reveal");
         if (taskbar && !taskbar.classList.contains("reveal"))
           taskbar.classList.add("reveal");
       }, 3000);
 
-
       // Simple search function that always re-queries elements
       function setupSearch() {
-        const searchInput = document.getElementById("searchInput") as HTMLInputElement;
+        const searchInput = document.getElementById(
+          "searchInput"
+        ) as HTMLInputElement;
         const postsList = document.getElementById("postsList");
-        
+
         if (!searchInput || !postsList) {
-          console.log('Search elements not found, skipping setup');
+          console.log("Search elements not found, skipping setup");
           return;
         }
 
-        console.log('Setting up search...');
-        
+        console.log("Setting up search...");
+
         // Remove any existing listeners by cloning the input
         const newSearchInput = searchInput.cloneNode(true) as HTMLInputElement;
         searchInput.parentNode?.replaceChild(newSearchInput, searchInput);
-        
+
         // Add the search listener
         newSearchInput.addEventListener("input", (e) => {
-          const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+          const query = (e.target as HTMLInputElement).value
+            .toLowerCase()
+            .trim();
           filterPosts(query);
         });
-        
-        console.log('Search setup complete');
+
+        console.log("Search setup complete");
       }
 
       function filterPosts(query: string) {
-        console.log('Search query:', query);
-        const allPosts = document.querySelectorAll(".post-item") as NodeListOf<HTMLElement>;
+        console.log("Search query:", query);
+        const allPosts = document.querySelectorAll(
+          ".post-item"
+        ) as NodeListOf<HTMLElement>;
         let visibleCount = 0;
-        
+
         allPosts.forEach((post) => {
           const title = post.getAttribute("data-title") || "";
           const excerpt = post.getAttribute("data-excerpt") || "";
@@ -168,18 +164,21 @@ const posts = (await getCollection('posts')).sort((a, b) =>
 
           const shouldShow = matches || query === "";
           post.style.display = shouldShow ? "flex" : "none";
-          
+
           if (shouldShow) visibleCount++;
         });
-        
+
         console.log(`Showing ${visibleCount} out of ${allPosts.length} posts`);
       }
 
       // Initialize search
       document.addEventListener("DOMContentLoaded", setupSearch);
-      document.addEventListener("astro:after-swap", () => setTimeout(setupSearch, 100));
-      document.addEventListener("astro:page-load", () => setTimeout(setupSearch, 100));
-
+      document.addEventListener("astro:after-swap", () =>
+        setTimeout(setupSearch, 100)
+      );
+      document.addEventListener("astro:page-load", () =>
+        setTimeout(setupSearch, 100)
+      );
     </script>
-  </div></Layout
->
+  </ContentReveal>
+</Layout>

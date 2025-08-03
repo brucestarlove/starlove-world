@@ -6,7 +6,7 @@ import TagList from "../components/ui/TagList.astro";
 ---
 
 <Layout title="Art">
-  <ContentReveal id="artContent" class="art-content">
+  <ContentReveal id="artContent" class="page-content">
     <PageHeader
       title="Art & Visuals"
       subtitle="Visual experiments, game concepts and miscellaneous digital art"
@@ -71,46 +71,6 @@ import TagList from "../components/ui/TagList.astro";
 </Layout>
 
 <style>
-  .art-content {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease-out;
-    padding-bottom: 6rem;
-    padding-top: 0;
-    margin-top: 0;
-  }
-
-  .art-content.reveal {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .art-header {
-    margin-bottom: 2rem;
-    text-align: left;
-  }
-
-  .art-title {
-    font-size: clamp(2rem, 7vw, 3rem);
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: titleReveal 1s ease-out 0.3s forwards;
-  }
-
-  .art-subtitle {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: contentReveal 0.8s ease-out 0.6s forwards;
-  }
-
   .art-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -245,21 +205,3 @@ import TagList from "../components/ui/TagList.astro";
     }
   }
 </style>
-
-<script>
-  function revealArtContent() {
-    const artContent = document.getElementById("artContent");
-    if (artContent && !artContent.classList.contains("reveal")) {
-      artContent.classList.add("reveal");
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", revealArtContent);
-  } else {
-    revealArtContent();
-  }
-
-  document.addEventListener("astro:after-swap", revealArtContent);
-  setTimeout(revealArtContent, 100);
-</script>

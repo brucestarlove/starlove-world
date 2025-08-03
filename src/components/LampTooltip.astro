@@ -5,10 +5,10 @@ export interface Props {
   imageAlt?: string;
 }
 
-const { 
-  triggerId = "stuffWord",
+const {
+  triggerId = "lampWord",
   imageUrl = "/1xlamp.webp",
-  imageAlt = "Lamp"
+  imageAlt = "Lamp",
 } = Astro.props;
 ---
 
@@ -61,7 +61,7 @@ const {
       top: 30%;
       max-width: 85vw;
     }
-    
+
     .lamp-tooltip.show {
       transform: translate(-50%, -50%) scale(1);
     }

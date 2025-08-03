@@ -118,7 +118,7 @@ The custom gallery system includes:
 - Cycling profile pictures
 - Audio player with playlist
 - Post search functionality
-- "Stuff" tooltip easter egg
+- Lamp tooltip easter egg
 
 ### Art Gallery (`/art`)
 
