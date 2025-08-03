@@ -396,7 +396,7 @@ const { title } = Astro.props;
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     pointer-events: none;
     backdrop-filter: blur(10px);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.3),
       0 0 0 1px rgba(255, 255, 255, 0.05);
   }
@@ -408,48 +408,48 @@ const { title } = Astro.props;
   }
 
   .radial-menu.active .radial-item:nth-child(1) {
-    transform: translate(-50%, -50%) scale(1) translate(-40px, -90px);
+    transform: translate(-50%, -50%) scale(1) translate(-20px, -50px);
     transition-delay: 0.1s;
   }
 
   .radial-menu.active .radial-item:nth-child(2) {
-    transform: translate(-50%, -50%) scale(1) translate(40px, -90px);
+    transform: translate(-50%, -50%) scale(1) translate(50px, -50px);
     transition-delay: 0.15s;
   }
 
   .radial-menu.active .radial-item:nth-child(3) {
-    transform: translate(-50%, -50%) scale(1) translate(100px, -40px);
+    transform: translate(-50%, -50%) scale(1) translate(110px, -10px);
     transition-delay: 0.2s;
   }
 
   .radial-menu.active .radial-item:nth-child(4) {
-    transform: translate(-50%, -50%) scale(1) translate(100px, 40px);
+    transform: translate(-50%, -50%) scale(1) translate(104px, 60px);
     transition-delay: 0.25s;
   }
 
   .radial-item:hover {
     background: var(--accent-bg);
     border-color: var(--glow-color);
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow:
       0 12px 40px rgba(0, 0, 0, 0.4),
       0 0 20px var(--glow-color);
   }
 
   .radial-menu.active .radial-item:nth-child(1):hover {
-    transform: translate(-50%, -50%) scale(1.1) translate(-40px, -90px);
+    transform: translate(-50%, -50%) scale(1.05) translate(-20px, -50px);
   }
 
   .radial-menu.active .radial-item:nth-child(2):hover {
-    transform: translate(-50%, -50%) scale(1.1) translate(40px, -90px);
+    transform: translate(-50%, -50%) scale(1.05) translate(50px, -50px);
   }
 
   .radial-menu.active .radial-item:nth-child(3):hover {
-    transform: translate(-50%, -50%) scale(1.1) translate(100px, -40px);
+    transform: translate(-50%, -50%) scale(1.05) translate(110px, -10px);
   }
 
   .radial-menu.active .radial-item:nth-child(4):hover {
-    transform: translate(-50%, -50%) scale(1.1) translate(100px, 40px);
+    transform: translate(-50%, -50%) scale(1.05) translate(104px, 60px);
   }
 
   .radial-label {
@@ -804,6 +804,22 @@ const { title } = Astro.props;
       transform: translate(-50%, -50%) scale(1) translate(80px, 30px);
     }
 
+    .radial-menu.active .radial-item:nth-child(1):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(-30px, -70px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(2):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(30px, -70px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(3):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(80px, -30px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(4):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(80px, 30px);
+    }
+
     .radial-label {
       font-size: 0.65rem;
     }
@@ -868,19 +884,35 @@ const { title } = Astro.props;
     }
 
     .radial-menu.active .radial-item:nth-child(1) {
-      transform: translate(-50%, -50%) scale(1) translate(-25px, -60px);
+      transform: translate(-50%, -50%) scale(1) translate(-5px, -60px);
     }
 
     .radial-menu.active .radial-item:nth-child(2) {
-      transform: translate(-50%, -50%) scale(1) translate(25px, -60px);
+      transform: translate(-50%, -50%) scale(1) translate(20px, -60px);
     }
 
     .radial-menu.active .radial-item:nth-child(3) {
-      transform: translate(-50%, -50%) scale(1) translate(70px, -25px);
+      transform: translate(-50%, -50%) scale(1) translate(65px, -25px);
     }
 
     .radial-menu.active .radial-item:nth-child(4) {
       transform: translate(-50%, -50%) scale(1) translate(70px, 25px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(1):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(-5px, -60px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(2):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(20px, -60px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(3):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(65px, -25px);
+    }
+
+    .radial-menu.active .radial-item:nth-child(4):hover {
+      transform: translate(-50%, -50%) scale(1.05) translate(70px, 25px);
     }
 
     .radial-label {
