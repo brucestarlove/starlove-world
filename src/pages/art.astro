@@ -7,8 +7,8 @@ import TagList from "../components/ui/TagList.astro";
 
 <Layout title="Art">
   <ContentReveal id="artContent" class="art-content">
-    <PageHeader 
-      title="Art & Visuals" 
+    <PageHeader
+      title="Art & Visuals"
       subtitle="A collection of visual experiments, game concepts and misc digital art"
       titleClass="title-gradient"
     />
@@ -26,9 +26,12 @@ import TagList from "../components/ui/TagList.astro";
               <div class="art-info">
                 <h3 class="art-name">A Starscape Journey: Evershade Dream</h3>
                 <p class="art-description">
-                  A surreal exploration of light, shadow, and dreamlike landscapes
+                  A surreal exploration of light, shadow, and dreamlike
+                  landscapes
                 </p>
-                <TagList tags={["Digital Art", "Game Concept", "Surreal", "Gallery"]} />
+                <TagList
+                  tags={["Digital Art", "Game Concept", "Surreal", "Gallery"]}
+                />
               </div>
             </a>
           </article>
@@ -42,9 +45,18 @@ import TagList from "../components/ui/TagList.astro";
               <div class="art-info">
                 <h3 class="art-name">Folded Horizons</h3>
                 <p class="art-description">
-                  A surreal exploration of ordinary landscapes transformed by the metaphor of an open book
+                  Earthscapes split by a central black line, creating the
+                  illusion of viewing nature through the binding of an infinite
+                  atlas.
                 </p>
-                <TagList tags={["Photography Series", "Surreal Landscapes", "Gallery"]} />
+                <TagList
+                  tags={[
+                    "Digital Art",
+                    "ePhotography Series",
+                    "Surreal",
+                    "Gallery",
+                  ]}
+                />
               </div>
             </a>
           </article>
@@ -76,11 +88,7 @@ import TagList from "../components/ui/TagList.astro";
     .art-title {
       font-size: clamp(2rem, 7vw, 3rem);
       font-weight: 700;
-      background: linear-gradient(
-        135deg,
-        var(--accent-bg),
-        var(--glow-color)
-      );
+      background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -183,11 +191,11 @@ import TagList from "../components/ui/TagList.astro";
     }
 
     .art-gradient.evershade {
-      background: url('https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp');
+      background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp");
     }
 
     .art-gradient.horizons {
-      background: url('https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp');
+      background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/folded_horizons/image01.webp");
       background-size: cover;
       background-position: center;
     }
