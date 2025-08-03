@@ -25,12 +25,12 @@ const { Content } = await project.render();
   backHref="/projects"
   backText="Back to Projects"
 >
-  <header class="project-header" slot="header">
-    <div class="project-meta">
-      <div class="project-info">
-        <h1 class="project-title">{project.data.title}</h1>
-        <p class="project-description">{project.data.description}</p>
-        <div class="project-details">
+  <header class="post-header" slot="header">
+    <div class="post-meta">
+      <div class="post-info">
+        <h1 class="post-title">{project.data.title}</h1>
+        <p class="post-excerpt">{project.data.description}</p>
+        <div class="post-details">
           <span class="project-category">{project.data.category}</span>
           <span class={`status-badge status-${project.data.status}`}>
             {
@@ -41,7 +41,7 @@ const { Content } = await project.render();
                   : "Planning"
             }
           </span>
-          <span class="project-date">
+          <span class="post-date">
             {project.data.date.toLocaleDateString()}
           </span>
         </div>
@@ -50,7 +50,7 @@ const { Content } = await project.render();
 
     <div class="project-technologies">
       <h3>Technologies</h3>
-      <TagList tags={project.data.technologies} class="tech-list" />
+      <TagList tags={project.data.technologies} class="post-tags-header" />
     </div>
 
     {
@@ -97,11 +97,13 @@ const { Content } = await project.render();
 </ContentDetailLayout>
 
 <style>
-  .project-description {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 1rem;
+  /* override */
+  .status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid;
   }
 
   .project-category {
@@ -113,32 +115,6 @@ const { Content } = await project.render();
     border: 1px solid var(--border-color);
   }
 
-  .status-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid;
-  }
-
-  .status-completed {
-    background: rgba(34, 197, 94, 0.1);
-    color: #22c55e;
-    border-color: rgba(34, 197, 94, 0.3);
-  }
-
-  .status-in-progress {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-    border-color: rgba(59, 130, 246, 0.3);
-  }
-
-  .status-planning {
-    background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
-    border-color: rgba(245, 158, 11, 0.3);
-  }
-
   .project-technologies {
     margin-bottom: 1.5rem;
   }
@@ -148,12 +124,6 @@ const { Content } = await project.render();
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 0.75rem;
-  }
-
-  .tech-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
   }
 
   .project-links {

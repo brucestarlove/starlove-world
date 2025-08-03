@@ -1,6 +1,11 @@
-/* Reusable Component Styles */
+/* =================================================================
+   REUSABLE COMPONENT STYLES
+   ================================================================= */
 
-/* Page Content For Reveal Anim */
+/* ========================================
+   PAGE LAYOUT & CONTENT REVEAL
+   ======================================== */
+
 .page-content {
   opacity: 1;
   transform: translateY(0);
@@ -21,7 +26,9 @@
   transform: translateY(20px);
 }
 
-/* Navigation Components */
+/* ========================================
+   NAVIGATION COMPONENTS
+   ======================================== */
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -44,7 +51,9 @@
   transform: translateX(-2px);
 }
 
-/* Hero Component */
+/* ========================================
+   HERO COMPONENTS
+   ======================================== */
 .title-row {
   display: flex;
   align-items: baseline;
@@ -91,7 +100,9 @@
   font-weight: 600;
 }
 
-/* Card Components */
+/* ========================================
+   CARD COMPONENTS
+   ======================================== */
 .card-base {
   background: var(--secondary-bg);
   border: 1px solid var(--border-color);
@@ -137,7 +148,9 @@
   opacity: 1;
 }
 
-/* List Components */
+/* ========================================
+   LIST COMPONENTS
+   ======================================== */
 .item-list {
   display: flex;
   flex-direction: column;
@@ -199,7 +212,9 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Grid Components */
+/* ========================================
+   GRID COMPONENTS
+   ======================================== */
 .grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -212,7 +227,9 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Icon Components */
+/* ========================================
+   ICON & VISUAL COMPONENTS
+   ======================================== */
 .icon-star {
   width: 24px;
   height: 24px;
@@ -227,7 +244,9 @@
   margin-top: 2px;
 }
 
-/* Item/Post Components */
+/* ========================================
+   ITEM & POST COMPONENTS
+   ======================================== */
 .item-star {
   width: 24px;
   height: 24px;
@@ -270,7 +289,9 @@
   flex-wrap: wrap;
 }
 
-/* Status Badges */
+/* ----------------------------------------
+   Status Badges
+   ---------------------------------------- */
 .status-badge {
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
@@ -320,7 +341,9 @@
   color: white;
 }
 
-/* Tag Components */
+/* ----------------------------------------
+   Tag Components
+   ---------------------------------------- */
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -337,7 +360,13 @@
   font-weight: 500;
 }
 
-/* Search Components */
+/* ========================================
+   FORM & INPUT COMPONENTS
+   ======================================== */
+
+/* ----------------------------------------
+   Search Components
+   ---------------------------------------- */
 .search-container {
   margin-bottom: var(--space-lg);
 }
@@ -379,7 +408,9 @@
   color: var(--text-secondary);
 }
 
-/* Button Components */
+/* ----------------------------------------
+   Button Components
+   ---------------------------------------- */
 .btn-primary {
   background: var(--accent-bg);
   color: white;
@@ -420,7 +451,9 @@
   border-color: var(--accent-bg);
 }
 
-/* Social Links */
+/* ----------------------------------------
+   Social Links
+   ---------------------------------------- */
 .social-links {
   display: flex;
   gap: var(--grid-gap);
@@ -449,7 +482,13 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Sections (seen delineating groups of projects */
+/* ========================================
+   SECTION & PAGE COMPONENTS
+   ======================================== */
+
+/* ----------------------------------------
+   Sections (for delineating groups of projects)
+   ---------------------------------------- */
 .sections {
   margin-bottom: 6rem;
 }
@@ -483,7 +522,9 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Page Headers */
+/* ----------------------------------------
+   Page Headers
+   ---------------------------------------- */
 .page-header {
   margin-bottom: var(--space-xl);
   text-align: center;
@@ -519,7 +560,9 @@
   animation: contentReveal 0.8s ease-out 0.6s forwards;
 }
 
-/* Stats Components */
+/* ----------------------------------------
+   Stats Components
+   ---------------------------------------- */
 .stats-container {
   display: flex;
   align-items: center;
@@ -542,7 +585,13 @@
   font-weight: bold;
 }
 
-/* Loading States */
+/* ========================================
+   UTILITY COMPONENTS
+   ======================================== */
+
+/* ----------------------------------------
+   Loading States
+   ---------------------------------------- */
 .loading-skeleton {
   background: linear-gradient(
     90deg,
@@ -563,7 +612,29 @@
   }
 }
 
-/* Mobile Responsive Helpers */
+/* ----------------------------------------
+   Interactive Elements
+   ---------------------------------------- */
+
+/* Interactive Text Triggers */
+.lamp-trigger {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lamp-trigger:hover {
+  color: var(--glow-color);
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* ----------------------------------------
+   Mobile Responsive Helpers
+   ---------------------------------------- */
 @media (max-width: 768px) {
   .grid-auto,
   .grid-responsive {
@@ -605,6 +676,10 @@
     width: 36px;
     height: 36px;
   }
+  .search-bar {
+    width: 78%;
+    max-width: 600px;
+  }
 
   .search-input {
     padding: 0.5rem 0.75rem 0.5rem 2.5rem;
@@ -645,6 +720,10 @@
     gap: 0.5rem;
   }
 
+  .post-item {
+    gap: 0.5rem;
+  }
+
   .status-badge {
     font-size: 0.7rem;
     padding: 0.2rem 0.4rem;
@@ -667,19 +746,13 @@
   }
 }
 
-/* Interactive Text Triggers */
-.lamp-trigger {
-  position: relative;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+/* ========================================
+   CONTENT & MARKDOWN STYLING
+   ======================================== */
 
-.lamp-trigger:hover {
-  color: var(--glow-color);
-  text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
-}
-
-/* Content Wrapper for Markdown Content */
+/* ----------------------------------------
+   Content Wrapper for Markdown Content
+   ---------------------------------------- */
 .content-wrapper {
   background: var(--secondary-bg);
   border: 1px solid var(--border-color);
@@ -871,7 +944,9 @@
   font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 }
 
-/* Mobile responsive content wrapper */
+/* ----------------------------------------
+   Mobile responsive content wrapper
+   ---------------------------------------- */
 @media (max-width: 768px) {
   .content-wrapper {
     padding: 1.5rem;
@@ -891,7 +966,9 @@
   }
 }
 
-/* Gallery Components */
+/* ========================================
+   GALLERY COMPONENTS
+   ======================================== */
 .gallery-content {
   opacity: 0;
   transform: translateY(20px);
@@ -1022,7 +1099,9 @@
   justify-content: center;
 }
 
-/* Text container styles for gallery text items */
+/* ----------------------------------------
+   Text container styles for gallery text items
+   ---------------------------------------- */
 .text-container {
   position: relative;
   overflow: hidden;
@@ -1088,7 +1167,9 @@
   opacity: 1;
 }
 
-/* Hidden content styling for lightboxes */
+/* ----------------------------------------
+   Lightbox Content Styling
+   ---------------------------------------- */
 .lightbox-content {
   display: none;
 }
@@ -1105,7 +1186,9 @@
   display: block !important;
 }
 
-/* Loading skeleton for gallery images */
+/* ----------------------------------------
+   Loading skeleton for gallery images
+   ---------------------------------------- */
 .gallery-image:not(.loaded) {
   background: linear-gradient(
     90deg,
@@ -1118,7 +1201,9 @@
   min-height: 200px;
 }
 
-/* Gallery responsive design */
+/* ----------------------------------------
+   Gallery responsive design
+   ---------------------------------------- */
 @media (max-width: 1024px) {
   .masonry-gallery {
     columns: 2;
@@ -1142,6 +1227,10 @@
   }
 }
 
+/* ----------------------------------------
+   Posts List Styling
+   ---------------------------------------- */
+
 .posts-list {
   display: flex;
   flex-direction: column;
@@ -1152,9 +1241,14 @@
   transition: all 0.3s ease;
 }
 
-/* Content Detail Layout Components (for [slug] pages) */
-.post-detail,
-.project-detail {
+/* ========================================
+   CONTENT DETAIL PAGES
+   ======================================== */
+
+/* ----------------------------------------
+   Content Detail Layout Components (for [slug] pages)
+   ---------------------------------------- */
+.post-detail {
   opacity: 1;
   transform: translateY(0);
   transition: all 0.8s ease-out;
@@ -1162,49 +1256,42 @@
   max-width: 800px;
 }
 
-.post-detail.reveal,
-.project-detail.reveal {
+.post-detail.reveal {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Only hide content initially if JavaScript is available */
-.post-detail:not(.reveal),
-.project-detail:not(.reveal) {
+.post-detail:not(.reveal) {
   opacity: 0;
   transform: translateY(20px);
 }
 
-.post-nav,
-.project-nav {
+.post-nav {
   margin-bottom: 2rem;
   opacity: 0;
   transform: translateY(20px);
   animation: contentReveal 0.6s ease-out 0.2s forwards;
 }
 
-.post-header,
-.project-header {
+.post-header {
   margin-bottom: 2rem;
   opacity: 0;
   transform: translateY(30px);
   animation: contentReveal 0.8s ease-out 0.4s forwards;
 }
 
-.post-content,
-.project-content {
+.post-content {
   opacity: 0;
   transform: translateY(30px);
   animation: contentReveal 0.8s ease-out 0.6s forwards;
 }
 
-.post-info,
-.project-info {
+.post-info {
   flex: 1;
 }
 
-.post-title,
-.project-title {
+.post-title {
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 700;
   background: linear-gradient(135deg, var(--accent-bg), var(--glow-color));
@@ -1215,24 +1302,21 @@
   line-height: 1.2;
 }
 
-.post-excerpt,
-.project-excerpt {
+.post-excerpt {
   font-size: 1.125rem;
   color: var(--text-secondary);
   line-height: 1.5;
   margin-bottom: 1rem;
 }
 
-.post-details,
-.project-details {
+.post-details {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.post-date,
-.project-date {
+.post-date {
   color: var(--text-secondary);
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
@@ -1241,30 +1325,28 @@
   border: 1px solid var(--border-color);
 }
 
-.post-tags-header,
-.project-tags-header {
+.post-tags-header {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-/* Mobile responsive adjustments for detail pages */
+/* ----------------------------------------
+   Mobile responsive adjustments for detail pages
+   ---------------------------------------- */
 @media (max-width: 768px) {
-  .post-meta,
-  .project-meta {
+  .post-meta {
     text-align: center;
   }
 
-  .post-star.large,
-  .project-star.large {
+  .post-star.large {
     width: 56px;
     height: 56px;
     font-size: 20px;
     align-self: center;
   }
 
-  .post-details,
-  .project-details {
+  .post-details {
     justify-content: center;
   }
 }
