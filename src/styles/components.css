@@ -6,7 +6,7 @@
    PAGE LAYOUT & CONTENT REVEAL
    ======================================== */
 
-.page-content {
+.content {
   opacity: 1;
   transform: translateY(0);
   transition: all 0.8s ease-out;
@@ -15,13 +15,13 @@
   margin-top: 0;
 }
 
-.page-content.reveal {
+.content.reveal {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Only hide content initially if JavaScript is available */
-.page-content:not(.reveal) {
+.content:not(.reveal) {
   opacity: 0;
   transform: translateY(20px);
 }
