@@ -44,25 +44,25 @@ const audioPlaylists = {
   First: [
     {
       title: "lavitz-harpoon.wave",
-      src: "/audio/playlist-first/Lavitz_Harpoon_Full.mp3",
+      src: "/audio/playlist-test/Lavitz_Harpoon_Full.mp3",
       artist: "Lavitz",
       duration: "4:15",
     },
     {
       title: "Molecules",
-      src: "/audio/playlist-first/Molecules_KristoffKrane+Sadistik-compressed.mp3",
+      src: "/audio/playlist-test/Molecules_KristoffKrane+Sadistik-compressed.mp3",
       artist: "Kristoff Krane + Sadistik",
       duration: "3:28",
     },
     {
       title: "hit_-_with_1",
-      src: "/audio/playlist-first/hit_-_with_1.mp3",
+      src: "/audio/playlist-test/hit_-_with_1.mp3",
       artist: "Unknown",
       duration: "2:45",
     },
     {
       title: "A Wake",
-      src: "/audio/playlist-first/Eyedea_ft._Slug_-_A_Wake_(192_kbps)-compressed.mp3",
+      src: "/audio/playlist-test/Eyedea_ft._Slug_-_A_Wake_(192_kbps)-compressed.mp3",
       artist: "Eyedea ft. Slug",
       duration: "4:12",
     },
@@ -504,210 +504,6 @@ const audioPlaylists = {
     transform: rotate(0deg);
   }
 
-  .player-btn {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .player-btn:hover {
-    background: var(--accent-bg);
-    color: white;
-  }
-
-  .play-pause-btn {
-    background: var(--accent-bg);
-    color: white;
-    padding: 0.5rem;
-    border-radius: 6px;
-  }
-
-  .play-pause-btn:hover {
-    background: var(--glow-color);
-  }
-
-  .track-info {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .track-title {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .progress-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .time-current,
-  .time-total {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
-
-  .progress-bar {
-    flex: 1;
-    height: 4px;
-    background: var(--border-color);
-    border-radius: 2px;
-    position: relative;
-    cursor: pointer;
-    min-width: 60px;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--accent-bg);
-    border-radius: 2px;
-    width: 0%;
-    transition: width 0.1s ease;
-  }
-
-  .progress-handle {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    background: var(--accent-bg);
-    border: 2px solid white;
-    border-radius: 50%;
-    cursor: grab;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    left: 0%;
-  }
-
-  .progress-bar:hover .progress-handle {
-    opacity: 1;
-  }
-
-  .progress-handle:active {
-    cursor: grabbing;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-
-  /* Volume Control Styles */
-  .volume-control {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .volume-btn {
-    position: relative;
-  }
-
-  .volume-tooltip {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--secondary-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 0.75rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.2s ease;
-    z-index: 1000;
-    min-width: 120px;
-  }
-
-  .volume-tooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 5px solid transparent;
-    border-top-color: var(--border-color);
-  }
-
-  .volume-tooltip::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 4px solid transparent;
-    border-top-color: var(--secondary-bg);
-    z-index: 1;
-  }
-
-  .volume-control:hover .volume-tooltip {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .volume-slider-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .volume-slider {
-    width: 80px;
-    height: 4px;
-    background: var(--border-color);
-    border-radius: 2px;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .volume-fill {
-    height: 100%;
-    background: var(--accent-bg);
-    border-radius: 2px;
-    width: 100%;
-    transition: width 0.1s ease;
-  }
-
-  .volume-handle {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    background: var(--accent-bg);
-    border: 2px solid white;
-    border-radius: 50%;
-    cursor: grab;
-    left: 100%;
-  }
-
-  .volume-handle:active {
-    cursor: grabbing;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-
-  .volume-percentage {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    font-variant-numeric: tabular-nums;
-  }
 
   @media (max-width: 768px) {
     .main-content {
@@ -797,18 +593,6 @@ const audioPlaylists = {
       font-size: 0.65rem;
     }
 
-    .track-title {
-      font-size: 0.75rem;
-    }
-
-    .time-current,
-    .time-total {
-      font-size: 0.65rem;
-    }
-
-    .progress-bar {
-      min-width: 40px;
-    }
   }
 
   @media (max-width: 480px) {
@@ -886,14 +670,6 @@ const audioPlaylists = {
       font-size: 0.6rem;
     }
 
-    .track-title {
-      font-size: 0.7rem;
-    }
-
-    .time-current,
-    .time-total {
-      font-size: 0.6rem;
-    }
   }
 </style>
 

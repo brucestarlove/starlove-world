@@ -22,7 +22,7 @@ const {
   id = "starscape-audio-player",
 } = Astro.props;
 
-const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
+const playerId = id;
 ---
 
 <div class={`starscape-audio-player ${className}`} data-player-id={playerId}>
@@ -1015,19 +1015,24 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
 
   // Global cleanup function to stop all audio players
   function cleanupAllStarscapePlayers() {
-    // Find all starscape audio players and clean them up
+    // Find all starscape audio players that are NOT in persisted containers
     const allPlayers = document.querySelectorAll(
       ".starscape-audio-player[data-player-id]"
     );
+    let hasPersistedPlayers = false;
+    
     allPlayers.forEach((playerElement) => {
-      if (playerElement._starscapePlayer) {
+      const isInTaskbar = playerElement.closest('.taskbar');
+      if (isInTaskbar) {
+        hasPersistedPlayers = true;
+      } else if (playerElement._starscapePlayer) {
         playerElement._starscapePlayer.destroy();
         playerElement._starscapePlayer = null;
       }
     });
 
-    // Also stop any Howl instances that might be lingering
-    if (typeof Howl !== "undefined" && Howler) {
+    // Only stop Howl instances if no taskbar players remain
+    if (!hasPersistedPlayers && typeof Howl !== "undefined" && Howler) {
       Howler.stop();
       Howler.unload();
     }
@@ -1046,15 +1051,19 @@ const playerId = `${id}-${Math.random().toString(36).substring(2, 11)}`;
   if (!window._starscapeCleanupAdded) {
     window._starscapeCleanupAdded = true;
 
-    // Cleanup on page navigation for Astro
-    document.addEventListener("astro:before-swap", cleanupAllStarscapePlayers);
-
-    // Also cleanup on beforeunload as a safety net
+    // Only cleanup on beforeunload as a safety net (let transition:persist handle the rest)
     window.addEventListener("beforeunload", cleanupAllStarscapePlayers);
   }
 
-  // Reinitialize after Astro navigation
+  // Reinitialize after Astro navigation (only if this specific player doesn't exist)
   document.addEventListener("astro:after-swap", () => {
-    setTimeout(initializeStarscapePlayer, 100);
+    const currentPlayer = document.querySelector(
+      `.starscape-audio-player[data-player-id="${playerId}"]`
+    );
+    
+    // Only initialize if this specific player exists but isn't initialized
+    if (currentPlayer && !currentPlayer._starscapePlayer) {
+      setTimeout(initializeStarscapePlayer, 100);
+    }
   });
 </script>
