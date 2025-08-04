@@ -4,6 +4,22 @@ import ContentReveal from "../components/ui/ContentReveal.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import LampTooltip from "../components/LampTooltip.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const projectsByCategory = projects.reduce(
+  (acc, project) => {
+    const category = project.data.category;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(project);
+    return acc;
+  },
+  {} as Record<string, typeof projects>
+);
+
+const categories = Object.keys(projectsByCategory);
 ---
 
 <Layout title="About">
@@ -38,6 +54,39 @@ import LampTooltip from "../components/LampTooltip.astro";
         </div>
       </div>
     </header>
+
+    <div class="sections animate-content-medium">
+      {
+        categories.map((category, categoryIndex) => (
+          <div class="section animate-slideup" style={`animation-delay: ${0.8 + categoryIndex * 0.2}s`}>
+            <h2 class="section-title animate-title-delayed">{category}</h2>
+            <div class="posts-list">
+              {projectsByCategory[category].map((project, projectIndex) => (
+                <article
+                  class="post-item animate-content-fast"
+                  style={`--post-color: ${project.data.color}; animation-delay: ${1.2 + categoryIndex * 0.2 + projectIndex * 0.1}s`}
+                  data-category={category.toLowerCase()}
+                  data-title={project.data.title.toLowerCase()}
+                  data-description={project.data.description.toLowerCase()}
+                >
+                  <a href={`/projects/${project.slug}`} class="item-link">
+                    <div
+                      class="item-star"
+                      style={`background-color: ${project.data.color}`}
+                    >
+                      ★
+                    </div>
+                    <div class="item-content">
+                      <h3 class="item-title">{project.data.title}</h3>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
 
     <LampTooltip />
   </ContentReveal>
