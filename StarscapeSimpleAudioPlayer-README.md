@@ -315,3 +315,134 @@ This component is extracted from the starlove-world project and maintains the sa
 - **Simplified Cleanup**: Removed complex detection logic, relies on Astro's built-in persistence
 - **Fixed IDs**: Uses consistent player IDs instead of random generation
 - **CSS Separation**: Removed duplicate CSS from Layout files, centralized in component
+
+# TODO: export as package
+
+Great question! Turning your `StarscapeSimpleAudioPlayer.astro` into a reusable package (npm package) allows you to easily share and install it in any Astro project. Here’s a step-by-step guide tailored for Astro components:
+
+---
+
+## 1. Create a New Package Directory
+
+- Make a new directory for your package (outside your main project, or in a `packages/` folder if you want a monorepo).
+  ```sh
+  mkdir starscape-simple-audio-player
+  cd starscape-simple-audio-player
+  ```
+
+---
+
+## 2. Initialize the Package
+
+- Run:
+  ```sh
+  npm init -y
+  ```
+- Edit the generated `package.json`:
+  - Set a name (e.g., `"@your-username/starscape-simple-audio-player"`)
+  - Set `"type": "module"`
+  - Add a `"files"` field to include only the necessary files (e.g., `["dist", "README.md"]`).
+
+---
+
+## 3. Add Your Component and Assets
+
+- Create a `src/` directory and copy `StarscapeSimpleAudioPlayer.astro` into it.
+- Copy any required assets (CSS, utils, etc.) into `src/` or a `public/` folder as needed.
+- Copy your README.
+
+---
+
+## 4. Prepare for Publishing
+
+### a. Astro Component Packaging
+
+Astro supports publishing components as packages. The most common approach is to:
+- Place your `.astro` component(s) in `src/`
+- Build to a `dist/` directory (optional for pure `.astro` components, but required if you have TypeScript or want to precompile)
+- Export your component in an `index.js` or `index.mjs` file:
+
+  ```js
+  // index.js
+  export { default as StarscapeSimpleAudioPlayer } from './src/StarscapeSimpleAudioPlayer.astro';
+  ```
+
+### b. Add a `README.md` and (optionally) a `LICENSE`
+
+---
+
+## 5. Handle Dependencies
+
+- List any required npm packages in your `package.json` under `peerDependencies` (for packages the user must install) or `dependencies` (for packages bundled with yours).
+- Example:
+  ```json
+  "peerDependencies": {
+    "astro": "^4.0.0"
+  }
+  ```
+
+---
+
+## 6. (Optional) Build Step
+
+If you use TypeScript or want to precompile, add a build script (e.g., using `astro build` or `tsc`).
+
+---
+
+## 7. Publish to npm
+
+- Login to npm: `npm login`
+- Publish: `npm publish --access public`
+
+---
+
+## 8. Usage in Another Project
+
+- Install your package:
+  ```sh
+  npm install @your-username/starscape-simple-audio-player
+  ```
+- Import and use in Astro:
+  ```astro
+  ---
+  import { StarscapeSimpleAudioPlayer } from '@your-username/starscape-simple-audio-player';
+  ---
+  <StarscapeSimpleAudioPlayer ...props />
+  ```
+
+---
+
+## 9. Asset Handling
+
+If your component uses static assets (audio, images), you have two options:
+- **Bundle assets in the package:** Place them in a `public/` folder and document how users should copy them to their own `public/` directory.
+- **Require users to provide assets:** Make asset paths props, so users supply their own.
+
+---
+
+## 10. Example Package Structure
+
+```plaintext
+starscape-simple-audio-player/
+  package.json
+  README.md
+  LICENSE
+  index.js
+  src/
+    StarscapeSimpleAudioPlayer.astro
+    ...other utils or CSS
+  public/
+    ...optional assets
+```
+
+---
+
+## 11. Resources
+
+- [Astro: Publishing a Component to npm](https://docs.astro.build/en/guides/publish-to-npm/)
+- [Astro: Integrations as Packages](https://docs.astro.build/en/guides/integrations-guide/)
+
+---
+
+### Need a starter template or want me to generate the files for you?  
+Let me know if you want a sample `package.json`, `index.js`, or a ready-to-publish structure!
