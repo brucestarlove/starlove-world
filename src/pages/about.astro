@@ -1,12 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ContentReveal from "../components/ui/ContentReveal.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import LampTooltip from "../components/LampTooltip.astro";
 ---
 
 <Layout title="About">
-  <div class="content reveal" id="aboutContent">
+  <ContentReveal id="aboutContent" class="content">
     <header class="hero">
       <div class="hero-header">
         <div class="title-row">
@@ -39,35 +40,5 @@ import LampTooltip from "../components/LampTooltip.astro";
     </header>
 
     <LampTooltip />
-
-    <script>
-      // Immediately reveal content (no star explosion transition)
-      document.addEventListener("DOMContentLoaded", () => {
-        const aboutContent = document.getElementById("aboutContent");
-        const cyberBg = document.querySelector(".cyber-bg");
-        const taskbar = document.querySelector(".taskbar");
-
-        if (cyberBg && !cyberBg.classList.contains("loaded"))
-          cyberBg.classList.add("loaded");
-        if (aboutContent && !aboutContent.classList.contains("reveal"))
-          aboutContent.classList.add("reveal");
-        if (taskbar && !taskbar.classList.contains("reveal"))
-          taskbar.classList.add("reveal");
-      });
-
-      // Also reveal after navigation
-      document.addEventListener("astro:after-swap", () => {
-        const aboutContent = document.getElementById("aboutContent");
-        const cyberBg = document.querySelector(".cyber-bg");
-        const taskbar = document.querySelector(".taskbar");
-
-        if (cyberBg && !cyberBg.classList.contains("loaded"))
-          cyberBg.classList.add("loaded");
-        if (aboutContent && !aboutContent.classList.contains("reveal"))
-          aboutContent.classList.add("reveal");
-        if (taskbar && !taskbar.classList.contains("reveal"))
-          taskbar.classList.add("reveal");
-      });
-    </script>
-  </div>
+  </ContentReveal>
 </Layout>
