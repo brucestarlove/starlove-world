@@ -1002,16 +1002,6 @@ const playerId = id;
     }
   }
 
-  // Cleanup function for page navigation
-  function cleanupStarscapePlayer() {
-    const playerElement = document.querySelector(
-      `[data-player-id="${playerId}"]`
-    );
-    if (playerElement && playerElement._starscapePlayer) {
-      playerElement._starscapePlayer.destroy();
-      playerElement._starscapePlayer = null;
-    }
-  }
 
   // Global cleanup function to stop all audio players
   function cleanupAllStarscapePlayers() {

@@ -175,6 +175,35 @@ The player automatically handles:
 - Progress tracking
 - Error handling for missing files
 
+## Persistence & Navigation
+
+### Astro `transition:persist`
+
+The component is optimized to work with Astro's `transition:persist` directive:
+
+```astro
+<!-- In your layout -->
+<div class="taskbar" transition:persist>
+  <StarscapeSimpleAudioPlayer 
+    id="taskbar-audio-player" 
+    playlists={audioPlaylists}
+  />
+</div>
+```
+
+**Benefits:**
+- Audio continues playing across page navigation
+- Playlist state is preserved
+- Volume settings persist
+- Current track position is maintained
+- No audio interruption during navigation
+
+**How it works:**
+- The component detects when it's inside a persisted container
+- Skips cleanup during navigation for persisted players
+- Only cleans up non-persisted player instances
+- Uses fixed IDs to maintain singleton behavior
+
 ## Browser Support
 
 - **Modern browsers**: Full support
@@ -277,3 +306,12 @@ This component is extracted from the starlove-world project and maintains the sa
 - **Better Element Selection**: Uses data attributes instead of global IDs
 - **Memory Management**: Proper cleanup of audio resources and event listeners
 - **Astro Integration**: Built-in support for Astro's client-side routing
+
+## Key Improvements in v2.1 - Persistence Focus
+
+- **Enhanced Persistence**: Simplified logic for `transition:persist` in Astro
+- **Taskbar Integration**: Optimized for persisted taskbar audio players
+- **Singleton Behavior**: Fixed singleton behavior across page navigation
+- **Simplified Cleanup**: Removed complex detection logic, relies on Astro's built-in persistence
+- **Fixed IDs**: Uses consistent player IDs instead of random generation
+- **CSS Separation**: Removed duplicate CSS from Layout files, centralized in component
