@@ -4,22 +4,53 @@ import ContentReveal from "../components/ui/ContentReveal.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import LampTooltip from "../components/LampTooltip.astro";
-import { getCollection } from "astro:content";
-
-const projects = await getCollection("projects");
-const projectsByCategory = projects.reduce(
-  (acc, project) => {
-    const category = project.data.category;
-    if (!acc[category]) {
-      acc[category] = [];
+// Profile links data
+const profileLinksData = {
+  "Professional": [
+    {
+      title: "LinkedIn",
+      url: "https://linkedin.com/in/brucestarlove",
+      color: "#0077b5"
+    },
+    {
+      title: "GitHub",
+      url: "https://github.com/brucestarlove",
+      color: "#333"
+    },
+    // {
+    //   title: "Resume",
+    //   url: "/resume.pdf",
+    //   color: "#e74c3c"
+    // }
+  ],
+  "Creative": [
+    {
+      title: "Art Portfolio (Adding)",
+      url: "/art",
+      color: "#9b59b6"
+    },
+    {
+      title: "Tech Projects (Adding)",
+      url: "/projects",
+      color: "#ff5500"
     }
-    acc[category].push(project);
-    return acc;
-  },
-  {} as Record<string, typeof projects>
-);
+  ],
+  "Social": [
+    {
+      title: "Twitter",
+      url: "https://twitter.com/brucestarlove",
+      color: "#1da1f2"
+    },
+    {
+      title: "Instagram",
+      url: "https://instagram.com/brucestarlove",
+      color: "#e4405f"
+    }
+  ]
+};
 
-const categories = Object.keys(projectsByCategory);
+const linksByCategory = profileLinksData;
+const categories = Object.keys(linksByCategory);
 ---
 
 <Layout title="About">
@@ -61,23 +92,22 @@ const categories = Object.keys(projectsByCategory);
           <div class="section animate-slideup" style={`animation-delay: ${0.8 + categoryIndex * 0.2}s`}>
             <h2 class="section-title animate-title-delayed">{category}</h2>
             <div class="posts-list">
-              {projectsByCategory[category].map((project, projectIndex) => (
+              {linksByCategory[category].map((link, linkIndex) => (
                 <article
                   class="post-item animate-content-fast"
-                  style={`--post-color: ${project.data.color}; animation-delay: ${1.2 + categoryIndex * 0.2 + projectIndex * 0.1}s`}
+                  style={`--post-color: ${link.color}; animation-delay: ${1.2 + categoryIndex * 0.2 + linkIndex * 0.1}s`}
                   data-category={category.toLowerCase()}
-                  data-title={project.data.title.toLowerCase()}
-                  data-description={project.data.description.toLowerCase()}
+                  data-title={link.title.toLowerCase()}
                 >
-                  <a href={`/projects/${project.slug}`} class="item-link">
+                  <a href={link.url} class="item-link" target={link.url.startsWith('http') ? '_blank' : '_self'} rel={link.url.startsWith('http') ? 'noopener noreferrer' : ''}>
                     <div
                       class="item-star"
-                      style={`background-color: ${project.data.color}`}
+                      style={`background-color: ${link.color}`}
                     >
                       ★
                     </div>
                     <div class="item-content">
-                      <h3 class="item-title">{project.data.title}</h3>
+                      <h3 class="item-title">{link.title}</h3>
                     </div>
                   </a>
                 </article>
