@@ -66,4 +66,15 @@ const { id, class: className = "", delay = "0s" } = Astro.props;
       }, 150);
     }
   });
+
+  // Fallback: reveal content after a delay if no star explosion happens
+  setTimeout(() => {
+    const contentElements = document.querySelectorAll(".content-reveal.content-hidden");
+    if (contentElements.length > 0) {
+      contentElements.forEach(el => {
+        el.classList.remove("content-hidden");
+        el.classList.add("content-revealed");
+      });
+    }
+  }, 2000); // 2 second fallback
 </script>
