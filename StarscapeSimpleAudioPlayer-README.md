@@ -427,13 +427,23 @@ starscape-simple-audio-player/
   package.json
   README.md
   LICENSE
-  index.js
+  index.js                # Entry point that exports your component(s)
   src/
     StarscapeSimpleAudioPlayer.astro
     ...other utils or CSS
-  public/
-    ...optional assets
+  public/                 # (Optional) Assets to be copied by users
+    ...audio, images, etc.
+  dist/                   # (Optional) Build output if you precompile
 ```
+
+**Notes:**
+- `index.js` should contain:
+  ```js
+  export { default as StarscapeSimpleAudioPlayer } from './src/StarscapeSimpleAudioPlayer.astro';
+  ```
+- Place any helper scripts or CSS used by your component in `src/`.
+- If you want to precompile or bundle, output to `dist/` and update your `package.json`'s `exports` field accordingly.
+- If your component requires static assets, include them in `public/` and instruct users to copy them to their own `public/` directory.
 
 ---
 
