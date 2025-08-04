@@ -18,15 +18,12 @@ const {
   contentType, 
   backHref, 
   backText, 
-  maxWidth = '800px',
-  children 
 } = Astro.props;
 
 const detailId = `${contentType}Detail`;
 const detailClass = `${contentType}-detail`;
 const contentClass = `${contentType}-content`;
 const navClass = `${contentType}-nav`;
-const headerClass = `${contentType}-header`;
 ---
 
 <Layout title={title}>
