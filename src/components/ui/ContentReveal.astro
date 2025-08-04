@@ -50,6 +50,17 @@ const { id, class: className = "", delay = "0s" } = Astro.props;
           el.classList.add("content-revealed");
         });
       }, 150); // Small delay to let star explosion complete event fire
+    } else {
+      // If no star explosion has played yet, set a fallback timer
+      setTimeout(() => {
+        const contentElements = document.querySelectorAll(".content-reveal.content-hidden");
+        if (contentElements.length > 0) {
+          contentElements.forEach(el => {
+            el.classList.remove("content-hidden");
+            el.classList.add("content-revealed");
+          });
+        }
+      }, 2000); // 2 second fallback for page refresh
     }
   });
 
@@ -64,17 +75,17 @@ const { id, class: className = "", delay = "0s" } = Astro.props;
           el.classList.add("content-revealed");
         });
       }, 150);
+    } else {
+      // If no star explosion has played yet during navigation, set a fallback timer
+      setTimeout(() => {
+        const contentElements = document.querySelectorAll(".content-reveal.content-hidden");
+        if (contentElements.length > 0) {
+          contentElements.forEach(el => {
+            el.classList.remove("content-hidden");
+            el.classList.add("content-revealed");
+          });
+        }
+      }, 2000);
     }
   });
-
-  // Fallback: reveal content after a delay if no star explosion happens
-  setTimeout(() => {
-    const contentElements = document.querySelectorAll(".content-reveal.content-hidden");
-    if (contentElements.length > 0) {
-      contentElements.forEach(el => {
-        el.classList.remove("content-hidden");
-        el.classList.add("content-revealed");
-      });
-    }
-  }, 2000); // 2 second fallback
 </script>
