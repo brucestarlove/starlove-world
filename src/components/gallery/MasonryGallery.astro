@@ -16,7 +16,7 @@ const { images, galleryName } = Astro.props;
   <div class="masonry-gallery" id="masonryGallery">
     {
       images.map((image, index) => (
-        <div class="masonry-item">
+        <div class="masonry-item animate-content-fast" style={`animation-delay: ${1.2 + index * 0.1}s`}>
           <button
             class="gallery-link gallery-image-btn"
             data-gallery={galleryName}

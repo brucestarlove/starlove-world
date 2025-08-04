@@ -40,7 +40,7 @@ const {
 
 <Layout title={pageTitle}>
   <ContentReveal id="galleryContent" class="gallery-content">
-    <nav class="gallery-nav mb-lg">
+    <nav class="gallery-nav mb-lg animate-content-fast">
       <BackButton href={backHref} text={backText} />
     </nav>
 
@@ -51,13 +51,15 @@ const {
       titleClass={titleClass}
       centered={true}
     >
-      {subtitle && <p class={subtitleClass}>{subtitle}</p>}
-      {description && <p class="gallery-text">{description}</p>}
-      {gameDescription && <p class="gallery-text">{gameDescription}</p>}
-      {stats.length > 0 && <StatsBar stats={stats} />}
+      {subtitle && <p class={`${subtitleClass} animate-content-medium`}>{subtitle}</p>}
+      {description && <p class="gallery-text animate-content-medium">{description}</p>}
+      {gameDescription && <p class="gallery-text animate-content-medium">{gameDescription}</p>}
+      {stats.length > 0 && <StatsBar stats={stats} class="animate-content-medium" />}
     </PageHeader>
 
-    <slot />
+    <div class="gallery-slot animate-content-gallery">
+      <slot />
+    </div>
   </ContentReveal>
 
   <script>

@@ -157,6 +157,38 @@ const feminineImages = [
   },
 ];
 
+// Medieval category bonus gallery
+const medievalImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/Camelot.gif",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/knights3.gif",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/gallion_water_md_wht.gif",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/sparkletreasurechest.gif",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/protoss1a.gif",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/swordspin.gif",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/castle.gif",
+    alt: "",
+  },
+];
+
 // Lightbox content data
 const lightboxSections = [
   {
@@ -183,7 +215,8 @@ const lightboxSections = [
         galleryImages.length +
         dolphinImages.length +
         dragonImages.length +
-        feminineImages.length,
+        feminineImages.length + 
+        medievalImages.length,
     },
     { label: "Gallery", value: "" },
     { label: "2000s", value: "" },
@@ -227,6 +260,14 @@ const lightboxSections = [
   <BonusGallery
     title="Feminine"
     images={feminineImages}
+    galleryName="web-one-world-gallery"
+    theme="starscape"
+  />
+
+  <!-- Medieval Bonus Gallery Section -->
+  <BonusGallery
+    title="Medieval"
+    images={medievalImages}
     galleryName="web-one-world-gallery"
     theme="starscape"
   />

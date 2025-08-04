@@ -10,82 +10,83 @@ const { id, class: className = "", delay = "0s" } = Astro.props;
 
 <div
   id={id}
-  class={`content content-reveal content-hidden ${className}`}
+  class={`content content-reveal ${className}`}
   style={delay !== "0s" ? `animation-delay: ${delay}` : ""}
 >
   <slot />
 </div>
 
 <style>
-  .content-hidden {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  .content-revealed {
+  /* Default: content is visible (no-JS fallback) */
+  .content-reveal {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
+
+  /* Only hide content when JS has loaded and content should be hidden */
+  body.js-loaded .content-reveal.content-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  body.js-loaded .content-reveal.content-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 
 <script>
-  // Wait for star explosion to complete before revealing content
-  document.addEventListener("starExplosionComplete", () => {
+  // Progressive enhancement: Add js-loaded class and hide content initially
+  function initializeContentReveal() {
+    // Add js-loaded class to enable JS-specific styles
+    document.body.classList.add("js-loaded");
+    
+    // Hide all content-reveal elements initially (only when JS is available)
+    const contentElements = document.querySelectorAll(".content-reveal");
+    contentElements.forEach(el => {
+      el.classList.add("content-hidden");
+    });
+  }
+
+  // Reveal content function
+  function revealContent() {
     const contentElements = document.querySelectorAll(".content-reveal");
     contentElements.forEach(el => {
       el.classList.remove("content-hidden");
       el.classList.add("content-revealed");
     });
+  }
+
+  // Wait for star explosion to complete before revealing content
+  document.addEventListener("starExplosionComplete", () => {
+    revealContent();
   });
 
-  // Also check if star explosion already completed (for navigation)
+  // Initialize on DOM ready
   document.addEventListener("DOMContentLoaded", () => {
+    initializeContentReveal();
+    
     const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
     if (hasPlayed) {
-      setTimeout(() => {
-        const contentElements = document.querySelectorAll(".content-reveal");
-        contentElements.forEach(el => {
-          el.classList.remove("content-hidden");
-          el.classList.add("content-revealed");
-        });
-      }, 150); // Small delay to let star explosion complete event fire
+      // If star explosion already played, reveal immediately
+      setTimeout(revealContent, 150);
     } else {
       // If no star explosion has played yet, set a fallback timer
-      setTimeout(() => {
-        const contentElements = document.querySelectorAll(".content-reveal.content-hidden");
-        if (contentElements.length > 0) {
-          contentElements.forEach(el => {
-            el.classList.remove("content-hidden");
-            el.classList.add("content-revealed");
-          });
-        }
-      }, 2000); // 2 second fallback for page refresh
+      setTimeout(revealContent, 2000); // 2 second fallback for page refresh
     }
   });
 
   // Handle Astro navigation
   document.addEventListener("astro:after-swap", () => {
+    initializeContentReveal();
+    
     const hasPlayed = sessionStorage.getItem("starExplosionPlayed");
     if (hasPlayed) {
-      setTimeout(() => {
-        const contentElements = document.querySelectorAll(".content-reveal");
-        contentElements.forEach(el => {
-          el.classList.remove("content-hidden");
-          el.classList.add("content-revealed");
-        });
-      }, 150);
+      setTimeout(revealContent, 150);
     } else {
       // If no star explosion has played yet during navigation, set a fallback timer
-      setTimeout(() => {
-        const contentElements = document.querySelectorAll(".content-reveal.content-hidden");
-        if (contentElements.length > 0) {
-          contentElements.forEach(el => {
-            el.classList.remove("content-hidden");
-            el.classList.add("content-revealed");
-          });
-        }
-      }, 2000);
+      setTimeout(revealContent, 2000);
     }
   });
 </script>

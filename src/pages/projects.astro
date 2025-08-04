@@ -29,16 +29,16 @@ const categories = Object.keys(projectsByCategory);
       titleClass="title-gradient"
     />
 
-    <div class="sections">
+    <div class="sections animate-content-medium">
       {
-        categories.map((category) => (
-          <div class="section">
-            <h2 class="section-title">{category}</h2>
+        categories.map((category, categoryIndex) => (
+          <div class="section animate-slideup" style={`animation-delay: ${0.8 + categoryIndex * 0.2}s`}>
+            <h2 class="section-title animate-title-delayed">{category}</h2>
             <div class="posts-list">
-              {projectsByCategory[category].map((project) => (
+              {projectsByCategory[category].map((project, projectIndex) => (
                 <article
-                  class="post-item"
-                  style={`--post-color: ${project.data.color}`}
+                  class="post-item animate-content-fast"
+                  style={`--post-color: ${project.data.color}; animation-delay: ${1.2 + categoryIndex * 0.2 + projectIndex * 0.1}s`}
                   data-category={category.toLowerCase()}
                   data-title={project.data.title.toLowerCase()}
                   data-description={project.data.description.toLowerCase()}
