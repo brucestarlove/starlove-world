@@ -59,6 +59,9 @@
   --evershade-start: #3f7158;
   --evershade-mid: #89c9b8;
   --evershade-end: #8fd7fb;
+  --earthvillage-start: #3C7C6F;
+  --earthvillage-mid: #297EB2;
+  --earthvillage-end: #D89E47;
   --horizons-start: #fce473;
   --horizons-mid: #f2933d;
   --horizons-end: #d94c2d;
@@ -225,6 +228,18 @@ mb-0 {
     var(--evershade-start) 0%,
     var(--evershade-mid) 50%,
     var(--evershade-end) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-earthvillage {
+  background: linear-gradient(
+    135deg,
+    var(--earthvillage-start) 0%,
+    var(--earthvillage-mid) 50%,
+    var(--earthvillage-end) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;

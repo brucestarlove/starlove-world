@@ -1,6 +1,6 @@
 # Starlove's World ✨
 
-_Last updated: 2 Aug 2025_
+_Last updated: 19 Aug 2025_
 
 A personal website built with Astro featuring a cyberpunk-inspired design system, shared components, and multimedia content integration.
 
@@ -84,7 +84,7 @@ Themes with unique color schemes:
 The custom gallery system includes:
 
 - **LightboxManager**: Singleton TypeScript class managing gallery state and navigation
-- **Theme Integration**: Horizon, Starscape, and Evershade gradient themes
+- **Theme Integration**: Horizon, Starscape, EarthVillage and Evershade gradient themes
 - **Touch Support**: Intuitive drag/swipe navigation with visual feedback
 - **Responsive UI**: Counter, captions, and navigation adapted for mobile
 - **Multi-gallery**: Support for separate galleries on the same page

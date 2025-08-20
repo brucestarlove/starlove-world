@@ -18,6 +18,24 @@ import TagList from "../components/ui/TagList.astro";
         <h2 class="section-title animate-title-delayed">Original Collections</h2>
         <div class="art-grid">
           <article class="art-item animate-content-fast" style="animation-delay: 1.2s">
+            <a href="/art/earth-villages" class="art-link">
+              <div class="art-preview">
+                <!-- <div class="art-star">★</div> -->
+                <div class="art-thumbnail earthvillage"></div>
+              </div>
+              <div class="art-info">
+                <h3 class="art-name">Starscape Earth Villages</h3>
+                <p class="art-description">
+                  Concept art for upcoming Starscape Earth Villages SaaS and its first network
+                </p>
+                <TagList
+                  tags={["App Concept", "Backgrounds", "AI Art", "Gallery"]}
+                />
+              </div>
+            </a>
+          </article>
+
+          <article class="art-item animate-content-fast" style="animation-delay: 1.3s">
             <a href="/art/evershade-dream" class="art-link">
               <div class="art-preview">
                 <!-- <div class="art-star">★</div> -->
@@ -36,7 +54,7 @@ import TagList from "../components/ui/TagList.astro";
             </a>
           </article>
 
-          <article class="art-item animate-content-fast" style="animation-delay: 1.3s">
+          <article class="art-item animate-content-fast" style="animation-delay: 1.4s">
             <a href="/art/folded-horizons" class="art-link">
               <div class="art-preview">
                 <!-- <div class="art-star">★</div> -->
@@ -54,7 +72,7 @@ import TagList from "../components/ui/TagList.astro";
             </a>
           </article>
 
-          <article class="art-item coming-soon animate-content-fast" style="animation-delay: 1.4s">
+          <article class="art-item coming-soon animate-content-fast" style="animation-delay: 1.5s">
             <div class="art-link">
               <div class="art-preview">
                 <div class="art-thumbnail placeholder"></div>
@@ -165,6 +183,10 @@ import TagList from "../components/ui/TagList.astro";
 
   .art-thumbnail.evershade {
     background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/evershade_map01.webp");
+  }
+
+  .art-thumbnail.earthvillage {
+    background: url("https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image05-thumbnail.webp");
   }
 
   .art-thumbnail.horizons {

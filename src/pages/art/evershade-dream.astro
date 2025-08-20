@@ -3,9 +3,10 @@ import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
 import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
 import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
 import LightboxContent from "../../components/gallery/LightboxContent.astro";
+import BonusGallery from "../../components/gallery/BonusGallery.astro";
 
 // Evershade Dream gallery images from starlove-assets
-const galleryImages = [
+const firstSeriesImages = [
   {
     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/aurora_citadel.webp",
     alt: "Aurora Citadel - An ancient city built beneath eternal auroras, its stones carved from dreams. Whispers say time flows strangely here. Symbol: Aurora encircling an hourglass.",
@@ -96,6 +97,94 @@ const galleryImages = [
   },
 ];
 
+// Second series landscape
+const secondSeriesImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape01.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape02.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape03.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape04.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape05.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape06.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape07.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape08.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape09.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape10.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape11.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape12.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape13.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape14.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape15.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape16.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape17.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape18.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape19.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape20.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/rpg_painted_scenes/landscape21.webp",
+    alt: "",
+  },
+];
+
 // Lightbox content data
 const lightboxSections = [
   {
@@ -115,14 +204,15 @@ const lightboxSections = [
   description="A surreal exploration of light, shadow, and dreamlike landscapes."
   gameDescription="Game: A mythopoetic journey through cosmic doorways—blending luminous worlds, forgotten memories, and sacred architecture into an interactive dreamscape."
   stats={[
-    { label: "Images", value: galleryImages.length },
+    { label: "First Series", value: firstSeriesImages.length },
+    { label: "Second Series", value: secondSeriesImages.length },
     { label: "Game Concept", value: "" },
     { label: "AI Art", value: "" },
     { label: "Midjourney AI", value: "" },
     { label: "2025+", value: "" },
   ]}
 >
-  <MasonryGallery images={galleryImages} galleryName="evershade-gallery">
+  <MasonryGallery images={firstSeriesImages} galleryName="evershade-gallery">
     <TextLightboxItem
       galleryName="evershade-gallery"
       href="#about"
@@ -137,5 +227,13 @@ const lightboxSections = [
     theme="evershade"
     sections={lightboxSections}
     footer="Created with love for those who seek wonder in the spaces between dreams and reality."
+  />
+
+  <!-- Second Series Section -->
+  <BonusGallery
+    title="Second Series"
+    images={secondSeriesImages}
+    galleryName="evershade-second-series-gallery"
+    theme="evershade"
   />
 </ArtPageLayout>

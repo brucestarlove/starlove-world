@@ -62,7 +62,7 @@ Themes with unique color schemes:
 The custom gallery system includes:
 
 - **LightboxManager**: Singleton TypeScript class managing gallery state and navigation
-- **Theme Integration**: Horizon, Starscape, and Evershade gradient themes
+- **Theme Integration**: Horizon, Starscape, EarthVillage and Evershade gradient themes
 - **Touch Support**: Intuitive drag/swipe navigation with visual feedback
 - **Responsive UI**: Counter, captions, and navigation adapted for mobile
 - **Multi-gallery**: Support for separate galleries on the same page

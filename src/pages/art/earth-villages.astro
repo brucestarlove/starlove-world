@@ -1,0 +1,188 @@
+---
+import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
+import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
+import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
+import LightboxContent from "../../components/gallery/LightboxContent.astro";
+import BonusGallery from "../../components/gallery/BonusGallery.astro";
+
+// Earth Villages gallery images from starlove-assets
+const firstGenImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image01.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image02.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image03.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image04.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image30.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image06.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image07.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image31.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image08.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image05.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image13.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image14.webp",
+    alt: "",
+  },
+];
+
+// Earth Portal gallery images
+const earthPortalImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image09.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image10.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image11.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image12.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image15.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image16.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image17.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image18.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image19.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image20.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image21.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image22.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image23.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image24.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image26.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image27.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image28.webp",
+    alt: "",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/earth-villages/image29.webp",
+    alt: "",
+  },
+];
+
+// Lightbox content data
+const lightboxSections = [
+  {
+    text: "These images were generated as I began development on a community platform, Starscape's Earth Villages. It was born from a desire to help conscious communities — like those forming around festivals and retreats, and local communities with friends — deepen their sense of connection, presence and life experience. Starscape aims to support these communities beyond the moments of magic by providing a lasting digital home that reflects and extends their real-world values and relationships.",
+  },
+  {
+    text: "At its core, Starscape Earth Villages is a modular, customizable platform for collective well-being and collaboration. Each village—whether tied to a geographic region, a seasonal gathering, or a shared intention—gets its own uniquely themed digital space. These portals support meaningful group chats, events, announcements, VOIP rooms, educational courses, storytelling, evolving maps, and potentially 3D scenes to 'live' in a world together.",
+  },
+  {
+    text: "The platform is built to grow with its communities. With a regenerative design ethos and hired help, Starscape Earth Villages will enable affordable and private interconnection between local and global efforts without sacrificing uniqueness or sovereignty. Whether you're nurturing a village in the forest, a temple in the mountains, a scene in a city, or a crew of co-creators spread across the globe, Starscape helps anchor the shared spirit in a way that is beautiful, functional, and enduring.",
+  },
+];
+---
+
+<ArtPageLayout
+  title="Earth Villages"
+  description="Concept art for upcoming Starscape Earth Villages SaaS and its first network"
+  titleClass="text-gradient-earthvillage mb-0"
+  stats={[
+    { label: "First Gen", value: firstGenImages.length },
+    { label: "Village Portals", value: earthPortalImages.length },
+    { label: "App Concept", value: "" },
+    { label: "Backgrounds", value: "" },
+    { label: "AI Art", value: "" },
+    { label: "Midjourney AI", value: "" },
+    { label: "2025", value: "" },
+  ]}
+>
+  <MasonryGallery images={firstGenImages} galleryName="earth-villages-gallery">
+    <TextLightboxItem
+      galleryName="earth-villages-gallery"
+      href="#about"
+      title="Earth Villages"
+      description="Learn more about my Earth Villages inspiration and platform concept."
+      icon="document"
+    />
+  </MasonryGallery>
+
+  <LightboxContent
+    id="about"
+    theme="earthvillage"
+    sections={lightboxSections}
+    footer=""
+  />
+
+  <!-- Earth Portal Section -->
+  <BonusGallery
+    title="Earth Village Portal"
+    images={earthPortalImages}
+    galleryName="earth-villages-bonus-gallery"
+    theme="earthvillage"
+  />
+</ArtPageLayout>
