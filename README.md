@@ -1,8 +1,8 @@
 # Starlove's World ✨
 
-_Last updated: 19 Aug 2025_
+_Last updated: 20 Aug 2025_
 
-A personal website built with Astro featuring a cyberpunk-inspired design system, shared components, and multimedia content integration.
+A personal website (static site prototype) built/vibecoded with Astro featuring a cyberpunk-inspired design system, shared components, and multimedia content integration.
 
 ## 🎨 Features
 
