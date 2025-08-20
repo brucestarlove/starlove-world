@@ -4,6 +4,7 @@ import StarExplosion from "../components/StarExplosion.astro";
 import ContentReveal from "../components/ui/ContentReveal.astro";
 import SearchBar from "../components/ui/SearchBar.astro";
 import TagList from "../components/ui/TagList.astro";
+import CategoryFilter from "../components/ui/CategoryFilter.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import LampTooltip from "../components/LampTooltip.astro";
@@ -13,6 +14,9 @@ import { getCollection } from "astro:content";
 const posts = (await getCollection("posts")).sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+
+// Get unique categories for filter
+const categories = ['tech', 'activism', 'starscape', 'site log', 'random thoughts', 'short stories'];
 ---
 
 <Layout title="Home">
@@ -47,6 +51,7 @@ const posts = (await getCollection("posts")).sort(
 
         <div class="animate-content-extra-slow">
           <SearchBar placeholder="Search posts..." id="searchInput" />
+          <CategoryFilter categories={categories} />
 
           <div class="posts-list" id="postsList">
             {
@@ -57,6 +62,7 @@ const posts = (await getCollection("posts")).sort(
                   data-tags={post.data.tags.join(", ").toLowerCase()}
                   data-title={post.data.title.toLowerCase()}
                   data-excerpt={post.data.excerpt.toLowerCase()}
+                  data-category={post.data.category.toLowerCase()}
                 >
                   <a href={`/blog/${post.slug}`} class="item-link">
                     <div
@@ -115,19 +121,22 @@ const posts = (await getCollection("posts")).sort(
           taskbar.classList.add("reveal");
       }, 3000);
 
-      // Simple search function that always re-queries elements
-      function setupSearch() {
+      let currentCategory = "all";
+      let currentSearchQuery = "";
+
+      // Setup search and category filtering
+      function setupFilters() {
         const searchInput = document.getElementById(
           "searchInput"
         ) as HTMLInputElement;
-        const postsList = document.getElementById("postsList");
+        const categoryButtons = document.querySelectorAll(".category-btn");
 
-        if (!searchInput || !postsList) {
-          console.log("Search elements not found, skipping setup");
+        if (!searchInput) {
+          console.log("Search input not found, skipping setup");
           return;
         }
 
-        console.log("Setting up search...");
+        console.log("Setting up filters...");
 
         // Remove any existing listeners by cloning the input
         const newSearchInput = searchInput.cloneNode(true) as HTMLInputElement;
@@ -135,17 +144,29 @@ const posts = (await getCollection("posts")).sort(
 
         // Add the search listener
         newSearchInput.addEventListener("input", (e) => {
-          const query = (e.target as HTMLInputElement).value
+          currentSearchQuery = (e.target as HTMLInputElement).value
             .toLowerCase()
             .trim();
-          filterPosts(query);
+          filterPosts();
         });
 
-        console.log("Search setup complete");
+        // Add category filter listeners
+        categoryButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            // Remove active class from all buttons
+            categoryButtons.forEach((b) => b.classList.remove("active"));
+            // Add active class to clicked button
+            btn.classList.add("active");
+            
+            currentCategory = btn.getAttribute("data-category") || "all";
+            filterPosts();
+          });
+        });
+
+        console.log("Filters setup complete");
       }
 
-      function filterPosts(query: string) {
-        console.log("Search query:", query);
+      function filterPosts() {
         const allPosts = document.querySelectorAll(
           ".post-item"
         ) as NodeListOf<HTMLElement>;
@@ -155,13 +176,19 @@ const posts = (await getCollection("posts")).sort(
           const title = post.getAttribute("data-title") || "";
           const excerpt = post.getAttribute("data-excerpt") || "";
           const tags = post.getAttribute("data-tags") || "";
+          const category = post.getAttribute("data-category") || "";
 
-          const matches =
-            title.includes(query) ||
-            excerpt.includes(query) ||
-            tags.includes(query);
+          const searchMatches =
+            currentSearchQuery === "" ||
+            title.includes(currentSearchQuery) ||
+            excerpt.includes(currentSearchQuery) ||
+            tags.includes(currentSearchQuery);
 
-          const shouldShow = matches || query === "";
+          const categoryMatches =
+            currentCategory === "all" ||
+            category === currentCategory;
+
+          const shouldShow = searchMatches && categoryMatches;
           post.style.display = shouldShow ? "flex" : "none";
 
           if (shouldShow) visibleCount++;
@@ -170,13 +197,13 @@ const posts = (await getCollection("posts")).sort(
         console.log(`Showing ${visibleCount} out of ${allPosts.length} posts`);
       }
 
-      // Initialize search
-      document.addEventListener("DOMContentLoaded", setupSearch);
+      // Initialize filters
+      document.addEventListener("DOMContentLoaded", setupFilters);
       document.addEventListener("astro:after-swap", () =>
-        setTimeout(setupSearch, 100)
+        setTimeout(setupFilters, 100)
       );
       document.addEventListener("astro:page-load", () =>
-        setTimeout(setupSearch, 100)
+        setTimeout(setupFilters, 100)
       );
     </script>
   </ContentReveal>
