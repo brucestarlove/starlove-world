@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContentReveal from "../components/ui/ContentReveal.astro";
+import CyclingLogo from "../components/CyclingLogo.astro";
+import MusicLinks from "../components/MusicLinks.astro";
+import LampTooltip from "../components/LampTooltip.astro";
+
+// Music links data
+const musicLinksData = {
+  "Hip-Hop": [
+    {
+      title: "Hip-Hop Albums",
+      url: "/music/hiphop-albums",
+      color: "#ff6b35"
+    }
+  ]
+};
+
+const linksByCategory = musicLinksData;
+const categories = Object.keys(linksByCategory);
+---
+
+<Layout title="Music">
+  <ContentReveal id="musicContent" class="content">
+    <header class="hero">
+      <div class="hero-header">
+        <div class="title-row">
+          <CyclingLogo />
+          <h1 class="hero-title animate-title-delayed" id="heroTitle">
+            music & vibes
+          </h1>
+        </div>
+        <div class="hero-content animate-content-slow" id="heroContent">
+          <div class="hero-text">
+            <p>
+              here's some music i enjoy and want to share. from hip-hop to electronic, 
+              jazz to ambient, and everything in between. these are playlists, albums, 
+              and tracks that have shaped my mindscape & soundscape //
+            </p>
+            <p>—♪♡</p>
+          </div>
+
+          <MusicLinks />
+        </div>
+      </div>
+    </header>
+
+    <div class="sections animate-content-medium">
+      {
+        categories.map((category, categoryIndex) => (
+          <div class="section animate-slideup" style={`animation-delay: ${0.8 + categoryIndex * 0.2}s`}>
+            <h2 class="section-title animate-title-delayed">{category}</h2>
+            <div class="posts-list">
+              {linksByCategory[category].map((link, linkIndex) => (
+                <article
+                  class="post-item animate-content-fast"
+                  style={`--post-color: ${link.color}; animation-delay: ${1.2 + categoryIndex * 0.2 + linkIndex * 0.1}s`}
+                  data-category={category.toLowerCase()}
+                  data-title={link.title.toLowerCase()}
+                >
+                  <a href={link.url} class="item-link">
+                    <div
+                      class="item-star"
+                      style={`background-color: ${link.color}`}
+                    >
+                      ♪
+                    </div>
+                    <div class="item-content">
+                      <h3 class="item-title">{link.title}</h3>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <LampTooltip />
+  </ContentReveal>
+</Layout>
