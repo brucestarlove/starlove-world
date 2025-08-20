@@ -1,7 +1,7 @@
 ---
 title: "a smol update after some time"
 date: "2025-08-19"
-tags: ["oc", "personal"]
+tags: ["website", "personal"]
 categories: ["site log", "random thoughts"]
 color: "#89c9b8"
 excerpt: "vacation, friends, family, dogs, rested, recharged"
