@@ -1,0 +1,94 @@
+---
+import ArtPageLayout from "../../components/gallery/ArtPageLayout.astro";
+import MasonryGallery from "../../components/gallery/MasonryGallery.astro";
+// import TextLightboxItem from "../../components/gallery/TextLightboxItem.astro";
+// import LightboxContent from "../../components/gallery/LightboxContent.astro";
+// import BonusGallery from "../../components/gallery/BonusGallery.astro";
+
+// Green gallery images from starlove-assets
+const galleryImages = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/green/space-head.webp",
+    alt: "",
+  },
+];
+
+//   category bonus gallery
+// const dolphinImages = [
+//   {
+//     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dolphins01.webp",
+//     alt: "Dolphin 01",
+//   },
+// ];
+
+// //   category bonus gallery
+// const dragonImages = [
+//   {
+//     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/dragonrock.gif",
+//     alt: "dragonrock",
+//   },
+// ];
+
+// // Feminine category bonus gallery
+// const feminineImages = [
+//   {
+//     src: "https://cdn.jsdelivr.net/gh/brucestarlove/starlove-assets@main/art/web_one_world/feminine01.webp",
+//     alt: "",
+//   },
+// ];
+
+// Lightbox content data
+const lightboxSections = [
+  {
+    text: "i like green",
+  },
+];
+---
+
+<ArtPageLayout
+  title="Green"
+  subtitle=""
+  description="i like green"
+  gameDescription=""
+  titleClass="color-[#006600] mb-0"
+  stats={[
+    {
+      label: "Images",
+      value:
+        galleryImages.length
+    },
+    { label: "Gallery", value: "" },
+  ]}
+>
+  <MasonryGallery images={galleryImages} galleryName="web-one-world-gallery">
+  </MasonryGallery>
+
+  <!-- Dolphin Bonus Gallery Section
+  <BonusGallery
+    title="Dolphin"
+    images={dolphinImages}
+    galleryName="web-one-world-gallery"
+    theme="starscape"
+  />
+
+  <BonusGallery
+    title="Dragon"
+    images={dragonImages}
+    galleryName="web-one-world-gallery"
+    theme="starscape"
+  />
+
+  <BonusGallery
+    title="Feminine"
+    images={feminineImages}
+    galleryName="web-one-world-gallery"
+    theme="starscape"
+  />
+
+  <BonusGallery
+    title="Medieval"
+    images={medievalImages}
+    galleryName="web-one-world-gallery"
+    theme="starscape"
+  /> -->
+</ArtPageLayout>
