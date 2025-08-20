@@ -493,6 +493,10 @@
   margin-bottom: 6rem;
 }
 
+.section {
+  margin-top: var(--space-lg);
+}
+
 .section-header {
   margin-bottom: var(--space-xl);
   text-align: center;
