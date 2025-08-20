@@ -62,7 +62,7 @@ const categories = ['tech', 'activism', 'starscape', 'site log', 'random thought
                   data-tags={post.data.tags.join(", ").toLowerCase()}
                   data-title={post.data.title.toLowerCase()}
                   data-excerpt={post.data.excerpt.toLowerCase()}
-                  data-category={post.data.category.toLowerCase()}
+                  data-categories={post.data.categories.join(", ").toLowerCase()}
                 >
                   <a href={`/blog/${post.slug}`} class="item-link">
                     <div
@@ -176,7 +176,7 @@ const categories = ['tech', 'activism', 'starscape', 'site log', 'random thought
           const title = post.getAttribute("data-title") || "";
           const excerpt = post.getAttribute("data-excerpt") || "";
           const tags = post.getAttribute("data-tags") || "";
-          const category = post.getAttribute("data-category") || "";
+          const categories = post.getAttribute("data-categories") || "";
 
           const searchMatches =
             currentSearchQuery === "" ||
@@ -186,7 +186,7 @@ const categories = ['tech', 'activism', 'starscape', 'site log', 'random thought
 
           const categoryMatches =
             currentCategory === "all" ||
-            category === currentCategory;
+            categories.includes(currentCategory);
 
           const shouldShow = searchMatches && categoryMatches;
           post.style.display = shouldShow ? "flex" : "none";

@@ -6,7 +6,7 @@ const posts = defineCollection({
     title: z.string(),
     date: z.string().transform((str) => new Date(str)),
     tags: z.array(z.string()),
-    category: z.enum(['tech', 'activism', 'starscape', 'site log', 'random thoughts', 'short stories']),
+    categories: z.array(z.enum(['tech', 'activism', 'starscape', 'site log', 'random thoughts', 'short stories'])),
     color: z.string(),
     excerpt: z.string(),
   }),

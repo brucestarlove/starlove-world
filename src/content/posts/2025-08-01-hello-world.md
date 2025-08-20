@@ -2,7 +2,7 @@
 title: "hello, world"
 date: "2025-08-01"
 tags: ["oc", "website", "first"]
-category: "site log"
+categories: ["site log"]
 color: "#f093fb"
 excerpt: "simple site launch"
 ---

@@ -2,7 +2,7 @@
 title: "a smol update after some time"
 date: "2025-08-19"
 tags: ["oc", "personal"]
-category: "site log"
+categories: ["starscape", "site log"]
 color: "#006600"
 excerpt: "vacation, friends, family, dogs, rested, recharged"
 ---
