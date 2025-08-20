@@ -1,10 +1,11 @@
 ---
 export interface Props {
   categories: string[];
+  categoryColors: Record<string, string>;
   class?: string;
 }
 
-const { categories, class: className = "" } = Astro.props;
+const { categories, categoryColors, class: className = "" } = Astro.props;
 ---
 
 <div class={`category-filter ${className}`}>
@@ -12,7 +13,11 @@ const { categories, class: className = "" } = Astro.props;
     All
   </button>
   {categories.map((category) => (
-    <button class="category-btn" data-category={category}>
+    <button 
+      class="category-btn" 
+      data-category={category}
+      style={`--category-color: ${categoryColors[category] || '#666'}`}
+    >
       {category}
     </button>
   ))}
@@ -36,15 +41,27 @@ const { categories, class: className = "" } = Astro.props;
     transition: all 0.2s ease;
     font-size: 0.875rem;
     text-transform: capitalize;
+    position: relative;
+  }
+
+  .category-btn[data-category]:not([data-category="all"]) {
+    border-color: var(--category-color, var(--cyber-border));
   }
 
   .category-btn:hover {
-    background: var(--cyber-accent);
+    background: var(--category-color, var(--cyber-accent));
     color: var(--cyber-bg);
-    border-color: var(--cyber-accent);
+    border-color: var(--category-color, var(--cyber-accent));
   }
 
   .category-btn.active {
+    background: var(--category-color, var(--cyber-accent));
+    color: var(--cyber-bg);
+    border-color: var(--category-color, var(--cyber-accent));
+  }
+
+  .category-btn[data-category="all"]:hover,
+  .category-btn[data-category="all"].active {
     background: var(--cyber-accent);
     color: var(--cyber-bg);
     border-color: var(--cyber-accent);

@@ -3,7 +3,7 @@ title: "more art and articulate to create"
 date: "2025-08-03"
 tags: ["oc", "website", "art", "tech", "motive"]
 categories: ["site log"]
-color: "#f2933d"
+color: "#89c9b8"
 excerpt: "folded horizons // claude code rebuilt a library"
 ---
 

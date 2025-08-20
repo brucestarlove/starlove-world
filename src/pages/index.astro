@@ -17,6 +17,16 @@ const posts = (await getCollection("posts")).sort(
 
 // Get unique categories for filter
 const categories = ['tech', 'activism', 'starscape', 'site log', 'random thoughts', 'short stories'];
+
+// Define category colors
+const categoryColors = {
+  'site log': '#89c9b8',
+  'tech': '#f2933d',
+  'starscape': '#006600',
+  'activism': '#ef4444',
+  'random thoughts': '#f093fb',
+  'short stories': '#8b5cf6'
+};
 ---
 
 <Layout title="Home">
@@ -51,7 +61,7 @@ const categories = ['tech', 'activism', 'starscape', 'site log', 'random thought
 
         <div class="animate-content-extra-slow">
           <SearchBar placeholder="Search posts..." id="searchInput" />
-          <CategoryFilter categories={categories} />
+          <CategoryFilter categories={categories} categoryColors={categoryColors} />
 
           <div class="posts-list" id="postsList">
             {

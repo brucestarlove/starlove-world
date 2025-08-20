@@ -3,15 +3,17 @@ title: "a smol update after some time"
 date: "2025-08-19"
 tags: ["oc", "personal"]
 categories: ["starscape", "site log"]
-color: "#006600"
+color: "#89c9b8"
 excerpt: "vacation, friends, family, dogs, rested, recharged"
 ---
 
 # a smol update after some time
 
-how funny i have big visions and deliver only little bit. today i described an aspect of my life as living so much in my wonderful imagination with no incentive to share it with others (was neither legacy nor money driven)
+chose to live a lot of life for a couple weeks. including a long desired trip to the beach, to submerge in waves. my happy place.
 
-step by step im doin it
+today i described an aspect of my life as living so much in my wonderful imagination with no incentive to share it with others (was neither legacy nor money driven).
+
+step by step im doin it. "lock in" is in the air.
 
 which includes now prototyping out a SaaS to deliver nice community-centered platforms, starting with those intentional communities i've encountered
 
