@@ -2,22 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 import ContentReveal from "../components/ui/ContentReveal.astro";
 import CyclingLogo from "../components/CyclingLogo.astro";
-import MusicLinks from "../components/MusicLinks.astro";
 import LampTooltip from "../components/LampTooltip.astro";
 
 // Music links data
 const musicLinksData = {
-  "Hip-Hop": [
+  "Albums": [
     {
       title: "Hip-Hop Albums",
       url: "/music/hiphop-albums",
       color: "#ff6b35"
+    },
+  ],
+  "Playlists": [
+    {
+      title: "gosu",
+      url: "/music/playlists",
+      color: "blue"
     }
   ]
 };
 
-const linksByCategory = musicLinksData;
-const categories = Object.keys(linksByCategory);
+const categories = Object.keys(musicLinksData) as Array<keyof typeof musicLinksData>;
 ---
 
 <Layout title="Music">
@@ -39,8 +44,6 @@ const categories = Object.keys(linksByCategory);
             </p>
             <p>i have a fun idea, to manifest later...</p>
           </div>
-
-          <MusicLinks />
         </div>
       </div>
     </header>
@@ -51,7 +54,7 @@ const categories = Object.keys(linksByCategory);
           <div class="section animate-slideup" style={`animation-delay: ${0.8 + categoryIndex * 0.2}s`}>
             <h2 class="section-title animate-title-delayed">{category}</h2>
             <div class="posts-list">
-              {linksByCategory[category].map((link, linkIndex) => (
+              {musicLinksData[category].map((link, linkIndex) => (
                 <article
                   class="post-item animate-content-fast"
                   style={`--post-color: ${link.color}; animation-delay: ${1.2 + categoryIndex * 0.2 + linkIndex * 0.1}s`}
