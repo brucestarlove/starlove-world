@@ -101,12 +101,12 @@ const {
       this.isShowing = true;
       this.tooltip.classList.add("show");
 
-      // Auto-hide after 5 seconds
+      // Auto-hide after 3 seconds
       setTimeout(() => {
         if (this.isShowing) {
           this.hideTooltip();
         }
-      }, 5000);
+      }, 3000);
     }
 
     hideTooltip() {
@@ -115,11 +115,11 @@ const {
       this.isShowing = false;
       this.tooltip.classList.remove("show");
 
-      // Start 5-second cooldown before allowing next click
+      // Start a short cooldown before allowing next click
       this.isOnCooldown = true;
       this.cooldownTimer = setTimeout(() => {
         this.isOnCooldown = false;
-      }, 5000);
+      }, 137);
     }
   }
 
