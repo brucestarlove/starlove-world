@@ -2,7 +2,7 @@
 title: "Starscape.app"
 description: "a new platform emerging from the best of all"
 category: "Web Development"
-status: "in-progress"
+status: "planning"
 technologies:
   [
     "Next.js",

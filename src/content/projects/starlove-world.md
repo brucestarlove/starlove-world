@@ -1,6 +1,6 @@
 ---
 title: "Starlove World"
-description: "Personal website built with Astro featuring dynamic themes and smooth transitions"
+description: "This personal website built with Astro featuring dynamic themes and smooth transitions"
 category: "Web Development"
 status: "in-progress"
 technologies: ["Astro", "TypeScript", "CSS", "Astro Remark", "FSLightbox"]
@@ -11,7 +11,7 @@ date: "2025-08-02"
 
 # Starlove World
 
-_Last updated: 2 Aug 2025_
+_Last updated: 6 Oct 2025_
 
 this site! yet another lil creative website. my real home base. "this time for sure." first time built with `Astro` -͟͟͞☆
 
